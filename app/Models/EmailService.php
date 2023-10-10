@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Facades\Helper;
+use Illuminate\Database\Eloquent\Model;
 use Database\Factories\EmailServiceFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

@@ -1,16 +1,16 @@
-<x-hypercemail.text-field name="name" :label="__('Campaign Name')" :value="$campaign->name ?? old('name')" />
-<x-hypercemail.text-field name="subject" :label="__('Email Subject')" :value="$campaign->subject ?? old('subject')" />
-<x-hypercemail.text-field name="from_name" :label="__('From Name')" :value="$campaign->from_name ?? old('from_name')" />
-<x-hypercemail.text-field name="from_email" :label="__('From Email')" type="email" :value="$campaign->from_email ?? old('from_email')" />
+<x-forms.text-field name="name" :label="__('Campaign Name')" :value="$campaign->name ?? old('name')" />
+<x-forms.text-field name="subject" :label="__('Email Subject')" :value="$campaign->subject ?? old('subject')" />
+<x-forms.text-field name="from_name" :label="__('From Name')" :value="$campaign->from_name ?? old('from_name')" />
+<x-forms.text-field name="from_email" :label="__('From Email')" type="email" :value="$campaign->from_email ?? old('from_email')" />
 
-<x-hypercemail.select-field name="template_id" :label="__('Template')" :options="$templates" :value="$campaign->template_id ?? old('template_id')" />
+<x-forms.select-field name="template_id" :label="__('Template')" :options="$templates" :value="$campaign->template_id ?? old('template_id')" />
 
-<x-hypercemail.select-field name="email_service_id" :label="__('Email Service')" :options="$emailServices->pluck('formatted_name', 'id')" :value="$campaign->email_service_id ?? old('email_service_id')" />
+<x-forms.select-field name="email_service_id" :label="__('Email Service')" :options="$emailServices->pluck('formatted_name', 'id')" :value="$campaign->email_service_id ?? old('email_service_id')" />
 
-<x-hypercemail.checkbox-field name="is_open_tracking" :label="__('Track Opens')" value="1" :checked="$campaign->is_open_tracking ?? true" />
-<x-hypercemail.checkbox-field name="is_click_tracking" :label="__('Track Clicks')" value="1" :checked="$campaign->is_click_tracking ?? true" />
+<x-forms.checkbox-field name="is_open_tracking" :label="__('Track Opens')" value="1" :checked="$campaign->is_open_tracking ?? true" />
+<x-forms.checkbox-field name="is_click_tracking" :label="__('Track Clicks')" value="1" :checked="$campaign->is_click_tracking ?? true" />
 
-<x-hypercemail.textarea-field name="content" :label="__('Content')">{{ $campaign->content ?? old('content') }}</x-hypercemail.textarea-field>
+<x-forms.textarea-field name="content" :label="__('Content')">{{ $campaign->content ?? old('content') }}</x-hypercemail.textarea-field>
 
 <div class="form-group row">
     <div class="offset-sm-3 col-sm-9">

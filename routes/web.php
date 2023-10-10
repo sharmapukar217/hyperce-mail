@@ -71,12 +71,12 @@ Route::middleware(['auth', 'verified', RequireWorkspace::class])->group(static f
     // Campaigns
    Route::resource('campaigns', CampaignsController::class)->except(['show', 'destroy']);
     Route::name('campaigns.')->prefix('campaigns')->namespace('Campaigns')->group(static function () {
-        Route::get('sent', [CampaignsController::class, "todo"])->name('sent');
-        Route::get('{id}', [CampaignsController::class, "todo"])->name('show');
+        Route::get('sent', [CampaignsController::class, "sent"])->name('sent');
+        Route::get('{id}', [CampaignsController::class, "show"])->name('show');
         Route::get('{id}/preview', [CampaignsController::class, "todo"])->name('preview');
-        Route::put('{id}/send', [CampaignsController::class, "todo"])->name('send');
-        Route::get('{id}/status', [CampaignsController::class, "todo"])->name('status');
-        Route::post('{id}/test', [CampaignsController::class, "todo"])->name('test');
+        Route::put('{id}/send', [CampaignsController::class, "send"])->name('send');
+        Route::get('{id}/status', [CampaignsController::class, "status"])->name('status');
+        Route::post('{id}/test', [CampaignsController::class, "handle"])->name('test');
     });
 
     // Tags

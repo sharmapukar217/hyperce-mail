@@ -2,23 +2,28 @@
 
 declare(strict_types=1);
 
-namespace App\View\Components;
+namespace App\View\Components\Forms;
 
 use Illuminate\View\Component;
 
-class SubmitButton extends Component
+class FileField extends Component
 {
+    /** @var string */
+    public $name;
+
     /** @var string */
     public $label;
 
     /**
      * Create the component instance.
      *
+     * @param  string  $name
      * @param  string  $label
      * @return void
      */
-    public function __construct(string $label)
+    public function __construct(string $name, string $label = '')
     {
+        $this->name = $name;
         $this->label = $label;
     }
 
@@ -29,6 +34,6 @@ class SubmitButton extends Component
      */
     public function render()
     {
-        return view('components.submit-button');
+        return view('components.file-field');
     }
 }
