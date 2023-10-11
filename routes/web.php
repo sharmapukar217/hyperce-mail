@@ -4,7 +4,9 @@ use App\Http\Controllers\Auth\ApiTokenController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\Campaigns\CampaignCancellationController;
 use App\Http\Controllers\Campaigns\CampaignDispatchController;
+use App\Http\Controllers\Campaigns\CampaignReportsController;
 use App\Http\Controllers\Campaigns\CampaignsController;
 use App\Http\Controllers\Campaigns\CampaignTestController;
 use App\Http\Controllers\DashboardController;
@@ -112,6 +114,24 @@ Route::middleware(['auth', 'verified', RequireWorkspace::class])->group(static f
         Route::put('{id}/send', [CampaignDispatchController::class, "send"])->name('send');
         Route::get('{id}/status', [CampaignsController::class, "status"])->name('status');
         Route::post('{id}/test', [CampaignTestController::class, "handle"])->name('test');
+
+        Route::get(
+            '{id}/confirm-delete',
+            'CampaignDeleteController@confirm'
+        )->name('destroy.confirm');
+        Route::delete('', [CampaignDeleteController::class, 'destroy'])->name('destroy');
+
+        Route::get('{id}/duplicate', [CampaignDuplicateController::class, 'duplicate'])->name('duplicate');
+
+        Route::get('{id}/confirm-cancel', [CampaignCancellationController::class, 'confirm'])->name('confirm-cancel');
+        Route::post('{id}/cancel', [CampaignCancellationController::class, 'cancel'])->name('cancel');
+
+        Route::get('{id}/report', [CampaignReportsController::class, 'index'])->name('reports.index');
+        Route::get('{id}/report/recipients', [CampaignReportsController::class, 'recipients'])->name('reports.recipients');
+        Route::get('{id}/report/opens', [CampaignReportsController::class, 'opens'])->name('reports.opens');
+        Route::get('{id}/report/clicks', [CampaignReportsController::class, 'clicks'])->name('reports.clicks');
+        Route::get('{id}/report/unsubscribes', [CampaignReportsController::class, 'unsubscribes'])->name('reports.unsubscribes');
+        Route::get('{id}/report/bounces', [CampaignReportsController::class, 'bounces'])->name('reports.bounces');
     });
 
     // Tags
@@ -160,9 +180,9 @@ Route::middleware(['auth', 'verified', RequireWorkspace::class])->group(static f
 
 // Subscriptions
 Route::name('subscriptions.')->prefix('subscriptions')->group(static function () {
-    Route::get('unsubscribe/{messageHash}', [SubscriptionsController::class,'unsubscribe'])->name('unsubscribe');
-    Route::get('subscribe/{messageHash}',[SubscriptionsController::class, 'subscribe'])->name('subscribe');
-    Route::put('subscriptions/{messageHash}',[SubscriptionsController::class, 'update'])->name('update');
+    Route::get('unsubscribe/{messageHash}', [SubscriptionsController::class, 'unsubscribe'])->name('unsubscribe');
+    Route::get('subscribe/{messageHash}', [SubscriptionsController::class, 'subscribe'])->name('subscribe');
+    Route::put('subscriptions/{messageHash}', [SubscriptionsController::class, 'update'])->name('update');
 });
 
 // Webview.

@@ -47,7 +47,7 @@ class ResolverService
     public function resolveCurrentWorkspaceId(): ?int
     {
         $resolver = $this->getResolver('workspace');
-        return 1;
+        return 1; // TODO: Temporarily fix
         // return $resolver();
     }
 
