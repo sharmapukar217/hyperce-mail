@@ -12,8 +12,10 @@ use App\Http\Controllers\Messages\MessagesController;
 use App\Http\Controllers\SetupController;
 use App\Http\Controllers\Subscribers\SubscribersController;
 use App\Http\Controllers\Subscribers\SubscribersImportController;
+use App\Http\Controllers\SubscriptionsController;
 use App\Http\Controllers\Tags\TagsController;
 use App\Http\Controllers\Templates\TemplatesController;
+use App\Http\Controllers\WebviewController;
 use App\Http\Controllers\Workspaces\PendingInvitationController;
 use App\Http\Controllers\Workspaces\SwitchWorkspaceController;
 use App\Http\Controllers\Workspaces\WorkspaceInvitationsController;
@@ -148,4 +150,20 @@ Route::middleware(['auth', 'verified', RequireWorkspace::class])->group(static f
         Route::post('{id}/test', [TestEmailServiceController::class, "store"])->name('test.store');
     });
 
+});
+
+
+
+// public routes
+
+// Subscriptions
+Route::name('subscriptions.')->prefix('subscriptions')->group(static function () {
+    Route::get('unsubscribe/{messageHash}', [SubscriptionsController::class,'unsubscribe'])->name('unsubscribe');
+    Route::get('subscribe/{messageHash}',[SubscriptionsController::class, 'subscribe'])->name('subscribe');
+    Route::put('subscriptions/{messageHash}',[SubscriptionsController::class, 'update'])->name('update');
+});
+
+// Webview.
+Route::name('webview.')->prefix('webview')->group(static function () {
+    Route::get('{messageHash}', WebviewController::class)->name('show');
 });
