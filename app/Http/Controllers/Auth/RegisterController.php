@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Models\Workspace;
 use App\Models\User;
@@ -87,6 +86,6 @@ class RegisterController extends Controller
 
     protected function redirectTo(): string
     {
-        return route('sendportal.dashboard');
+        return route('dashboard');
     }
 }
