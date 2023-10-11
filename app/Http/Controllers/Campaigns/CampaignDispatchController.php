@@ -9,7 +9,7 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CampaignDispatchRequest;
+use App\Http\Requests\Campaigns\CampaignDispatchRequest;
 use App\Interfaces\QuotaServiceInterface;
 use App\Models\CampaignStatus;
 use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;

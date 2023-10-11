@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Subscribers;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;

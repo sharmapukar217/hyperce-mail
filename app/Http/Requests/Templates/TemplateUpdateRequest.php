@@ -1,32 +1,36 @@
 <?php
 
-declare(strict_types=1);
-
-namespace App\Http\Requests;
+namespace App\Http\Requests\Templates;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use App\Facades\HyperceMail;
 
-class TagUpdateRequest extends FormRequest
+class TemplateUpdateRequest extends FormRequest
 {
+    public function authorize(): bool
+    {
+        return true;
+    }
+
     public function rules(): array
     {
         return [
             'name' => [
                 'required',
                 'max:255',
-                Rule::unique('tags')
+                Rule::unique('templates')
                     ->where('workspace_id', HyperceMail::currentWorkspaceId())
-                    ->ignore($this->tag),
+                    ->ignore($this->template),
             ],
+            'content' => 'required',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.unique' => __('The tag name must be unique.'),
+            'name.unique' => __('The template name must be unique.'),
         ];
     }
 }

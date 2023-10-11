@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\EmailServiceRequest;
+use App\Http\Requests\EmailServices\EmailServiceRequest;
 use App\Repositories\EmailServiceTenantRepository;
 
 class EmailServicesController extends Controller

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Campaigns;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CampaignDeleteRequest extends FormRequest
+class CampaignContentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,20 +24,7 @@ class CampaignDeleteRequest extends FormRequest
     public function rules()
     {
         return [
-            'tags' => [
-                'required_unless:recipients,send_to_all',
-                'array',
-            ],
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'tags.required_unless' => __('At least one tag must be selected')
+            'content' => ['required'],
         ];
     }
 }

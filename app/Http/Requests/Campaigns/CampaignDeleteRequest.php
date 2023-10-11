@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Campaigns;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CampaignTemplateUpdateRequest extends FormRequest
+class CampaignDeleteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,20 @@ class CampaignTemplateUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'template_id' => ['required', 'exists:sendportal_templates,id'],
+            'tags' => [
+                'required_unless:recipients,send_to_all',
+                'array',
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'tags.required_unless' => __('At least one tag must be selected')
         ];
     }
 }

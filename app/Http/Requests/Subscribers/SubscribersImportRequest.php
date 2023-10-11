@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Subscribers;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CampaignContentRequest extends FormRequest
+class SubscribersImportRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,12 @@ class CampaignContentRequest extends FormRequest
      */
     public function rules()
     {
+        // size in kb
+        $size = 1000 * 1024;
+
         return [
-            'content' => ['required'],
+            'file' => 'required|file|max:' . $size . '|mimetypes:text/csv,text/plain,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'tags[]' => 'array'
         ];
     }
 }

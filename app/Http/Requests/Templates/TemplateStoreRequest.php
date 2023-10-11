@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Templates;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use App\Facades\HyperceMail;
 
-class TemplateUpdateRequest extends FormRequest
+class TemplateStoreRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -20,8 +20,7 @@ class TemplateUpdateRequest extends FormRequest
                 'required',
                 'max:255',
                 Rule::unique('templates')
-                    ->where('workspace_id', HyperceMail::currentWorkspaceId())
-                    ->ignore($this->template),
+                    ->where('workspace_id', HyperceMail::currentWorkspaceId()),
             ],
             'content' => 'required',
         ];

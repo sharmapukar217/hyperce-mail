@@ -7,7 +7,7 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\EmailServiceTestRequest;
+use App\Http\Requests\EmailServices\EmailServiceTestRequest;
 use App\Repositories\EmailServiceTenantRepository;
 use App\Services\Messages\DispatchTestMessage;
 use App\Services\Messages\MessageOptions;

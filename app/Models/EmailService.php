@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Carbon\Carbon;
-use App\Facades\Helper;
 use Database\Factories\EmailServiceFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-//use Sendportal\Pro\Models\Automation;
 
 /**
  * @property int $id
@@ -28,8 +26,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class EmailService extends BaseModel
 {
-    // NOTE(david): we require this because of namespace issues when resolving factories from models
-    // not in the default `App\Models` namespace.
     protected static function newFactory()
     {
         return EmailServiceFactory::new();
@@ -88,10 +84,6 @@ class EmailService extends BaseModel
 
     public function getInUseAttribute(): bool
     {
-        if (Helper::isPro()) {
-            return (bool)$this->campaigns()->count() + $this->automations()->count();
-        }
-
         return (bool)$this->campaigns()->count();
     }
 }

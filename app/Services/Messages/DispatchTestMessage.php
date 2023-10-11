@@ -73,7 +73,7 @@ class DispatchTestMessage
             'workspace_id' => $workspaceId,
             'recipient_email' => $options->getTo(),
             'subject' => $options->getSubject(),
-            'from_name' => 'Sendportal',
+            'from_name' => 'Hyperce',
             'from_email' => $options->getFromEmail(),
             'hash' => 'abc123',
         ]);

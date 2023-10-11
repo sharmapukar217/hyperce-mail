@@ -7,7 +7,6 @@ namespace App\Models;
 use Exception;
 use Carbon\Carbon;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 use Database\Factories\WorkspaceFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -28,7 +27,7 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
  *
  * @method static WorkspaceFactory factory
  */
-class Workspace extends Model
+class Workspace extends BaseModel
 {
     use HasFactory;
 

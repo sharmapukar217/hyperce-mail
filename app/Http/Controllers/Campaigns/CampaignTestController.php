@@ -8,7 +8,7 @@ use Exception;
 use App\Facades\HyperceMail;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CampaignTestRequest;
+use App\Http\Requests\Campaigns\CampaignTestRequest;
 use App\Services\Messages\DispatchTestMessage;
 
 class CampaignTestController extends Controller
