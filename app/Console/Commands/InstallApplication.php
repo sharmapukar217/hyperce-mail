@@ -103,7 +103,7 @@ class InstallApplication extends BaseCommand
             return;
         }
 
-        $this->writeToEnvironmentFile('APP_URL', $this->ask('Application URL', 'https://sendportal.yourdomain.com'));
+        $this->writeToEnvironmentFile('APP_URL', $this->ask('Application URL', 'https://hypercemail.yourdomain.com'));
     }
 
 	/**
@@ -302,14 +302,7 @@ class InstallApplication extends BaseCommand
      */
     protected function checkVendorAssets(): void
     {
-        $this->callSilent(
-            'vendor:publish',
-            [
-                '--provider' => SendportalBaseServiceProvider::class,
-                '--tag' => 'sendportal-assets',
-                '--force' => true
-            ]
-        );
+        $this->callSilent('vendor:publish', [ '--all' => true ]);
 
         $this->info('✓ Published frontend assets');
     }

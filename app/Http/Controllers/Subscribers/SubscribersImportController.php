@@ -17,7 +17,7 @@ use Illuminate\Validation\ValidationException;
 use Rap2hpoutre\FastExcel\FastExcel;
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SubscribersImportRequest;
+use App\Http\Requests\Subscribers\SubscribersImportRequest;
 use App\Repositories\TagTenantRepository;
 use App\Services\Subscribers\ImportSubscriberService;
 

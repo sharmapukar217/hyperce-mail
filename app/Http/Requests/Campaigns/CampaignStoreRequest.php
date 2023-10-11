@@ -40,11 +40,11 @@ class CampaignStoreRequest extends FormRequest
             'email_service_id' => [
                 'required',
                 'integer',
-                'exists:sendportal_email_services,id',
+                'exists:email_services,id',
             ],
             'template_id' => [
                 'nullable',
-                'exists:sendportal_templates,id',
+                'exists:templates,id',
             ],
             'content' => [
                 Rule::requiredIf($this->template_id === null),

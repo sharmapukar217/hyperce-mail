@@ -21,7 +21,7 @@ class CampaignFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence,
-            'workspace_id' => Sendportal::currentWorkspaceId(),
+            'workspace_id' => HyperceMail::currentWorkspaceId(),
             'subject' => $this->faker->title,
             'from_name' => $this->faker->name,
             'from_email' => $this->faker->email,

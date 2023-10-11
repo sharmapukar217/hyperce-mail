@@ -77,7 +77,7 @@ class CreateMessages
 
         $tag->subscribers()->whereNull('unsubscribed_at')->chunkById(1000, function ($subscribers) use ($campaign) {
             $this->dispatchToSubscriber($campaign, $subscribers);
-        }, 'sendportal_subscribers.id');
+        }, 'subscribers.id');
     }
 
     /**

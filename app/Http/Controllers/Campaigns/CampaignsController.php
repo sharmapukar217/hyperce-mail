@@ -9,7 +9,7 @@ use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CampaignStoreRequest;
+use App\Http\Requests\Campaigns\CampaignStoreRequest;
 use App\Models\EmailService;
 use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
 use App\Repositories\EmailServiceTenantRepository;

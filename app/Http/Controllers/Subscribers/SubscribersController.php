@@ -15,7 +15,7 @@ use Rap2hpoutre\FastExcel\FastExcel;
 use App\Events\SubscriberAddedEvent;
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SubscriberRequest;
+use App\Http\Requests\Subscribers\SubscriberRequest;
 use App\Models\UnsubscribeEventType;
 use App\Repositories\Subscribers\SubscriberTenantRepositoryInterface;
 use App\Repositories\TagTenantRepository;

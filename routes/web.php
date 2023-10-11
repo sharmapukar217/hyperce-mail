@@ -4,7 +4,9 @@ use App\Http\Controllers\Auth\ApiTokenController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\Campaigns\CampaignDispatchController;
 use App\Http\Controllers\Campaigns\CampaignsController;
+use App\Http\Controllers\Campaigns\CampaignTestController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmailServices\EmailServicesController;
 use App\Http\Controllers\EmailServices\TestEmailServiceController;
@@ -106,10 +108,10 @@ Route::middleware(['auth', 'verified', RequireWorkspace::class])->group(static f
     Route::name('campaigns.')->prefix('campaigns')->namespace('Campaigns')->group(static function () {
         Route::get('sent', [CampaignsController::class, "sent"])->name('sent');
         Route::get('{id}', [CampaignsController::class, "show"])->name('show');
-        Route::get('{id}/preview', [CampaignsController::class, "todo"])->name('preview');
-        Route::put('{id}/send', [CampaignsController::class, "send"])->name('send');
+        Route::get('{id}/preview', [CampaignsController::class, "preview"])->name('preview');
+        Route::put('{id}/send', [CampaignDispatchController::class, "send"])->name('send');
         Route::get('{id}/status', [CampaignsController::class, "status"])->name('status');
-        Route::post('{id}/test', [CampaignsController::class, "handle"])->name('test');
+        Route::post('{id}/test', [CampaignTestController::class, "handle"])->name('test');
     });
 
     // Tags
