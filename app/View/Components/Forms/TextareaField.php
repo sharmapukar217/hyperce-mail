@@ -34,6 +34,6 @@ class TextareaField extends Component
      */
     public function render()
     {
-        return view('components.textarea-field');
+        return view('components.forms.textarea-field');
     }
 }

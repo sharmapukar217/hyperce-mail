@@ -30,7 +30,7 @@ class SelectField extends Component
      * @param string $name
      * @param string $label
      * @param array $options
-     * @param string? $value
+     * @param null $value
      * @param bool $multiple
      */
     public function __construct(string $name, string $label = '', $options = [], $value = null, bool $multiple = false)
@@ -66,6 +66,6 @@ class SelectField extends Component
      */
     public function render()
     {
-        return view('components.select-field');
+        return view('components.forms.select-field');
     }
 }

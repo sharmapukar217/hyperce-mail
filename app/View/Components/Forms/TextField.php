@@ -43,6 +43,6 @@ class TextField extends Component
      */
     public function render()
     {
-        return view('components.text-field');
+        return view('components.forms.text-field');
     }
 }
