@@ -7,9 +7,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Database\Factories\TagFactory;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
@@ -24,10 +22,8 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @method static TagFactory factory
  */
-class Tag extends Model
+class Tag extends BaseModel
 {
-    use HasFactory;
-
     // NOTE(david): we require this because of namespace issues when resolving factories from models
     // not in the default `App\Models` namespace.
     protected static function newFactory()
@@ -36,7 +32,7 @@ class Tag extends Model
     }
 
     /** @var string */
-    protected $table = 'hypercemail_tags';
+    protected $table = 'tags';
 
     /** @var array */
     protected $fillable = [
@@ -50,7 +46,7 @@ class Tag extends Model
 
     public function campaigns(): BelongsToMany
     {
-        return $this->belongsToMany(Campaign::class, 'hypercemail_campaign_tag');
+        return $this->belongsToMany(Campaign::class, 'campaign_tag');
     }
 
     /**
@@ -58,7 +54,7 @@ class Tag extends Model
      */
     public function subscribers(): BelongsToMany
     {
-        return $this->belongsToMany(Subscriber::class, 'hypercemail_tag_subscriber')->withTimestamps();
+        return $this->belongsToMany(Subscriber::class, 'tag_subscriber')->withTimestamps();
     }
 
     /**

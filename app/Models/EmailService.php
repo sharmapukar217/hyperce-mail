@@ -6,10 +6,8 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Facades\Helper;
-use Illuminate\Database\Eloquent\Model;
 use Database\Factories\EmailServiceFactory;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 //use Sendportal\Pro\Models\Automation;
@@ -28,10 +26,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @method static EmailServiceFactory factory
  */
-class EmailService extends Model
+class EmailService extends BaseModel
 {
-    use HasFactory;
-
     // NOTE(david): we require this because of namespace issues when resolving factories from models
     // not in the default `App\Models` namespace.
     protected static function newFactory()

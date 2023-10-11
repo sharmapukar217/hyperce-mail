@@ -1,4 +1,4 @@
-@extends('sendportal::layouts.app')
+@extends('layouts.app')
 
 @section('title', __('New Subscriber'))
 
@@ -8,15 +8,15 @@
 
 @section('content')
 
-    @component('sendportal::layouts.partials.card')
+    @component('layouts.partials.card')
         @slot('cardHeader', __('Create Subscriber'))
 
         @slot('cardBody')
-            <form action="{{ route('sendportal.subscribers.store') }}" class="form-horizontal" method="POST">
+            <form action="{{ route('subscribers.store') }}" class="form-horizontal" method="POST">
                 @csrf
-                @include('sendportal::subscribers.partials.form')
+                @include('subscribers.partials.form')
 
-                <x-sendportal.submit-button :label="__('Save')" />
+                <x-forms.submit-button :label="__('Save')" />
             </form>
         @endSlot
     @endcomponent

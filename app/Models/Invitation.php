@@ -6,8 +6,6 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Database\Factories\InvitationFactory;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -26,10 +24,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @method static InvitationFactory factory
  */
-class Invitation extends Model
+class Invitation extends BaseModel
 {
-    use HasFactory;
-
     /** @var bool */
     public $incrementing = false;
 

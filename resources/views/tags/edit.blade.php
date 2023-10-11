@@ -1,4 +1,4 @@
-@extends('sendportal::layouts.app')
+@extends('layouts.app')
 
 @section('title', __("Edit Tag"))
 
@@ -8,17 +8,17 @@
 
 @section('content')
 
-    @component('sendportal::layouts.partials.card')
+    @component('layouts.partials.card')
         @slot('cardHeader', __('Edit Tag'))
 
         @slot('cardBody')
-            <form action="{{ route('sendportal.tags.update', $tag->id) }}" method="POST" class="form-horizontal">
+            <form action="{{ route('tags.update', $tag->id) }}" method="POST" class="form-horizontal">
                 @csrf
                 @method('PUT')
 
-                @include('sendportal::tags.partials.form')
+                @include('tags.partials.form')
 
-                <x-sendportal.submit-button :label="__('Save')" />
+                <x-forms.submit-button :label="__('Save')" />
             </form>
         @endSlot
     @endcomponent

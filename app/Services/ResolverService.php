@@ -41,13 +41,13 @@ class ResolverService
 
     public function setCurrentWorkspaceIdResolver(callable $callable): void
     {
-        // $this->setResolver('workspace', $callable);
+        $this->setResolver('workspace', $callable);
     }
 
     public function resolveCurrentWorkspaceId(): ?int
     {
         $resolver = $this->getResolver('workspace');
-        return 0;
+        return 1;
         // return $resolver();
     }
 

@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class MessageFailure extends Model
+class MessageFailure extends BaseModel
 {
-    protected $table = 'hypercemail_message_failures';
+    protected $table = 'message_failures';
 
     protected $guarded = [];
 

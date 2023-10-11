@@ -8,13 +8,11 @@ use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 use App\Facades\Helper;
 use Database\Factories\MessageFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Sendportal\Pro\Models\AutomationSchedule;
 
 /**
  * @property int $id
@@ -50,7 +48,7 @@ use Sendportal\Pro\Models\AutomationSchedule;
  *
  * @method static MessageFactory factory
  */
-class Message extends Model
+class Message extends BaseModel
 {
     use HasFactory;
 
@@ -61,7 +59,7 @@ class Message extends Model
         return MessageFactory::new();
     }
 
-    protected $table = 'sendportal_messages';
+    protected $table = 'messages';
 
     /** @var array */
     protected $guarded = [];
@@ -128,7 +126,7 @@ class Message extends Model
      */
     public function isAutomation(): bool
     {
-        return Helper::isPro() && $this->source_type === AutomationSchedule::class;
+        return false;
     }
 
     /**
@@ -152,9 +150,6 @@ class Message extends Model
             return 'Campaign';
         }
 
-        if (Helper::isPro() && $this->source_type === AutomationSchedule::class) {
-            return 'Automation';
-        }
 
         return null;
     }

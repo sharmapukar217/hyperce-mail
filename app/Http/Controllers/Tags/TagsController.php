@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sendportal\Base\Http\Controllers\Tags;
+namespace App\Http\Controllers\Tags;
 
 use Exception;
 use Illuminate\View\View;

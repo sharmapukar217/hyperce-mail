@@ -1,4 +1,4 @@
-@extends('sendportal::layouts.app')
+@extends('layouts.app')
 
 @section('title', __("Subscriber") . " : {$subscriber->full_name}")
 
@@ -8,9 +8,9 @@
 
 @section('content')
 
-    @component('sendportal::layouts.partials.actions')
+    @component('layouts.partials.actions')
         @slot('right')
-            <a class="btn btn-light btn-md btn-flat" href="{{ route('sendportal.subscribers.edit', $subscriber->id) }}">
+            <a class="btn btn-light btn-md btn-flat" href="{{ route('subscribers.edit', $subscriber->id) }}">
                 <i class="fa fa-edit mr-1"></i> {{ __('Edit Subscriber') }}
             </a>
         @endslot
@@ -39,11 +39,11 @@
                                 <td>
                                     @if($subscriber->unsubscribed_at)
                                         <span class="badge badge-danger">{{ __('Unsubscribed') }}</span>
-                                        <span class="text-muted">{{ \Sendportal\Base\Models\UnsubscribeEventType::findById($subscriber->unsubscribe_event_id) }}
-                                            on {{ \Sendportal\Base\Facades\Helper::displayDate($subscriber->unsubscribed_at)->format('d M Y') }}
+                                        <span class="text-muted">{{ \App\Models\UnsubscribeEventType::findById($subscriber->unsubscribe_event_id) }}
+                                            on {{ \App\Facades\Helper::displayDate($subscriber->unsubscribed_at)->format('d M Y') }}
                                         </span>
                                     @else
-                                        <span class="badge badge-success">{{ __('Subscribed') }}</span> <span class="text-muted">{{ \Sendportal\Base\Facades\Helper::displayDate($subscriber->created_at) }}</span>
+                                        <span class="badge badge-success">{{ __('Subscribed') }}</span> <span class="text-muted">{{ \App\Facades\Helper::displayDate($subscriber->created_at) }}</span>
                                     @endif
                                 </td>
                             </tr>
@@ -88,18 +88,18 @@
                         <td>
                             @if($message->isCampaign())
                                 <i class="fas fa-envelope color-gray-300"></i>
-                                <a href="{{ route('sendportal.campaigns.reports.index', $message->source_id) }}">
+                                <a href="{{ route('campaigns.reports.index', $message->source_id) }}">
                                     {{ $message->source->name }}
                                 </a>
-                            @elseif(\Sendportal\Base\Facades\Helper::isPro() && $message->isAutomation())
+                            @elseif(\App\Facades\Helper::isPro() && $message->isAutomation())
                                 <i class="fas fa-sync-alt color-gray-300"></i>
-                                <a href="{{ route('sendportal.automations.show', $message->source->automation_step->automation_id) }}">
+                                <a href="{{ route('automations.show', $message->source->automation_step->automation_id) }}">
                                     {{ $message->source->automation_step->automation->name }}
                                 </a>
                             @endif
                         </td>
                         <td>
-                            @include('sendportal::messages.partials.status-row')
+                            @include('messages.partials.status-row')
                         </td>
                     </tr>
                 @empty

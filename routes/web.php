@@ -12,10 +12,14 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 
+use App\Http\Controllers\Tags\TagsController;
+use App\Http\Controllers\Messages\MessagesController;
 use App\Http\Controllers\Campaigns\CampaignsController;
 use App\Http\Controllers\Templates\TemplatesController;
 
 use App\Http\Controllers\Subscribers\SubscribersController;
+use App\Http\Controllers\EmailServices\EmailServicesController;
+use App\Http\Controllers\EmailServices\TestEmailServiceController;
 use App\Http\Controllers\Subscribers\SubscribersImportController;
 
 
@@ -80,7 +84,7 @@ Route::middleware(['auth', 'verified', RequireWorkspace::class])->group(static f
     });
 
     // Tags
-    Route::resource('tags', 'Tags\TagsController')->except(['show']);
+    Route::resource('tags', TagsController::class)->except(['show']);
 
     // Templates
     Route::resource('templates', TemplatesController::class);
@@ -95,27 +99,27 @@ Route::middleware(['auth', 'verified', RequireWorkspace::class])->group(static f
 
      // Messages.
      Route::name('messages.')->prefix('messages')->group(static function () {
-        Route::get('/', 'MessagesController@index')->name('index');
-        Route::get('draft', 'MessagesController@draft')->name('draft');
-        Route::get('{id}/show', 'MessagesController@show')->name('show');
-        Route::post('send', 'MessagesController@send')->name('send');
-        Route::delete('{id}/delete', 'MessagesController@delete')->name('delete');
-        Route::post('send-selected', 'MessagesController@sendSelected')->name('send-selected');
+        Route::get('/', [MessagesController::class, "index"])->name('index');
+        Route::get('draft', [MessagesController::class, "draft"])->name('draft');
+        Route::get('{id}/show', [MessagesController::class, "show"])->name('show');
+        Route::post('send', [MessagesController::class, "send"])->name('send');
+        Route::delete('{id}/delete', [MessagesController::class, "delete"])->name('delete');
+        Route::post('send-selected', [MessagesController::class, "sendSelected"])->name('send-selected');
     });
 
  // Email Services.
- Route::name('email_services.')->prefix('email-services')->namespace('EmailServices')->group(static function (
+ Route::name('email_services.')->prefix('email-services')->group(static function (
 ) {
-    Route::get('/', 'EmailServicesController@index')->name('index');
-    Route::get('create', 'EmailServicesController@create')->name('create');
-    Route::get('type/{id}', 'EmailServicesController@emailServicesTypeAjax')->name('ajax');
-    Route::post('/', 'EmailServicesController@store')->name('store');
-    Route::get('{id}/edit', 'EmailServicesController@edit')->name('edit');
-    Route::put('{id}', 'EmailServicesController@update')->name('update');
-    Route::delete('{id}', 'EmailServicesController@delete')->name('delete');
+    Route::get('/', [EmailServicesController::class, "index"])->name('index');
+    Route::get('create', [EmailServicesController::class, "create"])->name('create');
+    Route::get('type/{id}',  [EmailServicesController::class, "emailServicesTypeAjax"])->name('ajax');
+    Route::post('/', [EmailServicesController::class, "store"])->name('store');
+    Route::get('{id}/edit',[EmailServicesController::class, "edit"])->name('edit');
+    Route::put('{id}', [EmailServicesController::class, "update"])->name('update');
+    Route::delete('{id}', [EmailServicesController::class, "delete"])->name('delete');
 
-    Route::get('{id}/test', 'TestEmailServiceController@create')->name('test.create');
-    Route::post('{id}/test', 'TestEmailServiceController@store')->name('test.store');
+    Route::get('{id}/test', [TestEmailServiceController::class, "create"])->name('test.create');
+    Route::post('{id}/test', [TestEmailServiceController::class, "store"])->name('test.store');
 });
     
 });

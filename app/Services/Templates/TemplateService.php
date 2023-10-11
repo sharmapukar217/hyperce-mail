@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sendportal\Base\Services\Templates;
+namespace App\Services\Templates;
 
 use Exception;
 use App\Models\Template;

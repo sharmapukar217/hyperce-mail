@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Models;
-use Illuminate\Database\Eloquent\Model;
 
-class EmailServiceType extends Model
+class EmailServiceType extends BaseModel
 {
     protected $table = 'email_service_types';
 

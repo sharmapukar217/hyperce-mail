@@ -1,12 +1,10 @@
 <?php
 
-namespace Sendportal\Base\Models;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class MessageUrl extends Model
+class MessageUrl extends BaseModel
 {
-    protected $table ='hypercemail__message_urls';
+    protected $table ='message_urls';
 
     /** @var array */
     protected $guarded = [];

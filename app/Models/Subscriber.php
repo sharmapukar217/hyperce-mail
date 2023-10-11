@@ -6,9 +6,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Database\Factories\SubscriberFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Ramsey\Uuid\Uuid;
@@ -33,10 +31,8 @@ use Ramsey\Uuid\Uuid;
  *
  * @method static SubscriberFactory factory
  */
-class Subscriber extends Model
+class Subscriber extends BaseModel
 {
-    use HasFactory;
-
     // NOTE(david): we require this because of namespace issues when resolving factories from models
     // not in the default `App\Models` namespace.
     protected static function newFactory()
@@ -45,7 +41,7 @@ class Subscriber extends Model
     }
 
     /** @var string */
-    protected $table = 'hypercemail_subscribers';
+    protected $table = 'subscribers';
 
     /** @var string[] */
     protected $fillable = [
@@ -65,7 +61,7 @@ class Subscriber extends Model
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class, 'hypercemail_tag_subscriber')->withTimestamps();
+        return $this->belongsToMany(Tag::class, 'tag_subscriber')->withTimestamps();
     }
 
     public function messages(): HasMany

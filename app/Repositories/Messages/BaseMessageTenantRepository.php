@@ -28,14 +28,14 @@ abstract class BaseMessageTenantRepository extends BaseTenantRepository implemen
     {
         $this->parseOrder($orderBy);
 
-        $instance = $this->getQueryBuilder($workspaceId)
-            ->with([
-                'source' => static function (MorphTo $morphTo) {
-                    $morphTo->morphWith([
-                        AutomationSchedule::class => ['automation_step.automation:id,name'],
-                    ]);
-                }
-            ]);
+        $instance = $this->getQueryBuilder($workspaceId);
+            // ->with([
+            //     'source' => static function (MorphTo $morphTo) {
+            //         $morphTo->morphWith([
+            //             // AutomationSchedule::class => ['automation_step.automation:id,name'],
+            //         ]);
+            //     }
+            // ]);
 
         $instance->when(!Helper::isPro(), function ($q) {
             $q->where('source_type', '=', Campaign::class);

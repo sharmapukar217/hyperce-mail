@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Database\Factories\TemplateFactory;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -23,9 +20,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @method static TemplateFactory factory
  */
-class Template extends Model
+class Template extends BaseModel
 {
-    use HasFactory;
 
     // NOTE(david): we require this because of namespace issues when resolving factories from models
     // not in the default `App\Models` namespace.

@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Models;
-use Illuminate\Database\Eloquent\Model;
 
-class UnsubscribeEventType extends Model
+class UnsubscribeEventType extends BaseModel
 {
     protected $table = 'unsubscribe_event_types';
 

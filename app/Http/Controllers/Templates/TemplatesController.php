@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Templates;
 
+use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -53,10 +54,10 @@ class TemplatesController extends Controller
     {
         $data = $request->validated();
 
-        $this->service->store(currentWorkspaceId(), $data);
+        $this->service->store(HyperceMail::currentWorkspaceId(), $data);
 
         return redirect()
-            ->route('sendportal.templates.index');
+            ->route('templates.index');
     }
 
     /**
@@ -64,7 +65,7 @@ class TemplatesController extends Controller
      */
     public function edit(int $id): View
     {
-        $template = $this->templates->find(currentWorkspaceId(), $id);
+        $template = $this->templates->find(HyperceMail::currentWorkspaceId(), $id);
 
         return view('templates.edit', compact('template'));
     }
@@ -76,10 +77,10 @@ class TemplatesController extends Controller
     {
         $data = $request->validated();
 
-        $this->service->update(currentWorkspaceId(), $id, $data);
+        $this->service->update(HyperceMail::currentWorkspaceId(), $id, $data);
 
         return redirect()
-            ->route('sendportal.templates.index');
+            ->route('templates.index');
     }
 
     /**
@@ -87,10 +88,10 @@ class TemplatesController extends Controller
      */
     public function destroy(int $id): RedirectResponse
     {
-        $this->service->delete(currentWorkspaceId(), $id);
+        $this->service->delete(HyperceMail::currentWorkspaceId(), $id);
 
         return redirect()
-            ->route('sendportal.templates.index')
+            ->route('templates.index')
             ->with('success', __('Template successfully deleted.'));
     }
 }

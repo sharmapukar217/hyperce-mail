@@ -3,9 +3,8 @@
 declare(strict_types=1);
 
 namespace App\Models;
-use Illuminate\Database\Eloquent\Model;
 
-class CampaignStatus extends Model
+class CampaignStatus extends BaseModel
 {
     protected $table = 'campaign_statuses';
 
