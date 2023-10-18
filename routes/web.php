@@ -9,16 +9,23 @@ use Illuminate\Support\Facades\Route;
 Auth::routes([
     'reset' => config('config.auth.password_reset'),
     'verify' => config('config.auth.register', false),
-    'register' => config('config.auth.register', false),
+    'register' => config('config.auth.register', true),
 ]);
 
 Route::get('setup', 'SetupController@index')->name('setup');
 
+
+
 // Auth.
 Route::middleware('auth')->namespace('Auth')->group(static function () {
+    // verify
+    Route::get('email/verify', 'VerificationController@show')->name('verification.notice');
+    Route::post('email/resend', 'VerificationController@resend')->name('verification.resend');
+
     // Logout.
     Route::get('logout', "LoginController@logout");
-
+    
+    
     // Profile
     Route::middleware('verified')->name('profile.')->prefix('profile')->group(static function () {
         Route::get('/', 'ProfileController@show')->name('show');

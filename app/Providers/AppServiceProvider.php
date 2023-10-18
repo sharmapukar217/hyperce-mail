@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Livewire\Setup;
+use App\Http\Livewire\Setup;
 use App\Models\ApiToken;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
