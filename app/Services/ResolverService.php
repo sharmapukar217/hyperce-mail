@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Services;
 
 use Illuminate\Support\Arr;
-use Laravel\Prompts\Output\ConsoleOutput;
 
 class ResolverService
 {
@@ -43,9 +42,6 @@ class ResolverService
 
     public function setCurrentWorkspaceIdResolver(callable $callable): void
     {
-        $log = new ConsoleOutput();
-        $log->writeln("here:");
-
         $this->setResolver('workspace', $callable);
     }
 
@@ -63,9 +59,6 @@ class ResolverService
 
     private function setResolver(string $resolverName, callable $callable): void
     {
-        $log = new ConsoleOutput();
-        $log->writeln($resolverName);
-
         $this->resolvers[$resolverName] = $callable;
     }
 }

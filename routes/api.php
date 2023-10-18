@@ -15,7 +15,7 @@ use App\Http\Middleware\RequireWorkspace;
 */
 
 Route::middleware([config('config.throttle_middleware'), RequireWorkspace::class])->group(function () {
-    Route::name('api.')->prefix('v1')->namespace('App\Http\Controllers\Api')->group(static function () {
+    Route::name('api.')->prefix('v1')->namespace('Api')->group(static function () {
         Route::apiResource('campaigns', 'CampaignsController');
         Route::post('campaigns/{id}/send', 'CampaignDispatchController@send')->name('campaigns.send');
         Route::apiResource('subscribers', 'SubscribersController');
@@ -33,7 +33,7 @@ Route::middleware([config('config.throttle_middleware'), RequireWorkspace::class
     });
 });
 
-Route::prefix('v1/webhooks')->namespace('App\Http\Controllers\Api\Webhooks')->group(static function () {
+Route::prefix('v1/webhooks')->namespace('Api\Webhooks')->group(static function () {
     Route::post('aws', 'SesWebhooksController@handle')->name('aws');
     Route::post('mailgun', 'MailgunWebhooksController@handle')->name('mailgun');
     Route::post('postmark', 'PostmarkWebhooksController@handle')->name('postmark');
@@ -42,4 +42,4 @@ Route::prefix('v1/webhooks')->namespace('App\Http\Controllers\Api\Webhooks')->gr
     Route::post('postal', 'PostalWebhooksController@handle')->name('postal');
 });
 
-Route::get('v1/ping', 'App\Http\Controllers\Api\PingController@index');
+Route::get('v1/ping', 'Api\PingController@index');

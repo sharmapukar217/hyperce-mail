@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Base\Listeners;
+namespace App\Listeners;
 
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Base\Events\MessageDispatchEvent;
-use Base\Services\Messages\DispatchMessage;
+use App\Events\MessageDispatchEvent;
+use App\Services\Messages\DispatchMessage;
 
 class MessageDispatchHandler implements ShouldQueue
 {

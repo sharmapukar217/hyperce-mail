@@ -12,10 +12,10 @@ Auth::routes([
     'register' => config('config.auth.register', false),
 ]);
 
-Route::get('setup', 'App\Http\Controllers\SetupController@index')->name('setup');
+Route::get('setup', 'SetupController@index')->name('setup');
 
 // Auth.
-Route::middleware('auth')->namespace('App\Http\Controllers\Auth')->group(static function () {
+Route::middleware('auth')->namespace('Auth')->group(static function () {
     // Logout.
     Route::get('logout', "LoginController@logout");
 
@@ -42,7 +42,6 @@ Route::middleware('auth')->namespace('App\Http\Controllers\Auth')->group(static 
 
 
 Route::middleware(['auth', 'verified', RequireWorkspace::class])
-    ->namespace("App\Http\Controllers")
     ->group(static function () {
         // dashboard
         Route::get('/', "DashboardController@index")->name('dashboard');
@@ -145,8 +144,6 @@ Route::middleware(['auth', 'verified', RequireWorkspace::class])
 
 
 // public routes
-Route::
-        namespace('App\Http\Controllers')->group(static function () {
             // Subscriptions
             Route::name('subscriptions.')->prefix('subscriptions')->group(static function () {
                 Route::get('unsubscribe/{messageHash}', 'SubscriptionsController@unsubscribe')->name('unsubscribe');
@@ -158,4 +155,3 @@ Route::
             Route::name('webview.')->prefix('webview')->group(static function () {
                 Route::get('{messageHash}', 'WebviewController@show')->name('show');
             });
-        });
