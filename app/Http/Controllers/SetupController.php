@@ -14,7 +14,7 @@ class SetupController extends Controller
     /**
      * @return View|RedirectResponse
      */
-    public function __invoke()
+    public function index()
     {
         try {
             if (User::exists()) {

@@ -1,191 +1,161 @@
 <?php
 
-use App\Http\Controllers\Auth\ApiTokenController;
-use App\Http\Controllers\Auth\ChangePasswordController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\ProfileController;
-use App\Http\Controllers\Campaigns\CampaignCancellationController;
-use App\Http\Controllers\Campaigns\CampaignDispatchController;
-use App\Http\Controllers\Campaigns\CampaignReportsController;
-use App\Http\Controllers\Campaigns\CampaignsController;
-use App\Http\Controllers\Campaigns\CampaignTestController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\EmailServices\EmailServicesController;
-use App\Http\Controllers\EmailServices\TestEmailServiceController;
-use App\Http\Controllers\Messages\MessagesController;
-use App\Http\Controllers\SetupController;
-use App\Http\Controllers\Subscribers\SubscribersController;
-use App\Http\Controllers\Subscribers\SubscribersImportController;
-use App\Http\Controllers\SubscriptionsController;
-use App\Http\Controllers\Tags\TagsController;
-use App\Http\Controllers\Templates\TemplatesController;
-use App\Http\Controllers\WebviewController;
-use App\Http\Controllers\Workspaces\PendingInvitationController;
-use App\Http\Controllers\Workspaces\SwitchWorkspaceController;
-use App\Http\Controllers\Workspaces\WorkspaceInvitationsController;
-use App\Http\Controllers\Workspaces\WorkspacesController;
-use App\Http\Controllers\Workspaces\WorkspaceUsersController;
+
 use App\Http\Middleware\OwnsCurrentWorkspace;
 use App\Http\Middleware\RequireWorkspace;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes([
-    'verify' => true,
     'reset' => config('config.auth.password_reset'),
-    // 'verify' => config('config.auth.register', false),
+    'verify' => config('config.auth.register', false),
     'register' => config('config.auth.register', false),
 ]);
 
-Route::get('setup', SetupController::class)->name('setup');
+Route::get('setup', 'App\Http\Controllers\SetupController@index')->name('setup');
 
 // Auth.
-Route::middleware('auth')->namespace('Auth')->group(static function () {
+Route::middleware('auth')->namespace('App\Http\Controllers\Auth')->group(static function () {
     // Logout.
-    Route::get('logout', [LoginController::class, "logout"]);
+    Route::get('logout', "LoginController@logout");
 
     // Profile
-    Route::middleware('verified')
-        ->name('profile.')
-        ->prefix('profile')
-        ->group(static function () {
-            Route::get("/", [ProfileController::class, "show"])->name("show");
-            Route::put("/", [ProfileController::class, "update"])->name("update");
-            Route::get("/edit", [ProfileController::class, "edit"])->name("edit");
+    Route::middleware('verified')->name('profile.')->prefix('profile')->group(static function () {
+        Route::get('/', 'ProfileController@show')->name('show');
+        Route::get('/edit', 'ProfileController@edit')->name('edit');
+        Route::put('/', 'ProfileController@update')->name('update');
 
-            // Password
-            Route::prefix("password")->name("password.")->group(static function () {
-                Route::put("/", [ChangePasswordController::class, "update"])->name("update");
-                Route::get("/edit", [ChangePasswordController::class, "edit"])->name("edit");
-            });
+        // Password
+        Route::name('password.')->prefix('password')->group(static function () {
+            Route::get('/edit', 'ChangePasswordController@edit')->name('edit');
+            Route::put('/', 'ChangePasswordController@update')->name('update');
         });
+    });
 
     // Api Tokens
     Route::middleware('verified')->name('api-tokens.')->prefix('api-tokens')->group(static function () {
-        Route::get('/', [ApiTokenController::class, 'index'])->name('index');
-        Route::post('/', [ApiTokenController::class, 'store'])->name('store');
-        Route::delete('{tokenid}', [ApiTokenController::class, 'destroy'])->name('destroy');
+        Route::get('/', 'ApiTokenController@index')->name('index');
+        Route::post('/', 'ApiTokenController@store')->name('store');
+        Route::delete('{tokenid}', 'ApiTokenController@destroy')->name('destroy');
     });
 });
 
-// Workspace User Management.
-Route::middleware(['auth', 'verified', RequireWorkspace::class, OwnsCurrentWorkspace::class])
-    ->name('users.')
-    ->prefix('users')
-    ->group(static function () {
-        Route::get('/', [WorkspaceUsersController::class, 'index'])->name('index');
-        Route::delete('{userId}', [WorkspaceUsersController::class, 'destroy'])->name('destroy');
 
-        // Invitations.
-        Route::name('invitations.')->prefix('invitations')
-            ->group(static function () {
-            Route::post('/', [WorkspaceInvitationsController::class, 'store'])->name('store');
-            Route::delete('{invitation}', [WorkspaceInvitationsController::class, 'destroy'])
-                ->name('destroy');
-        });
-    });
-
-// Workspace Management.
 Route::middleware(['auth', 'verified', RequireWorkspace::class])
+    ->namespace("App\Http\Controllers")
     ->group(static function () {
+        // dashboard
+        Route::get('/', "DashboardController@index")->name('dashboard');
 
-        Route::resource('workspaces', WorkspacesController::class)->except(['create', 'show', 'destroy']);
+        // Workspace Management.
+        Route::resource('workspaces', 'Workspaces\WorkspacesController')->except(['create', 'show', 'destroy']);
 
         // Workspace Switching.
-        Route::get('workspaces/{workspace}/switch', [SwitchWorkspaceController::class, 'switch'])
+        Route::get('workspaces/{workspace}/switch', 'Workspaces\SwitchWorkspaceController@switch')
             ->name('workspaces.switch');
 
+        // Workspace User Management.
+        Route::middleware(['auth', 'verified', RequireWorkspace::class, OwnsCurrentWorkspace::class])
+            ->name('users.')
+            ->prefix('users')
+            ->group(static function () {
+            Route::get('/', 'Workspaces\WorkspaceUsersController@index')->name('index');
+            Route::delete('{userId}', 'Workspaces\WorkspaceUsersController@destroy')->name('destroy');
+
+            // Invitations.
+            Route::name('invitations.')->prefix('invitations')
+                ->group(static function () {
+                Route::post('/', 'Workspaces\WorkspaceInvitationsController@store')->name('store');
+                Route::delete('{invitation}', 'Workspaces\WorkspaceInvitationsController@destroy')
+                    ->name('destroy');
+            });
+        });
+
         // Invitations.
-        Route::post('workspaces/invitations/{invitation}/accept', [PendingInvitationController::class, 'accept'])
+        Route::post('workspaces/invitations/{invitation}/accept', 'Workspaces\PendingInvitationController@accept')
             ->name('workspaces.invitations.accept');
-        Route::post('workspaces/invitations/{invitation}/reject', [PendingInvitationController::class, 'reject'])
+        Route::post('workspaces/invitations/{invitation}/reject', 'Workspaces\PendingInvitationController@reject')
             ->name('workspaces.invitations.reject');
+
+        // Campaigns
+        Route::resource('campaigns', "Campaigns\CampaignsController")->except(['show', 'destroy']);
+        Route::name('campaigns.')->prefix('campaigns')->namespace('Campaigns')->group(static function () {
+            Route::get('sent', "CampaignsController@sent")->name('sent');
+            Route::get('{id}', "CampaignsController@show")->name('show');
+            Route::get('{id}/preview', "CampaignsController@preview")->name('preview');
+            Route::put('{id}/send', "CampaignDispatchController@send")->name('send');
+            Route::get('{id}/status', "CampaignsController@status")->name('status');
+            Route::post('{id}/test', "CampaignTestController@handle")->name('test');
+
+            Route::get('{id}/confirm-delete','CampaignDeleteController@confirm')->name('destroy.confirm');
+            Route::delete('', "CampaignDeleteController@destroy")->name('destroy');
+
+            Route::get('{id}/duplicate', "CampaignDuplicateController@duplicate")->name('duplicate');
+
+            Route::get('{id}/confirm-cancel', 'CampaignCancellationController@confirm')->name('confirm-cancel');
+            Route::post('{id}/cancel', 'CampaignCancellationController@cancel')->name('cancel');
+
+            Route::get('{id}/report', 'CampaignReportsController@index')->name('reports.index');
+            Route::get('{id}/report/recipients', 'CampaignReportsController@recipients')->name('reports.recipients');
+            Route::get('{id}/report/opens', 'CampaignReportsController@opens')->name('reports.opens');
+            Route::get('{id}/report/clicks', 'CampaignReportsController@clicks')->name('reports.clicks');
+            Route::get('{id}/report/unsubscribes', 'CampaignReportsController@unsubscribes')->name('reports.unsubscribes');
+            Route::get('{id}/report/bounces', 'CampaignReportsController@bounces')->name('reports.bounces');
+        });
+
+        // Tags
+        Route::resource('tags', "Tags\TagsController")->except(['show']);
+
+        // Templates
+        Route::resource('templates', "Templates\TemplatesController");
+
+        // Subscribers.
+        Route::resource('subscribers', "Subscribers\SubscribersController");
+        Route::name('subscribers.')->prefix('subscribers')->namespace('Subscribers')->group(static function () {
+            Route::get('export', "SubscribersController@export")->name('export');
+            Route::get('import', "SubscribersImportController@show")->name('import');
+            Route::post('import', "SubscribersImportController@store")->name('import.store');
+        });
+
+        // Messages.
+        Route::name('messages.')->namespace("Messages")->prefix('messages')->group(static function () {
+            Route::get('/', "MessagesController@index")->name('index');
+            Route::get('draft', "MessagesController@draft")->name('draft');
+            Route::get('{id}/show', "MessagesController@show")->name('show');
+            Route::post('send', "MessagesController@send")->name('send');
+            Route::delete('{id}/delete', "MessagesController@delete")->name('delete');
+            Route::post('send-selected', "MessagesController@sendSelected")->name('send-selected');
+        });
+
+        // Email Services.
+        Route::name('email_services.')->namespace("EmailServices")->prefix('email-services')->group(static function () {
+            Route::get('/', "EmailServicesController@index")->name('index');
+            Route::get('create', "EmailServicesController@create")->name('create');
+            Route::get('type/{id}', "EmailServicesController@emailServicesTypeAjax")->name('ajax');
+            Route::post('/', "EmailServicesController@store")->name('store');
+            Route::get('{id}/edit', "EmailServicesController@edit")->name('edit');
+            Route::put('{id}', "EmailServicesController@update")->name('update');
+            Route::delete('{id}', "EmailServicesController@delete")->name('delete');
+
+            Route::get('{id}/test', "TestEmailServiceController@create")->name('test.create');
+            Route::post('{id}/test', "TestEmailServiceController@store")->name('test.store');
+        });
     });
-
-Route::middleware(['auth', 'verified', RequireWorkspace::class])->group(static function () {
-    Route::get('/', DashboardController::class)->name('dashboard');
-
-    // Campaigns
-    Route::resource('campaigns', CampaignsController::class)->except(['show', 'destroy']);
-    Route::name('campaigns.')->prefix('campaigns')->namespace('Campaigns')->group(static function () {
-        Route::get('sent', [CampaignsController::class, "sent"])->name('sent');
-        Route::get('{id}', [CampaignsController::class, "show"])->name('show');
-        Route::get('{id}/preview', [CampaignsController::class, "preview"])->name('preview');
-        Route::put('{id}/send', [CampaignDispatchController::class, "send"])->name('send');
-        Route::get('{id}/status', [CampaignsController::class, "status"])->name('status');
-        Route::post('{id}/test', [CampaignTestController::class, "handle"])->name('test');
-
-        Route::get(
-            '{id}/confirm-delete',
-            'CampaignDeleteController@confirm'
-        )->name('destroy.confirm');
-        Route::delete('', [CampaignDeleteController::class, 'destroy'])->name('destroy');
-
-        Route::get('{id}/duplicate', [CampaignDuplicateController::class, 'duplicate'])->name('duplicate');
-
-        Route::get('{id}/confirm-cancel', [CampaignCancellationController::class, 'confirm'])->name('confirm-cancel');
-        Route::post('{id}/cancel', [CampaignCancellationController::class, 'cancel'])->name('cancel');
-
-        Route::get('{id}/report', [CampaignReportsController::class, 'index'])->name('reports.index');
-        Route::get('{id}/report/recipients', [CampaignReportsController::class, 'recipients'])->name('reports.recipients');
-        Route::get('{id}/report/opens', [CampaignReportsController::class, 'opens'])->name('reports.opens');
-        Route::get('{id}/report/clicks', [CampaignReportsController::class, 'clicks'])->name('reports.clicks');
-        Route::get('{id}/report/unsubscribes', [CampaignReportsController::class, 'unsubscribes'])->name('reports.unsubscribes');
-        Route::get('{id}/report/bounces', [CampaignReportsController::class, 'bounces'])->name('reports.bounces');
-    });
-
-    // Tags
-    Route::resource('tags', TagsController::class)->except(['show']);
-
-    // Templates
-    Route::resource('templates', TemplatesController::class);
-
-    // Subscribers.
-    Route::resource('subscribers', SubscribersController::class);
-    Route::name('subscribers.')->prefix('subscribers')->namespace('Subscribers')->group(static function () {
-        Route::get('export', [SubscribersController::class, "export"])->name('export');
-        Route::get('import', [SubscribersImportController::class, "show"])->name('import');
-        Route::post('import', [SubscribersImportController::class, "store"])->name('import.store');
-    });
-
-    // Messages.
-    Route::name('messages.')->prefix('messages')->group(static function () {
-        Route::get('/', [MessagesController::class, "index"])->name('index');
-        Route::get('draft', [MessagesController::class, "draft"])->name('draft');
-        Route::get('{id}/show', [MessagesController::class, "show"])->name('show');
-        Route::post('send', [MessagesController::class, "send"])->name('send');
-        Route::delete('{id}/delete', [MessagesController::class, "delete"])->name('delete');
-        Route::post('send-selected', [MessagesController::class, "sendSelected"])->name('send-selected');
-    });
-
-    // Email Services.
-    Route::name('email_services.')->prefix('email-services')->group(static function () {
-        Route::get('/', [EmailServicesController::class, "index"])->name('index');
-        Route::get('create', [EmailServicesController::class, "create"])->name('create');
-        Route::get('type/{id}', [EmailServicesController::class, "emailServicesTypeAjax"])->name('ajax');
-        Route::post('/', [EmailServicesController::class, "store"])->name('store');
-        Route::get('{id}/edit', [EmailServicesController::class, "edit"])->name('edit');
-        Route::put('{id}', [EmailServicesController::class, "update"])->name('update');
-        Route::delete('{id}', [EmailServicesController::class, "delete"])->name('delete');
-
-        Route::get('{id}/test', [TestEmailServiceController::class, "create"])->name('test.create');
-        Route::post('{id}/test', [TestEmailServiceController::class, "store"])->name('test.store');
-    });
-
-});
 
 
 
 // public routes
+Route::
+        namespace('App\Http\Controllers')->group(static function () {
+            // Subscriptions
+            Route::name('subscriptions.')->prefix('subscriptions')->group(static function () {
+                Route::get('unsubscribe/{messageHash}', 'SubscriptionsController@unsubscribe')->name('unsubscribe');
+                Route::get('subscribe/{messageHash}', 'SubscriptionsController@subscribe')->name('subscribe');
+                Route::put('subscriptions/{messageHash}', 'SubscriptionsController@update')->name('update');
+            });
 
-// Subscriptions
-Route::name('subscriptions.')->prefix('subscriptions')->group(static function () {
-    Route::get('unsubscribe/{messageHash}', [SubscriptionsController::class, 'unsubscribe'])->name('unsubscribe');
-    Route::get('subscribe/{messageHash}', [SubscriptionsController::class, 'subscribe'])->name('subscribe');
-    Route::put('subscriptions/{messageHash}', [SubscriptionsController::class, 'update'])->name('update');
-});
-
-// Webview.
-Route::name('webview.')->prefix('webview')->group(static function () {
-    Route::get('{messageHash}', WebviewController::class)->name('show');
-});
+            // Webview.
+            Route::name('webview.')->prefix('webview')->group(static function () {
+                Route::get('{messageHash}', 'WebviewController@show')->name('show');
+            });
+        });

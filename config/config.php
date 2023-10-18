@@ -25,7 +25,7 @@ return [
     |
     */
     'auth' => [
-        'register' => env('ALLOW_REGISTER', true),
+        'register' => env('ALLOW_REGISTER', false),
         'password_reset' => env('ALLOW_PASSWORD_RESET', true),
     ],
 

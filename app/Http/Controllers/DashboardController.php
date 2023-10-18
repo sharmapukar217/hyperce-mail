@@ -44,7 +44,7 @@ class DashboardController extends Controller
     /**
      * @throws Exception
      */
-    public function __invoke(): View
+    public function index(): View
     {
         $workspaceId = HyperceMail::currentWorkspaceId();
         $completedCampaigns = $this->campaigns->completedCampaigns($workspaceId, ['status']);

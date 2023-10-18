@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Services;
 
 use Illuminate\Support\Arr;
+use Laravel\Prompts\Output\ConsoleOutput;
 
 class ResolverService
 {
     /** @var array */
     private $resolvers = [];
+
 
     public function setHeaderHtmlContentResolver(callable $callable): void
     {
@@ -41,23 +43,29 @@ class ResolverService
 
     public function setCurrentWorkspaceIdResolver(callable $callable): void
     {
+        $log = new ConsoleOutput();
+        $log->writeln("here:");
+
         $this->setResolver('workspace', $callable);
     }
 
     public function resolveCurrentWorkspaceId(): ?int
     {
         $resolver = $this->getResolver('workspace');
-        return 1; // TODO: Temporarily fix
-        // return $resolver();
+        return $resolver();
     }
 
     private function getResolver(string $resolverName): ?callable
     {
+        
         return Arr::get($this->resolvers, $resolverName);
     }
 
     private function setResolver(string $resolverName, callable $callable): void
     {
+        $log = new ConsoleOutput();
+        $log->writeln($resolverName);
+
         $this->resolvers[$resolverName] = $callable;
     }
 }

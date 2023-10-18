@@ -2,11 +2,19 @@
 
 namespace App\Providers;
 
+use App\Livewire\Setup;
+use App\Models\ApiToken;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
 
+use RuntimeException;
+use Livewire\Livewire;
+
+
 use App\Services\Helper;
-use App\Services\HyperceMail;
+use App\Services\HyperceMail as HyperceMailService;
+use App\Facades\HyperceMail;
 use App\Services\QuotaService;
 use App\Providers\ResolverProvider;
 use App\Traits\ResolvesDatabaseDriver;
@@ -73,7 +81,7 @@ class AppServiceProvider extends ServiceProvider
 
          // Facade.
          $this->app->bind('hypercemail', static function (Application $app) {
-            return $app->make(HyperceMail::class);
+            return $app->make(HyperceMailService::class);
        });
     }
 
@@ -82,6 +90,41 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        
+        Paginator::useBootstrap();
+
+        HyperceMail::setCurrentWorkspaceIdResolver(
+            static function () {
+                /** @var User $user */
+                $user = auth()->user();
+                $request = request();
+                $workspaceId = null;
+
+                if ($user && $user->currentWorkspaceId()) {
+                    $workspaceId = $user->currentWorkspaceId();
+                } else if ($request && (($apiToken = $request->bearerToken()) || ($apiToken = $request->get('api_token')))) {
+                    $workspaceId = ApiToken::resolveWorkspaceId($apiToken);
+                }
+
+                if (! $workspaceId) {
+                    throw new RuntimeException("Current Workspace ID Resolver must not return a null value.");
+                }
+
+                return $workspaceId;
+            }
+        );
+
+        HyperceMail::setSidebarHtmlContentResolver(
+            static function () {
+                return view('layouts.sidebar.manageUsersMenuItem')->render();
+            }
+        );
+
+        HyperceMail::setHeaderHtmlContentResolver(
+            static function () {
+                return view('layouts.header.userManagementHeader')->render();
+            }
+        );
+
+        Livewire::component('setup', Setup::class);
     }
 }

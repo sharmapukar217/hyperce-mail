@@ -30,7 +30,7 @@ class HyperceMail
      */
     public function currentWorkspaceId(): ?int
     {
-         return $this->app->make('hypercemail.resolver')->resolveCurrentWorkspaceId();
+        return $this->app->make('hypercemail.resolver')->resolveCurrentWorkspaceId();
     }
 
     /**

@@ -23,7 +23,7 @@ class WebviewController extends Controller
     /**
      * @throws Exception
      */
-    public function __invoke(string $messageHash): ViewContract
+    public function show(string $messageHash): ViewContract
     {
         /** @var Message $message */
         $message = Message::with('subscriber')->where('hash', $messageHash)->first();

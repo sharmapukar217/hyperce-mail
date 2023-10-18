@@ -1,9 +1,9 @@
 <?php
 
-namespace Ap\Http\Resources;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Ap\Http\Resources\Tag as TagResource;
+use App\Http\Resources\Tag as TagResource;
 
 class Subscriber extends JsonResource
 {
