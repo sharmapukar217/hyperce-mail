@@ -150,13 +150,13 @@ class EmailWebhookService
      */
     protected function unsubscribe(string $messageId, int $typeId): void
     {
-        $subscriberId = DB::table('sendportal_messages')->where('message_id', $messageId)->value('subscriber_id');
+        $subscriberId = DB::table('messages')->where('message_id', $messageId)->value('subscriber_id');
 
         if (!$subscriberId) {
             return;
         }
 
-        DB::table('sendportal_subscribers')->where('id', $subscriberId)->update([
+        DB::table('subscribers')->where('id', $subscriberId)->update([
             'unsubscribed_at' => now(),
             'unsubscribe_event_id' => $typeId,
             'updated_at' => now()

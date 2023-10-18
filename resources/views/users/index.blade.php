@@ -102,7 +102,7 @@
                     </div>
                     <div class="card-body">
 
-                        @if(config('sendportal-host.auth.register'))
+                        @if(config('config.auth.register'))
 
                             <form action="{{ route('users.invitations.store') }}" method="post">
 
@@ -123,7 +123,7 @@
 
                         @else
 
-                            <p class="empty-table-text">In order to invite users, you have to enable registration in the Sendportal configuration file.</p>
+                            <p class="empty-table-text">In order to invite users, you have to enable registration in the configuration file (ie: `config/config.php`).</p>
 
                         @endif
 
