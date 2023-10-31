@@ -18,10 +18,6 @@ Route::get('setup', 'SetupController@index')->name('setup');
 
 // Auth.
 Route::middleware('auth')->namespace('Auth')->group(static function () {
-    // verify
-    Route::get('email/verify', 'VerificationController@show')->name('verification.notice');
-    Route::post('email/resend', 'VerificationController@resend')->name('verification.resend');
-
     // Logout.
     Route::get('logout', "LoginController@logout");
     
