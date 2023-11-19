@@ -28,7 +28,7 @@ class Plan extends BaseModel
         'plan_id',
         'workspace_id',
         'enrolled_at',
-        'expired_at',
+        'expires_at',
     ];
 
     /** @var array */
