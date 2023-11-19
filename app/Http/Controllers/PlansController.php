@@ -41,19 +41,27 @@ class PlansController extends Controller
         $selectedPlanId = $request->get('plan_id');
         $workspaceId = HyperceMail::currentWorkspaceId();
 
-        // TODO: ADD EXPIRY DATE FROM FRONTEND
-        $result = Plan::updateOrInsert(["workspace_id"=>$workspaceId],[
-            "plan_id" => $selectedPlanId,
-            "enrolled_at" => $currentDate,
-            "expires_at" => $currentDate->addDays(14),
-        ]);
+        $existing = Plan::where("workspace_id", $workspaceId)->first();
 
-        if($result) {
+        if($existing) {
+            $existing->update([
+                "plan_id" => $selectedPlanId,
+                "enrolled_at" => $currentDate,
+                "expires_at" => $currentDate->addDays(14),
+            ]);
+
             return view('plans.index', [
                 "currentPlan" => $this->getCurrentPlan(),
                 "availablePlans" => $this->getAvailablePlans()
             ]);
         } else {
+            Plan::create([
+                "plan_id" => $selectedPlanId,
+                "enrolled_at" => $currentDate,
+                "workspace_id" => $workspaceId,
+                "expires_at" => $currentDate->addDays(14),
+            ]);
+            
             return redirect(route("dashboard"));
         }
     }
