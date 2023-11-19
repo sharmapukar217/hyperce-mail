@@ -43,6 +43,7 @@ class PlansController extends Controller
         // TODO: ADD EXPIRY DATE FROM FRONTEND
         Plan::updateOrInsert(["workspace_id"=>$workspaceId],[
             "plan_id" => $selectedPlanId,
+            "enrolled_at" => $currentDate,
             "expires_at" => $currentDate->addDays(14),
         ]);
 
