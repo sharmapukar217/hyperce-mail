@@ -38,6 +38,7 @@ return new class extends Migration
         Schema::create('plan_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('plan');
+            $table->timestamps();
         });
 
 	    $this->seedPlanTypes();
