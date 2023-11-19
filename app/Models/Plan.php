@@ -26,6 +26,9 @@ class Plan extends BaseModel
     /** @var array */
     protected $fillable = [
         'plan_id',
+        'workspace_id',
+        'enrolled_at',
+        'expired_at',
     ];
 
     /** @var array */
