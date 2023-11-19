@@ -2,6 +2,7 @@
 
 
 use App\Http\Middleware\OwnsCurrentWorkspace;
+use App\Http\Middleware\RequireValidPlan;
 use App\Http\Middleware\RequireWorkspace;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -14,12 +15,17 @@ Auth::routes([
 
 Route::get('setup', 'SetupController@index')->name('setup');
 
+Route::middleware(['verified',RequireWorkspace::class])->name('plans.')->prefix('plans')->group(static function () {
+    Route::get('/', 'PlansController@show')->name('show');
+    Route::post('/update', 'PlansController@update')->name('update');
+
+});
+
 // Auth.
 Route::middleware('auth')->namespace('Auth')->group(static function () {
     // Logout.
     Route::get('logout', "LoginController@logout");
-    
-    
+        
     // Profile
     Route::middleware('verified')->name('profile.')->prefix('profile')->group(static function () {
         Route::get('/', 'ProfileController@show')->name('show');
@@ -42,7 +48,7 @@ Route::middleware('auth')->namespace('Auth')->group(static function () {
 });
 
 
-Route::middleware(['auth', 'verified', RequireWorkspace::class])
+Route::middleware(['auth', 'verified', RequireValidPlan::class])
     ->group(static function () {
         // dashboard
         Route::get('/', "DashboardController@index")->name('dashboard');
