@@ -16,7 +16,7 @@ Auth::routes([
 Route::get('setup', 'SetupController@index')->name('setup');
 
 Route::middleware(['verified',RequireWorkspace::class])->name('plans.')->prefix('plans')->group(static function () {
-    Route::get('/dashboard', 'PlansController@show')->name('show');
+    Route::get('/', 'PlansController@show')->name('show');
     Route::post('/update', 'PlansController@update')->name('update');
 });
 
@@ -50,7 +50,7 @@ Route::middleware('auth')->namespace('Auth')->group(static function () {
 Route::middleware(['auth', 'verified', RequireValidPlan::class])
     ->group(static function () {
         // dashboard
-        Route::get('/', "DashboardController@index")->name('dashboard');
+        Route::get('/dashboard', "DashboardController@index")->name('dashboard');
 
         // Workspace Management.
         Route::resource('workspaces', 'Workspaces\WorkspacesController')->except(['create', 'show', 'destroy']);
