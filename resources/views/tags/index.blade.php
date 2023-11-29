@@ -21,6 +21,7 @@
             <table class="table">
                 <thead>
                 <tr>
+                    <th>{{ __('ID') }}</th>
                     <th>{{ __('Name') }}</th>
                     <th>{{ __('Subscribers') }}</th>
                     <th>{{ __('Actions') }}</th>
@@ -29,6 +30,7 @@
                 <tbody>
                 @forelse($tags as $tag)
                     <tr>
+                        <td>#{{ $tag->id }}</td>
                         <td>
                             <a href="{{ route('tags.edit', $tag->id) }}">
                                 {{ $tag->name }}
