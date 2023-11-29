@@ -16,7 +16,7 @@ Auth::routes([
 Route::get('setup', 'SetupController@index')->name('setup');
 
 Route::middleware(['verified',RequireWorkspace::class])->name('plans.')->prefix('plans')->group(static function () {
-    Route::get('/', 'PlansController@show')->name('show');
+    Route::get('/dashboard', 'PlansController@show')->name('show');
     Route::post('/update', 'PlansController@update')->name('update');
 });
 
