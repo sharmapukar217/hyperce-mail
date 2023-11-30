@@ -14,6 +14,6 @@ class UpgradeMigration extends Migration
             return $tableName;
         }
 
-        throw new RuntimeException('Could not find appropriate table for table name ' . $tableName);
+        throw new RuntimeException('Could not find appropriate table for table name '.$tableName);
     }
 }

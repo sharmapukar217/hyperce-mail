@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Messages;
 
-use App\Http\Controllers\Controller;
-use Exception;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
 use App\Facades\HyperceMail;
+use App\Http\Controllers\Controller;
 use App\Models\Message;
 use App\Repositories\Messages\MessageTenantRepositoryInterface;
 use App\Services\Content\MergeContentService;
 use App\Services\Content\MergeSubjectService;
 use App\Services\Messages\DispatchMessage;
+use Exception;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
-class MessagesController extends Controller 
+class MessagesController extends Controller
 {
     /** @var MessageTenantRepositoryInterface */
     protected $messageRepo;
@@ -102,7 +102,7 @@ class MessagesController extends Controller
      */
     public function send(): RedirectResponse
     {
-        if (!$message = $this->messageRepo->find(
+        if (! $message = $this->messageRepo->find(
             HyperceMail::currentWorkspaceId(),
             request('id'),
             ['subscriber']
@@ -129,7 +129,7 @@ class MessagesController extends Controller
      */
     public function delete(): RedirectResponse
     {
-        if (!$message = $this->messageRepo->find(
+        if (! $message = $this->messageRepo->find(
             HyperceMail::currentWorkspaceId(),
             request('id')
         )) {
@@ -162,7 +162,7 @@ class MessagesController extends Controller
             return redirect()->back()->withErrors(__('No messages selected'));
         }
 
-        if (!$messages = $this->messageRepo->getWhereIn(
+        if (! $messages = $this->messageRepo->getWhereIn(
             HyperceMail::currentWorkspaceId(),
             request('messages'),
             ['subscriber']

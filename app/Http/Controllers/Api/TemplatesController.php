@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
-use Exception;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Template\TemplateStoreRequest;
@@ -14,6 +11,9 @@ use App\Http\Requests\Api\Template\TemplateUpdateRequest;
 use App\Http\Resources\Template as TemplateResource;
 use App\Repositories\TemplateTenantRepository;
 use App\Services\Templates\TemplateService;
+use Exception;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class TemplatesController extends Controller
 {
@@ -39,7 +39,6 @@ class TemplatesController extends Controller
 
         return TemplateResource::collection($templates);
     }
-
 
     /**
      * @throws Exception

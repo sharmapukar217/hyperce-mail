@@ -20,9 +20,8 @@ class CreateMessages
     /**
      * CreateMessages handler
      *
-     * @param Campaign $campaign
-     * @param $next
      * @return Campaign
+     *
      * @throws \Exception
      */
     public function handle(Campaign $campaign, $next)
@@ -39,7 +38,6 @@ class CreateMessages
     /**
      * Handle a campaign where all subscribers have been selected
      *
-     * @param Campaign $campaign
      * @throws \Exception
      */
     protected function handleAllSubscribers(Campaign $campaign)
@@ -53,8 +51,6 @@ class CreateMessages
 
     /**
      * Loop through each tag
-     *
-     * @param Campaign $campaign
      */
     protected function handleTags(Campaign $campaign)
     {
@@ -65,11 +61,6 @@ class CreateMessages
 
     /**
      * Handle each tag
-     *
-     * @param Campaign $campaign
-     * @param Tag $tag
-     *
-     * @return void
      */
     protected function handleTag(Campaign $campaign, Tag $tag): void
     {
@@ -82,13 +73,10 @@ class CreateMessages
 
     /**
      * Dispatch the campaign to a given subscriber
-     *
-     * @param Campaign $campaign
-     * @param $subscribers
      */
     protected function dispatchToSubscriber(Campaign $campaign, $subscribers)
     {
-        \Log::info('- Number of subscribers in this chunk: ' . count($subscribers));
+        \Log::info('- Number of subscribers in this chunk: '.count($subscribers));
 
         foreach ($subscribers as $subscriber) {
             if (! $this->canSendToSubscriber($campaign->id, $subscriber->id)) {
@@ -101,19 +89,18 @@ class CreateMessages
 
     /**
      * Check if we can send to this subscriber
+     *
      * @todo check how this would impact on memory with 200k subscribers?
      *
-     * @param int $campaignId
-     * @param int $subscriberId
-     *
-     * @return bool
+     * @param  int  $campaignId
+     * @param  int  $subscriberId
      */
     protected function canSendToSubscriber($campaignId, $subscriberId): bool
     {
-        $key = $campaignId . '-' . $subscriberId;
+        $key = $campaignId.'-'.$subscriberId;
 
         if (in_array($key, $this->sentItems, true)) {
-            \Log::info('- Subscriber has already been sent a message campaign_id=' . $campaignId . ' subscriber_id=' . $subscriberId);
+            \Log::info('- Subscriber has already been sent a message campaign_id='.$campaignId.' subscriber_id='.$subscriberId);
 
             return false;
         }
@@ -125,9 +112,6 @@ class CreateMessages
 
     /**
      * Append a value to the sentItems
-     *
-     * @param string $value
-     * @return void
      */
     protected function appendSentItem(string $value): void
     {
@@ -136,9 +120,6 @@ class CreateMessages
 
     /**
      * Dispatch the message
-     *
-     * @param Campaign $campaign
-     * @param Subscriber $subscriber
      */
     protected function dispatch(Campaign $campaign, Subscriber $subscriber): void
     {
@@ -151,10 +132,6 @@ class CreateMessages
 
     /**
      * Dispatch a message now
-     *
-     * @param Campaign $campaign
-     * @param Subscriber $subscriber
-     * @return Message
      */
     protected function dispatchNow(Campaign $campaign, Subscriber $subscriber): Message
     {
@@ -163,13 +140,13 @@ class CreateMessages
         // and prevent dispatching the same message to the same subscriber
         // more than once
         if ($message = $this->findMessage($campaign, $subscriber)) {
-            \Log::info('Message has previously been created campaign=' . $campaign->id . ' subscriber=' . $subscriber->id);
+            \Log::info('Message has previously been created campaign='.$campaign->id.' subscriber='.$subscriber->id);
 
             return $message;
         }
 
         // the message doesn't exist, so we'll create and dispatch
-        \Log::info('Saving empty email message campaign=' . $campaign->id . ' subscriber=' . $subscriber->id);
+        \Log::info('Saving empty email message campaign='.$campaign->id.' subscriber='.$subscriber->id);
         $attributes = [
             'workspace_id' => $campaign->workspace_id,
             'subscriber_id' => $subscriber->id,
@@ -191,13 +168,9 @@ class CreateMessages
         return $message;
     }
 
-    /**
-     * @param Campaign $campaign
-     * @param Subscriber $subscriber
-     */
     protected function saveAsDraft(Campaign $campaign, Subscriber $subscriber)
     {
-        \Log::info('Saving message as draft campaign=' . $campaign->id . ' subscriber=' . $subscriber->id);
+        \Log::info('Saving message as draft campaign='.$campaign->id.' subscriber='.$subscriber->id);
 
         Message::firstOrCreate(
             [

@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
-use App\Facades\HyperceMail;
-use App\Models\Plan;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class VerificationController extends Controller
 {
@@ -29,7 +27,7 @@ class VerificationController extends Controller
     }
 
     protected function redirectTo(): string
-    {   
-        return route("dashboard");
+    {
+        return route('dashboard');
     }
 }

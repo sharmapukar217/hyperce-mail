@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Api\Template;
 
+use App\Facades\HyperceMail;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use App\Facades\HyperceMail;
 
 class TemplateStoreRequest extends FormRequest
 {

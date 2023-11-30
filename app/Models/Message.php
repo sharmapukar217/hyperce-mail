@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Carbon\Carbon;
-use Ramsey\Uuid\Uuid;
-use App\Facades\Helper;
 use Database\Factories\MessageFactory;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @property int $id
@@ -39,11 +38,9 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property Carbon|null $clicked_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @property EloquentCollection $failures
  * @property Subscriber $subscriber
  * @property Campaign $source // NOTE(david): this should be updated to a mixed type when Automations are added.
- *
  * @property-read string $source_string
  *
  * @method static MessageFactory factory
@@ -84,8 +81,6 @@ class Message extends BaseModel
 
     /**
      * The "booting" method of the model.
-     *
-     * @return void
      */
     protected static function boot(): void
     {
@@ -121,8 +116,6 @@ class Message extends BaseModel
 
     /**
      * Determine if this message is for an automation.
-     *
-     * @return bool
      */
     public function isAutomation(): bool
     {
@@ -131,8 +124,6 @@ class Message extends BaseModel
 
     /**
      * Determine if this message is for a campaign.
-     *
-     * @return bool
      */
     public function isCampaign(): bool
     {
@@ -141,8 +132,6 @@ class Message extends BaseModel
 
     /**
      * Return the string for the source_type.
-     *
-     * @return string|null
      */
     public function getSourceStringAttribute(): ?string
     {
@@ -150,8 +139,6 @@ class Message extends BaseModel
             return 'Campaign';
         }
 
-
         return null;
     }
 }
-

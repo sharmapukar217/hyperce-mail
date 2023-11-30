@@ -10,7 +10,6 @@ class StartCampaign
     /**
      * Mark the campaign as started in the database
      *
-     * @param Campaign $campaign
      * @return Campaign
      */
     public function handle(Campaign $campaign, $next)
@@ -22,9 +21,6 @@ class StartCampaign
 
     /**
      * Execute the database request
-     *
-     * @param Campaign $campaign
-     * @return Campaign
      */
     protected function markCampaignAsSending(Campaign $campaign): ?Campaign
     {

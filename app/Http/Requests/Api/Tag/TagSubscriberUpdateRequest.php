@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Api\Tag;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\CanAccessSubscriber;
+use Illuminate\Foundation\Http\FormRequest;
 
 class TagSubscriberUpdateRequest extends FormRequest
 {
@@ -13,7 +13,7 @@ class TagSubscriberUpdateRequest extends FormRequest
     {
         return [
             'subscribers' => ['array', 'required'],
-            'subscribers.*' => ['integer', new CanAccessSubscriber()]
+            'subscribers.*' => ['integer', new CanAccessSubscriber()],
         ];
     }
 }

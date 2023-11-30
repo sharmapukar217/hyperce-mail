@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Templates;
 
-use App\Http\Controllers\Controller;
-use Exception;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
 use App\Facades\HyperceMail;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Templates\TemplateStoreRequest;
 use App\Http\Requests\Templates\TemplateUpdateRequest;
 use App\Repositories\TemplateTenantRepository;
 use App\Services\Templates\TemplateService;
 use App\Traits\NormalizeTags;
+use Exception;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Throwable;
 
 class TemplatesController extends Controller

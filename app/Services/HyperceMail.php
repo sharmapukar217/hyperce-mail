@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Foundation\Application;
 
 class HyperceMail
 {
@@ -22,7 +22,7 @@ class HyperceMail
      */
     public function setCurrentWorkspaceIdResolver(callable $resolver): void
     {
-     $this->app->make('hypercemail.resolver')->setCurrentWorkspaceIdResolver($resolver);
+        $this->app->make('hypercemail.resolver')->setCurrentWorkspaceIdResolver($resolver);
     }
 
     /**

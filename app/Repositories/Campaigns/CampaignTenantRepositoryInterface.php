@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Repositories\Campaigns;
 
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Support\Collection;
 use App\Interfaces\BaseTenantInterface;
 use App\Models\Campaign;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection;
 
 interface CampaignTenantRepositoryInterface extends BaseTenantInterface
 {

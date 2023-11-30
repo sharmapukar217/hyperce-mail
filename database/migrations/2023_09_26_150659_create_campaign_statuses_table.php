@@ -18,11 +18,11 @@ return new class extends Migration
 
         DB::table('campaign_statuses')
             ->insert([
-               ['name' => 'Draft'],
-               ['name' => 'Queued'],
-               ['name' => 'Sending'],
-               ['name' => 'Sent'],
-	       ['name' => 'Cancelled'],
+                ['name' => 'Draft'],
+                ['name' => 'Queued'],
+                ['name' => 'Sending'],
+                ['name' => 'Sent'],
+                ['name' => 'Cancelled'],
             ]);
     }
 

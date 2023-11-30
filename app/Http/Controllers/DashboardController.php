@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use Carbon\CarbonPeriod;
-use Illuminate\View\View;
 use App\Facades\HyperceMail;
-use App\Services\Campaigns\CampaignStatisticsService;
-use App\Repositories\Messages\MessageTenantRepositoryInterface;
 use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
+use App\Repositories\Messages\MessageTenantRepositoryInterface;
 use App\Repositories\Subscribers\SubscriberTenantRepositoryInterface;
+use App\Services\Campaigns\CampaignStatisticsService;
+use Carbon\CarbonPeriod;
+use Exception;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {

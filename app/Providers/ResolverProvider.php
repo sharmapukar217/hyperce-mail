@@ -9,7 +9,6 @@ use Illuminate\Support\ServiceProvider;
 
 class ResolverProvider extends ServiceProvider
 {
-
     /**
      * Register any application services.
      *

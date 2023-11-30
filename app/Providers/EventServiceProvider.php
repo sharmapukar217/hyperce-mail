@@ -2,25 +2,24 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
-
 use App\Events\MessageDispatchEvent;
 use App\Events\SubscriberAddedEvent;
 use App\Events\Webhooks\MailgunWebhookReceived;
 use App\Events\Webhooks\MailjetWebhookReceived;
+use App\Events\Webhooks\PostalWebhookReceived;
 use App\Events\Webhooks\PostmarkWebhookReceived;
 use App\Events\Webhooks\SendgridWebhookReceived;
 use App\Events\Webhooks\SesWebhookReceived;
-use App\Events\Webhooks\PostalWebhookReceived;
 use App\Listeners\MessageDispatchHandler;
 use App\Listeners\Webhooks\HandleMailgunWebhook;
 use App\Listeners\Webhooks\HandleMailjetWebhook;
+use App\Listeners\Webhooks\HandlePostalWebhook;
 use App\Listeners\Webhooks\HandlePostmarkWebhook;
 use App\Listeners\Webhooks\HandleSendgridWebhook;
 use App\Listeners\Webhooks\HandleSesWebhook;
-use App\Listeners\Webhooks\HandlePostalWebhook;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -43,13 +42,13 @@ class EventServiceProvider extends ServiceProvider
             HandleSendgridWebhook::class,
         ],
         SesWebhookReceived::class => [
-            HandleSesWebhook::class
+            HandleSesWebhook::class,
         ],
         MailjetWebhookReceived::class => [
-            HandleMailjetWebhook::class
+            HandleMailjetWebhook::class,
         ],
         PostalWebhookReceived::class => [
-            HandlePostalWebhook::class
+            HandlePostalWebhook::class,
         ],
         SubscriberAddedEvent::class => [
             // ...

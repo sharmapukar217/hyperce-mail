@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services\Templates;
 
-use Exception;
 use App\Models\Template;
-use App\Traits\NormalizeTags;
 use App\Repositories\TemplateTenantRepository;
+use App\Traits\NormalizeTags;
+use Exception;
 use Illuminate\Validation\ValidationException;
 
 class TemplateService
@@ -50,7 +50,7 @@ class TemplateService
         $template = $this->templates->find($workspaceId, $templateId);
 
         throw_if($template->isInUse(), ValidationException::withMessages([
-            'template' => __('Cannot delete a template that has been used.')
+            'template' => __('Cannot delete a template that has been used.'),
         ]));
 
         return $this->templates->destroy($workspaceId, $templateId);

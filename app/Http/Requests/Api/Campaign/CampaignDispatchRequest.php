@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Api\Campaign;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Validator;
 use App\Facades\HyperceMail;
 use App\Models\Campaign;
 use App\Models\CampaignStatus;
 use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
 class CampaignDispatchRequest extends FormRequest
 {
@@ -35,8 +35,6 @@ class CampaignDispatchRequest extends FormRequest
     }
 
     /**
-     * @param array $relations
-     * @return Campaign
      * @throws \Exception
      */
     public function getCampaign(array $relations = []): Campaign

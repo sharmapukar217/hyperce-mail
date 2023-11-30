@@ -2,11 +2,10 @@
 
 namespace App\Services\Subscribers;
 
-use Exception;
-use Illuminate\Support\Arr;
-
 use App\Models\Subscriber;
 use App\Repositories\Subscribers\SubscriberTenantRepositoryInterface;
+use Exception;
+use Illuminate\Support\Arr;
 
 class ImportSubscriberService
 {
@@ -25,15 +24,15 @@ class ImportSubscriberService
     {
         $subscriber = null;
 
-        if (!empty(Arr::get($data, 'id'))) {
+        if (! empty(Arr::get($data, 'id'))) {
             $subscriber = $this->subscribers->findBy($workspaceId, 'id', $data['id'], ['tags']);
         }
 
-        if (!$subscriber) {
+        if (! $subscriber) {
             $subscriber = $this->subscribers->findBy($workspaceId, 'email', Arr::get($data, 'email'), ['tags']);
         }
 
-        if (!$subscriber) {
+        if (! $subscriber) {
             $subscriber = $this->subscribers->store($workspaceId, Arr::except($data, ['id', 'tags']));
         }
 

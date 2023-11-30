@@ -1,42 +1,41 @@
 <?php
 
+use App\Models\EmailServiceType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\EmailServiceType;
 
 return new class extends Migration
 {
-
     protected function seedEmailServiceTypes()
     {
         $serviceTypes = [
             [
                 'id' => EmailServiceType::SES,
-                'name' => 'SES'
+                'name' => 'SES',
             ],
             [
                 'id' => EmailServiceType::SENDGRID,
-                'name' => 'SendGrid'
+                'name' => 'SendGrid',
             ],
             [
                 'id' => EmailServiceType::MAILGUN,
-                'name' => 'Mailgun'
+                'name' => 'Mailgun',
             ],
             [
                 'id' => EmailServiceType::POSTMARK,
-                'name' => 'Postmark'
+                'name' => 'Postmark',
             ],
-	    [
-		'id'=> EmailServiceType::MAILJET,
-		'name' => 'Mailjet',
-	    ],
-	    [
-                'id'=> EmailServiceType::SMTP,
+            [
+                'id' => EmailServiceType::MAILJET,
+                'name' => 'Mailjet',
+            ],
+            [
+                'id' => EmailServiceType::SMTP,
                 'name' => 'SMTP',
             ],
-	    [
-                'id'=> EmailServiceType::POSTAL,
+            [
+                'id' => EmailServiceType::POSTAL,
                 'name' => 'Postal',
             ],
         ];
@@ -46,7 +45,7 @@ return new class extends Migration
                 ->insert(
                     $type + [
                         'created_at' => now(),
-                        'updated_at' => now()
+                        'updated_at' => now(),
                     ]
                 );
         }
@@ -63,9 +62,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-	$this->seedEmailServiceTypes();
+        $this->seedEmailServiceTypes();
 
-	 Schema::create('email_services', function (Blueprint $table) {
+        Schema::create('email_services', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('workspace_id')->index();
             $table->string('name')->nullable();
@@ -83,6 +82,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('email_services');
-	Schema::dropIfExists('email_service_types');
+        Schema::dropIfExists('email_service_types');
     }
 };

@@ -32,7 +32,6 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property Carbon|null $scheduled_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @property Collection $tags
  * @property CampaignStatus $status
  * @property Template|null $template
@@ -41,7 +40,6 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property Collection $sent_messages
  * @property Collection $opens
  * @property Collection $clicks
- *
  * @property-read int $active_subscriber_count_attribute
  * @property-read int $sent_count
  * @property-read int $unsent_count
@@ -64,7 +62,6 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  */
 class Campaign extends BaseModel
 {
-
     // NOTE(david): we require this because of namespace issues when resolving factories from models
     // not in the default `App\Models` namespace.
     protected static function newFactory()
@@ -105,6 +102,7 @@ class Campaign extends BaseModel
     {
         return $this->belongsToMany(Tag::class, 'campaign_tag')->withTimestamps();
     }
+
     /**
      * Status of the campaign.
      */
@@ -165,7 +163,7 @@ class Campaign extends BaseModel
     {
         return Subscriber::where('workspace_id', $this->workspace_id)
             ->whereNull('unsubscribed_at')
-            ->when(!$this->send_to_all, function (Builder $query) {
+            ->when(! $this->send_to_all, function (Builder $query) {
                 $query->whereHas('tags', function (Builder $subQuery) {
                     $subQuery->whereIn('tags.id', $this->tags->pluck('id'));
                 });
@@ -181,7 +179,7 @@ class Campaign extends BaseModel
     public function getUnsentCountAttribute(): int
     {
         if ($this->messages->count()) {
-            return ($this->messages->count() - $this->sent_count);
+            return $this->messages->count() - $this->sent_count;
         }
 
         return $this->active_subscriber_count;
@@ -192,20 +190,21 @@ class Campaign extends BaseModel
         $value = $this->sent_count;
 
         if ($value > 999999) {
-            return round($value / 1000000) . 'm';
+            return round($value / 1000000).'m';
         }
 
         if ($value > 9999 && $value <= 999999) {
-            return round($value / 1000) . 'k';
+            return round($value / 1000).'k';
         }
 
-        return (string)$value;
+        return (string) $value;
     }
 
     /**
      * Get the campaigns's open ratio as an attribute.
      *
      * @return float|int
+     *
      * @todo this needs to be refactored, because its running a query per row when list the campaigns
      */
     public function getOpenRatioAttribute()
@@ -221,6 +220,7 @@ class Campaign extends BaseModel
      * Get the campaigns's click ratio as an attribute.
      *
      * @return float|int
+     *
      * @todo this needs to be refactored, because its running a query per row when list the campaigns
      */
     public function getClickRatioAttribute()
@@ -236,6 +236,7 @@ class Campaign extends BaseModel
      * Get the campaigns's click ratio as an attribute.
      *
      * @return float|int
+     *
      * @todo this needs to be refactored, because its running a query per row when list the campaigns
      */
     public function getBounceRatioAttribute()
@@ -312,7 +313,7 @@ class Campaign extends BaseModel
      */
     public function getTotalOpenCountAttribute(): int
     {
-        return (int)$this->opens()->sum('open_count');
+        return (int) $this->opens()->sum('open_count');
     }
 
     /**
@@ -328,20 +329,20 @@ class Campaign extends BaseModel
      */
     public function getTotalClickCountAttribute(): int
     {
-        return (int)$this->clicks()->sum('click_count');
+        return (int) $this->clicks()->sum('click_count');
     }
 
     public function formatCount(int $count): string
     {
         if ($count > 999999) {
-            return round($count / 1000000) . 'm';
+            return round($count / 1000000).'m';
         }
 
         if ($count > 9999 && $count <= 999999) {
-            return round($count / 1000) . 'k';
+            return round($count / 1000).'k';
         }
 
-        return (string)$count;
+        return (string) $count;
     }
 
     public function getActionRatio(int $actionCount, int $sentCount)

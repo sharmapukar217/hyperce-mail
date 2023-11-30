@@ -2,11 +2,11 @@
 
 namespace App\Events;
 
+use App\Models\Message;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Message;
 
 class MessageDispatchEvent
 {
@@ -19,8 +19,6 @@ class MessageDispatchEvent
 
     /**
      * MessageDispatchEvent constructor
-     *
-     * @param Message $message
      */
     public function __construct(Message $message)
     {

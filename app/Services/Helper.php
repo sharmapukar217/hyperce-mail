@@ -6,17 +6,15 @@ use Carbon\Carbon;
 
 class Helper
 {
-
     /**
      * Display a given date in the active user's timezone.
      *
-     * @param mixed $date
-     * @param string $timezone
+     * @param  mixed  $date
      * @return mixed
      */
     public function displayDate($date, string $timezone = null)
     {
-        if (!$date) {
+        if (! $date) {
             return null;
         }
 

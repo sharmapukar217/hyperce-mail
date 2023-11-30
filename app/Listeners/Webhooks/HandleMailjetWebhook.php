@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Listeners\Webhooks;
 
-use Carbon\Carbon;
-use RuntimeException;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Events\Webhooks\MailjetWebhookReceived;
 use App\Services\Webhooks\EmailWebhookService;
+use Carbon\Carbon;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
+use RuntimeException;
 
 class HandleMailjetWebhook implements ShouldQueue
 {
@@ -26,7 +26,6 @@ class HandleMailjetWebhook implements ShouldQueue
     }
 
     /**
-     * @param MailjetWebhookReceived $event
      * @see https://dev.mailjet.com/email/guides/webhooks/#overview
      */
     public function handle(MailjetWebhookReceived $event): void
@@ -154,6 +153,7 @@ class HandleMailjetWebhook implements ShouldQueue
 
     /**
      * Determine if the bounce is permanent
+     *
      * @see https://dev.mailjet.com/email/guides/webhooks/#possible-values-for-errors
      */
     private function resolveBounceTypePermanent(string $bounceType): bool

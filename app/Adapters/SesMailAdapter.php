@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Adapters;
 
+use App\Services\Messages\MessageTrackingOptions;
+use App\Traits\ThrottlesSending;
 use Aws\Result;
 use Aws\Ses\SesClient;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Arr;
-use App\Services\Messages\MessageTrackingOptions;
-use App\Traits\ThrottlesSending;
 
 class SesMailAdapter extends BaseMailAdapter
 {
@@ -25,9 +25,9 @@ class SesMailAdapter extends BaseMailAdapter
     {
         // TODO(david): It isn't clear whether it is possible to set per-message tracking for SES.
 
-        $result = $this->throttleSending(function () use ($fromEmail, $fromName, $toEmail, $subject, $trackingOptions, $content) {
+        $result = $this->throttleSending(function () use ($fromEmail, $fromName, $toEmail, $subject, $content) {
             return $this->resolveClient()->sendEmail([
-                'Source' => $fromName . ' <' . $fromEmail . '>',
+                'Source' => $fromName.' <'.$fromEmail.'>',
 
                 'Destination' => [
                     'ToAddresses' => [$toEmail],
@@ -64,7 +64,7 @@ class SesMailAdapter extends BaseMailAdapter
             'credentials' => [
                 'key' => Arr::get($this->config, 'key'),
                 'secret' => Arr::get($this->config, 'secret'),
-            ]
+            ],
         ]);
 
         return $this->client;

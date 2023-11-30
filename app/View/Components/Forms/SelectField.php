@@ -15,7 +15,7 @@ class SelectField extends Component
     /** @var string */
     public $label;
 
-    /** @var array|Collection  */
+    /** @var array|Collection */
     public $options;
 
     /** @var null */
@@ -27,11 +27,8 @@ class SelectField extends Component
     /**
      * Create the component instance.
      *
-     * @param string $name
-     * @param string $label
-     * @param array $options
-     * @param null $value
-     * @param bool $multiple
+     * @param  array  $options
+     * @param  null  $value
      */
     public function __construct(string $name, string $label = '', $options = [], $value = null, bool $multiple = false)
     {
@@ -42,10 +39,6 @@ class SelectField extends Component
         $this->multiple = $multiple;
     }
 
-    /**
-     * @param $key
-     * @return bool
-     */
     public function isSelected($key): bool
     {
         if ($this->multiple) {

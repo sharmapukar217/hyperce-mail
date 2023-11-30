@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Campaigns;
 
-use Carbon\Carbon;
-use Exception;
-use Illuminate\Http\RedirectResponse;
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Campaigns\CampaignDispatchRequest;
 use App\Interfaces\QuotaServiceInterface;
 use App\Models\CampaignStatus;
 use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 
 class CampaignDispatchController extends Controller
 {
@@ -45,7 +45,7 @@ class CampaignDispatchController extends Controller
             return redirect()->route('campaigns.status', $id);
         }
 
-        if (!$campaign->email_service_id) {
+        if (! $campaign->email_service_id) {
             return redirect()->route('campaigns.edit', $id)
                 ->withErrors(__('Please select an Email Service'));
         }

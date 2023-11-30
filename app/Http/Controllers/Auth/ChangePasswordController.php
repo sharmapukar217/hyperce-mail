@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\View\View;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ChangePasswordRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 class ChangePasswordController extends Controller
 {
@@ -20,7 +20,7 @@ class ChangePasswordController extends Controller
     public function update(ChangePasswordRequest $request): RedirectResponse
     {
         $request->user()->update([
-            'password'=> Hash::make($request->password)
+            'password' => Hash::make($request->password),
         ]);
 
         return redirect()->route('profile.show')

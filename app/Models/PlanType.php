@@ -7,7 +7,9 @@ class PlanType extends BaseModel
     protected $table = 'plan_types';
 
     public const FREE = 1;
+
     public const BASIC = 2;
+
     public const PRO = 3;
 
     /** @var array */

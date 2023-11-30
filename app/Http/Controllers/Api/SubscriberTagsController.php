@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
-use Exception;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Subscriber\SubscriberTagDestroyRequest;
@@ -14,6 +12,8 @@ use App\Http\Requests\Api\Subscriber\SubscriberTagUpdateRequest;
 use App\Http\Resources\Tag as TagResource;
 use App\Repositories\Subscribers\SubscriberTenantRepositoryInterface;
 use App\Services\Subscribers\Tags\ApiSubscriberTagService;
+use Exception;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class SubscriberTagsController extends Controller
 {

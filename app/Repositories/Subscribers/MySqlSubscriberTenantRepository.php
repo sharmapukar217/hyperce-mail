@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class MySqlSubscriberTenantRepository extends BaseSubscriberTenantRepository
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getGrowthChartData(CarbonPeriod $period, int $workspaceId): array
     {

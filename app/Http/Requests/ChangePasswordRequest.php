@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 
 class ChangePasswordRequest extends FormRequest
 {
@@ -35,8 +35,8 @@ class ChangePasswordRequest extends FormRequest
             ],
             'password' => [
                 'required',
-                'confirmed'
-            ]
+                'confirmed',
+            ],
         ];
     }
 }

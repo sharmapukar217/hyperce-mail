@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use Exception;
-use RuntimeException;
-use Illuminate\Support\Arr;
 use App\Interfaces\BaseTenantInterface;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
+use RuntimeException;
 
 abstract class BaseTenantRepository implements BaseTenantInterface
 {
@@ -44,11 +44,10 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Return all records
      *
-     * @param int $workspaceId
-     * @param string $orderBy
-     * @param array $relations
-     * @param array $parameters
+     * @param  int  $workspaceId
+     * @param  string  $orderBy
      * @return mixed
+     *
      * @throws Exception
      */
     public function all($workspaceId, $orderBy = 'id', array $relations = [], array $parameters = [])
@@ -67,12 +66,11 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Return paginated items
      *
-     * @param int $workspaceId
-     * @param string $orderBy
-     * @param array $relations
-     * @param int $paginate
-     * @param array $parameters
+     * @param  int  $workspaceId
+     * @param  string  $orderBy
+     * @param  int  $paginate
      * @return mixed
+     *
      * @throws Exception
      */
     public function paginate($workspaceId, $orderBy = 'name', array $relations = [], $paginate = 25, array $parameters = [])
@@ -99,10 +97,10 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Get many records by a field and value
      *
-     * @param int $workspaceId
-     * @param array $parameters
-     * @param array $relations
+     * @param  int  $workspaceId
+     * @param  array  $parameters
      * @return mixed
+     *
      * @throws Exception
      */
     public function getBy($workspaceId, $parameters, array $relations = [])
@@ -120,10 +118,11 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * List all records
      *
-     * @param int $workspaceId
-     * @param string $fieldName
-     * @param string $fieldId
+     * @param  int  $workspaceId
+     * @param  string  $fieldName
+     * @param  string  $fieldId
      * @return mixed
+     *
      * @throws Exception
      */
     public function pluck($workspaceId, $fieldName = 'name', $fieldId = 'id')
@@ -137,12 +136,13 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * List all records matching a field's value
      *
-     * @param int $workspaceId
-     * @param string $field
-     * @param mixed $value
-     * @param string $listFieldName
-     * @param string $listFieldId
+     * @param  int  $workspaceId
+     * @param  string  $field
+     * @param  mixed  $value
+     * @param  string  $listFieldName
+     * @param  string  $listFieldId
      * @return mixed
+     *
      * @throws Exception
      */
     public function pluckBy($workspaceId, $field, $value, $listFieldName = 'name', $listFieldId = 'id')
@@ -161,10 +161,10 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Find a single record
      *
-     * @param int $workspaceId
-     * @param int $id
-     * @param array $relations
+     * @param  int  $workspaceId
+     * @param  int  $id
      * @return mixed
+     *
      * @throws Exception
      */
     public function find($workspaceId, $id, array $relations = [])
@@ -175,11 +175,11 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Find a single record by a field and value
      *
-     * @param int $workspaceId
-     * @param string $field
-     * @param mixed $value
-     * @param array $relations
+     * @param  int  $workspaceId
+     * @param  string  $field
+     * @param  mixed  $value
      * @return mixed
+     *
      * @throws Exception
      */
     public function findBy($workspaceId, $field, $value, array $relations = [])
@@ -193,10 +193,9 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Find a single record by multiple fields
      *
-     * @param int $workspaceId
-     * @param array $data
-     * @param array $relations
+     * @param  int  $workspaceId
      * @return mixed
+     *
      * @throws Exception
      */
     public function findByMany($workspaceId, array $data, array $relations = [])
@@ -213,10 +212,9 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Find multiple models
      *
-     * @param int $workspaceId
-     * @param array $ids
-     * @param array $relations
+     * @param  int  $workspaceId
      * @return mixed
+     *
      * @throws Exception
      */
     public function getWhereIn($workspaceId, array $ids, array $relations = [])
@@ -229,9 +227,9 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Create a new record
      *
-     * @param int $workspaceId
-     * @param array $data
+     * @param  int  $workspaceId
      * @return mixed
+     *
      * @throws Exception
      */
     public function store($workspaceId, array $data)
@@ -246,10 +244,10 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Update the model instance
      *
-     * @param int $workspaceId
-     * @param int $id
-     * @param array $data
+     * @param  int  $workspaceId
+     * @param  int  $id
      * @return mixed
+     *
      * @throws Exception
      */
     public function update($workspaceId, $id, array $data)
@@ -264,9 +262,8 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Save the model
      *
-     * @param int $workspaceId
-     * @param mixed $instance
-     * @param array $data
+     * @param  int  $workspaceId
+     * @param  mixed  $instance
      * @return mixed
      */
     protected function executeSave($workspaceId, $instance, array $data)
@@ -283,9 +280,10 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Delete a record
      *
-     * @param int $workspaceId
-     * @param int $id
+     * @param  int  $workspaceId
+     * @param  int  $id
      * @return mixed
+     *
      * @throws Exception
      */
     public function destroy($workspaceId, $id)
@@ -298,7 +296,6 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Count of all records
      *
-     * @return int
      * @throws Exception
      */
     public function count(): int
@@ -307,19 +304,20 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getModelName(): string
     {
-        if (!$this->modelName) {
-            throw new RuntimeException('Model has not been set in ' . get_called_class());
+        if (! $this->modelName) {
+            throw new RuntimeException('Model has not been set in '.get_called_class());
         }
 
         return $this->modelName;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
      * @throws Exception
      */
     public function getQueryBuilder(int $workspaceId): Builder
@@ -329,7 +327,7 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getNewInstance()
     {
@@ -341,8 +339,7 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Parse the order by data
      *
-     * @param string $orderBy
-     * @return void
+     * @param  string  $orderBy
      */
     protected function parseOrder($orderBy): void
     {
@@ -360,7 +357,7 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Set the order by field
      *
-     * @param string $orderBy
+     * @param  string  $orderBy
      * @return void
      */
     public function setOrderBy($orderBy)
@@ -381,7 +378,7 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Set the order direction
      *
-     * @param string $orderDirection
+     * @param  string  $orderDirection
      * @return void
      */
     public function setOrderDirection($orderDirection)
@@ -402,8 +399,8 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Set the tenant key when saving data
      *
-     * @param array $data
      * @return void
+     *
      * @throws Exception If Tenant value is found in data.
      */
     protected function checkTenantData(array $data)
@@ -423,12 +420,10 @@ abstract class BaseTenantRepository implements BaseTenantInterface
         return $this->tenantKey;
     }
 
-
     /**
      * Set the model's boolean fields from the input data
      *
-     * @param mixed $instance
-     * @param array $data
+     * @param  mixed  $instance
      * @return array
      */
     protected function setBooleanFields($instance, array $data)
@@ -443,7 +438,7 @@ abstract class BaseTenantRepository implements BaseTenantInterface
     /**
      * Retrieve the boolean fields from the model
      *
-     * @param mixed $instance
+     * @param  mixed  $instance
      * @return array
      */
     protected function getModelBooleanFields($instance)

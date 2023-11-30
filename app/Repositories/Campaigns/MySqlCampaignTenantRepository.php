@@ -9,7 +9,7 @@ use App\Models\Campaign;
 class MySqlCampaignTenantRepository extends BaseCampaignTenantRepository
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getAverageTimeToOpen(Campaign $campaign): string
     {
@@ -21,7 +21,7 @@ class MySqlCampaignTenantRepository extends BaseCampaignTenantRepository
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getAverageTimeToClick(Campaign $campaign): string
     {

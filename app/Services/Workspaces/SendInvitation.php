@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Services\Workspaces;
 
 use App\Models\Invitation;
-use App\Models\Workspace;
 use App\Models\User;
+use App\Models\Workspace;
 use Exception;
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Mail;
@@ -53,7 +53,7 @@ class SendInvitation
     /**
      * @throws Exception
      */
-    protected function createInvitation(Workspace $workspace, string $email, string $role, ?User $existingUser = null): Invitation
+    protected function createInvitation(Workspace $workspace, string $email, string $role, User $existingUser = null): Invitation
     {
         $invitationData = [
             'id' => Uuid::uuid4(),

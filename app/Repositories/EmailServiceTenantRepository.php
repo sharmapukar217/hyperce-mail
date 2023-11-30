@@ -7,7 +7,6 @@ use App\Models\EmailServiceType;
 
 class EmailServiceTenantRepository extends BaseTenantRepository
 {
-
     /**
      * @var string
      */
@@ -22,7 +21,6 @@ class EmailServiceTenantRepository extends BaseTenantRepository
     }
 
     /**
-     * @param $emailServiceTypeId
      * @return mixed
      */
     public function findType($emailServiceTypeId)
@@ -31,7 +29,6 @@ class EmailServiceTenantRepository extends BaseTenantRepository
     }
 
     /**
-     * @param $emailServiceTypeId
      * @return array
      */
     public function findSettings($emailServiceTypeId)

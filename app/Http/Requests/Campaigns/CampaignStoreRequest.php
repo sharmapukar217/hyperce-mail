@@ -14,19 +14,16 @@ class CampaignStoreRequest extends FormRequest
         return $this->getRules();
     }
 
-    /**
-     * @return array
-     */
     protected function getRules(): array
     {
         return [
             'name' => [
                 'required',
-                'max:255'
+                'max:255',
             ],
             'subject' => [
                 'required',
-                'max:255'
+                'max:255',
             ],
             'from_name' => [
                 'required',
@@ -51,11 +48,11 @@ class CampaignStoreRequest extends FormRequest
             ],
             'is_open_tracking' => [
                 'boolean',
-                'nullable'
+                'nullable',
             ],
             'is_click_tracking' => [
                 'boolean',
-                'nullable'
+                'nullable',
             ],
         ];
     }

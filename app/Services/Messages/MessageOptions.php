@@ -24,9 +24,6 @@ class MessageOptions
     /** @var MessageTrackingOptions */
     private $trackingOptions;
 
-    /**
-     * @return string
-     */
     public function getTo(): string
     {
         return $this->to;
@@ -39,9 +36,6 @@ class MessageOptions
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getFromEmail(): string
     {
         return $this->fromEmail;
@@ -54,9 +48,6 @@ class MessageOptions
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getFromName(): string
     {
         return $this->fromName;

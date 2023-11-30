@@ -1,9 +1,9 @@
 <?php
 
+use App\Models\UnsubscribeEventType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\UnsubscribeEventType;
 
 return new class extends Migration
 {
@@ -17,15 +17,15 @@ return new class extends Migration
             $table->string('name');
         });
 
-	$types = [
+        $types = [
             UnsubscribeEventType::BOUNCE => 'Bounce',
             UnsubscribeEventType::COMPLAINT => 'Complaint',
             UnsubscribeEventType::MANUAL_BY_ADMIN => 'Manual by Admin',
             UnsubscribeEventType::MANUAL_BY_SUBSCRIBER => 'Manual by Subscriber',
         ];
 
-	foreach ($types as $id => $name) {
-            DB::table('unsubscribe_event_types')->insert([ 'id' => $id, 'name' => $name ]);
+        foreach ($types as $id => $name) {
+            DB::table('unsubscribe_event_types')->insert(['id' => $id, 'name' => $name]);
         }
     }
 

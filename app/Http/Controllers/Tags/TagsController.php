@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Tags;
 
-use Exception;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
-
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
-use App\Repositories\TagTenantRepository;
 use App\Http\Requests\Tags\TagStoreRequest;
 use App\Http\Requests\Tags\TagUpdateRequest;
+use App\Repositories\TagTenantRepository;
+use Exception;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class TagsController extends Controller
 {

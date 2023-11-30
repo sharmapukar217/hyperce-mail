@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Campaigns;
 
-use Exception;
-use Illuminate\Contracts\View\View as ViewContract;
-use Illuminate\Http\RedirectResponse;
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Campaigns\CampaignStoreRequest;
@@ -17,6 +14,9 @@ use App\Repositories\Subscribers\SubscriberTenantRepositoryInterface;
 use App\Repositories\TagTenantRepository;
 use App\Repositories\TemplateTenantRepository;
 use App\Services\Campaigns\CampaignStatisticsService;
+use Exception;
+use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Http\RedirectResponse;
 
 class CampaignsController extends Controller
 {
@@ -96,6 +96,7 @@ class CampaignsController extends Controller
         $emailServices = $this->emailServices->all(HyperceMail::currentWorkspaceId(), 'id', ['type'])
             ->map(static function (EmailService $emailService) {
                 $emailService->formatted_name = "{$emailService->name} ({$emailService->type->name})";
+
                 return $emailService;
             });
 
@@ -133,6 +134,7 @@ class CampaignsController extends Controller
         $emailServices = $this->emailServices->all($workspaceId, 'id', ['type'])
             ->map(static function (EmailService $emailService) {
                 $emailService->formatted_name = "{$emailService->name} ({$emailService->type->name})";
+
                 return $emailService;
             });
         $templates = [null => '- None -'] + $this->templates->pluck($workspaceId);
@@ -157,6 +159,7 @@ class CampaignsController extends Controller
 
     /**
      * @return RedirectResponse|ViewContract
+     *
      * @throws Exception
      */
     public function preview(int $id)
@@ -164,7 +167,7 @@ class CampaignsController extends Controller
         $campaign = $this->campaigns->find(HyperceMail::currentWorkspaceId(), $id);
         $subscriberCount = $this->subscribers->countActive(HyperceMail::currentWorkspaceId());
 
-        if (!$campaign->draft) {
+        if (! $campaign->draft) {
             return redirect()->route('campaigns.status', $id);
         }
 
@@ -175,6 +178,7 @@ class CampaignsController extends Controller
 
     /**
      * @return RedirectResponse|ViewContract
+     *
      * @throws Exception
      */
     public function status(int $id)
@@ -201,11 +205,11 @@ class CampaignsController extends Controller
     {
         $checkboxFields = [
             'is_open_tracking',
-            'is_click_tracking'
+            'is_click_tracking',
         ];
 
         foreach ($checkboxFields as $checkboxField) {
-            if (!isset($input[$checkboxField])) {
+            if (! isset($input[$checkboxField])) {
                 $input[$checkboxField] = false;
             }
         }

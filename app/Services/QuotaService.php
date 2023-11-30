@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
 use App\Adapters\BaseMailAdapter;
 use App\Factories\MailAdapterFactory;
 use App\Interfaces\QuotaServiceInterface;
 use App\Models\EmailService;
 use App\Models\EmailServiceType;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 
 class QuotaService implements QuotaServiceInterface
 {
@@ -61,7 +61,7 @@ class QuotaService implements QuotaServiceInterface
 
         $sent = Arr::get($quota, 'SentLast24Hours');
 
-        $remaining = (int)floor($limit - $sent);
+        $remaining = (int) floor($limit - $sent);
 
         return $messageCount > $remaining;
     }

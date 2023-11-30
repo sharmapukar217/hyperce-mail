@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services\Subscribers;
 
-use Exception;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use App\Events\SubscriberAddedEvent;
 use App\Models\Subscriber;
 use App\Repositories\Subscribers\SubscriberTenantRepositoryInterface;
+use Exception;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class ApiSubscriberService
 {
@@ -31,7 +31,7 @@ class ApiSubscriberService
     {
         $existingSubscriber = $this->subscribers->findBy($workspaceId, 'email', $data['email']);
 
-        if (!$existingSubscriber) {
+        if (! $existingSubscriber) {
             $subscriber = $this->subscribers->store($workspaceId, $data->toArray());
 
             event(new SubscriberAddedEvent($subscriber));
@@ -46,6 +46,7 @@ class ApiSubscriberService
     {
         return DB::transaction(function () use ($workspaceId, $subscriber) {
             $subscriber->tags()->detach();
+
             return $this->subscribers->destroy($workspaceId, $subscriber->id);
         });
     }

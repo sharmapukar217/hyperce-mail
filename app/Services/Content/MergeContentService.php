@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Services\Content;
 
-use Exception;
 use App\Models\Campaign;
 use App\Models\Message;
 use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
 use App\Traits\NormalizeTags;
+use Exception;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 class MergeContentService
@@ -45,7 +45,7 @@ class MergeContentService
         if ($message->isCampaign()) {
             $mergedContent = $this->mergeCampaignContent($message);
         } else {
-            throw new Exception('Invalid message source type for message id=' . $message->id);
+            throw new Exception('Invalid message source type for message id='.$message->id);
         }
 
         return $this->mergeTags($mergedContent, $message);
@@ -59,16 +59,14 @@ class MergeContentService
         /** @var Campaign $campaign */
         $campaign = $this->campaignRepo->find($message->workspace_id, $message->source_id, ['template']);
 
-        if (!$campaign) {
-            throw new Exception('Unable to resolve campaign step for message id= ' . $message->id);
+        if (! $campaign) {
+            throw new Exception('Unable to resolve campaign step for message id= '.$message->id);
         }
 
         return $campaign->template
             ? $this->mergeContent($campaign->content, $campaign->template->content)
             : $campaign->content;
     }
-
-    
 
     protected function mergeContent(?string $customContent, string $templateContent): string
     {
@@ -93,7 +91,7 @@ class MergeContentService
             'first_name',
             'last_name',
             'unsubscribe_url',
-            'webview_url'
+            'webview_url',
         ];
 
         foreach ($tags as $tag) {
@@ -108,11 +106,11 @@ class MergeContentService
         $tags = [
             'email' => $message->recipient_email,
             'first_name' => optional($message->subscriber)->first_name ?? '',
-            'last_name' => optional($message->subscriber)->last_name ?? ''
+            'last_name' => optional($message->subscriber)->last_name ?? '',
         ];
 
         foreach ($tags as $key => $replace) {
-            $content = str_ireplace('{{' . $key . '}}', $replace, $content);
+            $content = str_ireplace('{{'.$key.'}}', $replace, $content);
         }
 
         return $content;

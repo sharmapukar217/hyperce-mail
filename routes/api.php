@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RequireWorkspace;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------

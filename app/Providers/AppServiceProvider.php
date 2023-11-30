@@ -2,27 +2,12 @@
 
 namespace App\Providers;
 
-use App\Http\Livewire\Setup;
-use App\Models\ApiToken;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Foundation\Application;
-
-use RuntimeException;
-use Livewire\Livewire;
-
-
-use App\Services\Helper;
-use App\Services\HyperceMail as HyperceMailService;
 use App\Facades\HyperceMail;
-use App\Services\QuotaService;
-use App\Providers\ResolverProvider;
-use App\Traits\ResolvesDatabaseDriver;
+use App\Http\Livewire\Setup;
 use App\Interfaces\QuotaServiceInterface;
-use App\Providers\EventServiceProvider;
-use App\Providers\FormServiceProvider;
-use App\Repositories\Campaigns\MySqlCampaignTenantRepository;
+use App\Models\ApiToken;
 use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
+use App\Repositories\Campaigns\MySqlCampaignTenantRepository;
 use App\Repositories\Campaigns\PostgresCampaignTenantRepository;
 use App\Repositories\Messages\MessageTenantRepositoryInterface;
 use App\Repositories\Messages\MySqlMessageTenantRepository;
@@ -30,7 +15,15 @@ use App\Repositories\Messages\PostgresMessageTenantRepository;
 use App\Repositories\Subscribers\MySqlSubscriberTenantRepository;
 use App\Repositories\Subscribers\PostgresSubscriberTenantRepository;
 use App\Repositories\Subscribers\SubscriberTenantRepositoryInterface;
-
+use App\Services\Helper;
+use App\Services\HyperceMail as HyperceMailService;
+use App\Services\QuotaService;
+use App\Traits\ResolvesDatabaseDriver;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
+use RuntimeException;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,8 +34,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-         // Campaign repository.
-         $this->app->bind(CampaignTenantRepositoryInterface::class, function (Application $app) {
+        // Campaign repository.
+        $this->app->bind(CampaignTenantRepositoryInterface::class, function (Application $app) {
             if ($this->usingPostgres()) {
                 return $app->make(PostgresCampaignTenantRepository::class);
             }
@@ -79,10 +72,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->register(FormServiceProvider::class);
         $this->app->register(ResolverProvider::class);
 
-         // Facade.
-         $this->app->bind('hypercemail', static function (Application $app) {
+        // Facade.
+        $this->app->bind('hypercemail', static function (Application $app) {
             return $app->make(HyperceMailService::class);
-       });
+        });
     }
 
     /**
@@ -101,12 +94,12 @@ class AppServiceProvider extends ServiceProvider
 
                 if ($user && $user->currentWorkspaceId()) {
                     $workspaceId = $user->currentWorkspaceId();
-                } else if ($request && (($apiToken = $request->bearerToken()) || ($apiToken = $request->get('api_token')))) {
+                } elseif ($request && (($apiToken = $request->bearerToken()) || ($apiToken = $request->get('api_token')))) {
                     $workspaceId = ApiToken::resolveWorkspaceId($apiToken);
                 }
 
                 if (! $workspaceId) {
-                    throw new RuntimeException("Current Workspace ID Resolver must not return a null value.");
+                    throw new RuntimeException('Current Workspace ID Resolver must not return a null value.');
                 }
 
                 return $workspaceId;

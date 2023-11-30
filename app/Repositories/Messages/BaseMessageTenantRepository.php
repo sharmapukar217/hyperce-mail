@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Repositories\Messages;
 
+use App\Facades\Helper;
+use App\Models\Campaign;
+use App\Models\Message;
+use App\Repositories\BaseTenantRepository;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use App\Facades\Helper;
-use App\Models\Campaign;
-use App\Models\Message;
-use App\Repositories\BaseTenantRepository;
 
 abstract class BaseMessageTenantRepository extends BaseTenantRepository implements MessageTenantRepositoryInterface
 {
@@ -21,7 +21,8 @@ abstract class BaseMessageTenantRepository extends BaseTenantRepository implemen
     protected $modelName = Message::class;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
      * @throws Exception
      */
     public function paginateWithSource(int $workspaceId, string $orderBy = 'name', array $relations = [], int $paginate = 25, array $parameters = []): LengthAwarePaginator
@@ -29,15 +30,15 @@ abstract class BaseMessageTenantRepository extends BaseTenantRepository implemen
         $this->parseOrder($orderBy);
 
         $instance = $this->getQueryBuilder($workspaceId);
-            // ->with([
-            //     'source' => static function (MorphTo $morphTo) {
-            //         $morphTo->morphWith([
-            //             // AutomationSchedule::class => ['automation_step.automation:id,name'],
-            //         ]);
-            //     }
-            // ]);
+        // ->with([
+        //     'source' => static function (MorphTo $morphTo) {
+        //         $morphTo->morphWith([
+        //             // AutomationSchedule::class => ['automation_step.automation:id,name'],
+        //         ]);
+        //     }
+        // ]);
 
-        $instance->when(!Helper::isPro(), function ($q) {
+        $instance->when(! Helper::isPro(), function ($q) {
             $q->where('source_type', '=', Campaign::class);
         });
 
@@ -49,7 +50,8 @@ abstract class BaseMessageTenantRepository extends BaseTenantRepository implemen
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
      * @throws Exception
      */
     public function recipients(int $workspaceId, string $sourceType, int $sourceId): LengthAwarePaginator
@@ -64,7 +66,8 @@ abstract class BaseMessageTenantRepository extends BaseTenantRepository implemen
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
      * @throws Exception
      */
     public function opens(int $workspaceId, string $sourceType, int $sourceId): LengthAwarePaginator
@@ -79,7 +82,8 @@ abstract class BaseMessageTenantRepository extends BaseTenantRepository implemen
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
      * @throws Exception
      */
     public function clicks(int $workspaceId, string $sourceType, int $sourceId): LengthAwarePaginator
@@ -94,7 +98,8 @@ abstract class BaseMessageTenantRepository extends BaseTenantRepository implemen
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
      * @throws Exception
      */
     public function bounces(int $workspaceId, string $sourceType, int $sourceId): LengthAwarePaginator
@@ -110,7 +115,8 @@ abstract class BaseMessageTenantRepository extends BaseTenantRepository implemen
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
      * @throws Exception
      */
     public function unsubscribes(int $workspaceId, string $sourceType, int $sourceId): LengthAwarePaginator
@@ -125,7 +131,7 @@ abstract class BaseMessageTenantRepository extends BaseTenantRepository implemen
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getFirstOpenedAt(int $workspaceId, string $sourceType, int $sourceId)
     {
@@ -138,7 +144,7 @@ abstract class BaseMessageTenantRepository extends BaseTenantRepository implemen
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function applyFilters(Builder $instance, array $filters = []): void
     {
@@ -166,7 +172,7 @@ abstract class BaseMessageTenantRepository extends BaseTenantRepository implemen
     protected function applySearchFilter(Builder $instance, array $filters = []): void
     {
         if ($search = Arr::get($filters, 'search')) {
-            $searchString = '%' . $search . '%';
+            $searchString = '%'.$search.'%';
 
             $instance->where(static function (Builder $instance) use ($searchString) {
                 $instance->where('messages.recipient_email', 'like', $searchString)

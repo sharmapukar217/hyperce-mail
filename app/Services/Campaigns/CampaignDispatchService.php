@@ -2,18 +2,17 @@
 
 namespace App\Services\Campaigns;
 
-use Illuminate\Pipeline\Pipeline;
 use App\Models\Campaign;
 use App\Pipelines\Campaigns\CompleteCampaign;
 use App\Pipelines\Campaigns\CreateMessages;
 use App\Pipelines\Campaigns\StartCampaign;
+use Illuminate\Pipeline\Pipeline;
 
 class CampaignDispatchService
 {
     /**
      * Dispatch the campaign
      *
-     * @param Campaign $campaign
      * @return void
      */
     public function handle(Campaign $campaign)
@@ -24,7 +23,7 @@ class CampaignDispatchService
         }
 
         if (! $campaign->queued) {
-            \Log::error('Campaign does not have a queued status campaign_id=' . $campaign->id . ' status_id=' . $campaign->status_id);
+            \Log::error('Campaign does not have a queued status campaign_id='.$campaign->id.' status_id='.$campaign->status_id);
 
             return;
         }
@@ -43,15 +42,12 @@ class CampaignDispatchService
                     return $campaign;
                 });
         } catch (\Exception $exception) {
-            \Log::error('Error dispatching campaign id=' . $campaign->id . ' exception=' . $exception->getMessage() . ' trace=' . $exception->getTraceAsString());
+            \Log::error('Error dispatching campaign id='.$campaign->id.' exception='.$exception->getMessage().' trace='.$exception->getTraceAsString());
         }
     }
 
     /**
      * Find a single campaign schedule
-     *
-     * @param int $id
-     * @return Campaign|null
      */
     protected function findCampaign(int $id): ?Campaign
     {

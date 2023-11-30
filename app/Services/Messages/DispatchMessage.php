@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Services\Messages;
 
-use Exception;
-use Illuminate\Support\Facades\Log;
 use App\Models\Campaign;
 use App\Models\CampaignStatus;
 use App\Models\EmailService;
 use App\Models\Message;
 use App\Services\Content\MergeContentService;
 use App\Services\Content\MergeSubjectService;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class DispatchMessage
 {
@@ -49,8 +49,8 @@ class DispatchMessage
      */
     public function handle(Message $message): ?string
     {
-        if (!$this->isValidMessage($message)) {
-            Log::info('Message is not valid, skipping id=' . $message->id);
+        if (! $this->isValidMessage($message)) {
+            Log::info('Message is not valid, skipping id='.$message->id);
 
             return null;
         }
@@ -129,13 +129,13 @@ class DispatchMessage
             return false;
         }
 
-        if (!$message->isCampaign()) {
+        if (! $message->isCampaign()) {
             return true;
         }
 
         $campaign = Campaign::find($message->source_id);
 
-        if (!$campaign) {
+        if (! $campaign) {
             return false;
         }
 

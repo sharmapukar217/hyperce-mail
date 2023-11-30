@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Listeners\Webhooks;
 
+use App\Events\Webhooks\PostmarkWebhookReceived;
+use App\Services\Webhooks\EmailWebhookService;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use RuntimeException;
-use App\Events\Webhooks\PostmarkWebhookReceived;
-use App\Services\Webhooks\EmailWebhookService;
 
 class HandlePostmarkWebhook implements ShouldQueue
 {

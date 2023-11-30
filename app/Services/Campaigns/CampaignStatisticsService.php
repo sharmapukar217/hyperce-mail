@@ -2,11 +2,11 @@
 
 namespace App\Services\Campaigns;
 
+use App\Models\Campaign;
+use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
 use Exception;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use App\Models\Campaign;
-use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
 
 class CampaignStatisticsService
 {

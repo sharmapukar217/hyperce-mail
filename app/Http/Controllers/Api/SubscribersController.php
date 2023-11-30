@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
-use Exception;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Subscriber\SubscriberStoreRequest;
@@ -14,6 +11,9 @@ use App\Http\Requests\Api\Subscriber\SubscriberUpdateRequest;
 use App\Http\Resources\Subscriber as SubscriberResource;
 use App\Repositories\Subscribers\SubscriberTenantRepositoryInterface;
 use App\Services\Subscribers\ApiSubscriberService;
+use Exception;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class SubscribersController extends Controller
 {

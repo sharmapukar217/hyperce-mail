@@ -23,10 +23,8 @@ use Ramsey\Uuid\Uuid;
  * @property int|null $unsubscribed_event_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @property EloquentCollection $tags
  * @property EloquentCollection $messages
- *
  * @property-read string $full_name
  *
  * @method static SubscriberFactory factory
@@ -51,7 +49,7 @@ class Subscriber extends BaseModel
         'last_name',
         'meta',
         'unsubscribed_at',
-        'unsubscribe_event_id'
+        'unsubscribe_event_id',
     ];
 
     /** @var string[] */

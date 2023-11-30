@@ -3,15 +3,15 @@
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
-use Exception;
 
+use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiTokens\ApiTokenStoreRequest;
 use App\Repositories\ApiTokenRepository;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
-use App\Facades\HyperceMail;
 
 class ApiTokenController extends Controller
 {

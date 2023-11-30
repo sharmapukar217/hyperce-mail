@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
 
-	$campaign_statuses = 'campaign_statuses';
-	$email_services = 'email_services';
-	$templates = 'templates';
+        $campaign_statuses = 'campaign_statuses';
+        $email_services = 'email_services';
+        $templates = 'templates';
 
         Schema::create('campaigns', function (Blueprint $table) use ($campaign_statuses, $templates, $email_services) {
             $table->increments('id');

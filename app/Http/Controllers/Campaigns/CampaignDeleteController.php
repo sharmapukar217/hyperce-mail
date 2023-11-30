@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Campaigns;
 
+use App\Facades\HyperceMail;
+use App\Http\Controllers\Controller;
+use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use App\Facades\HyperceMail;
-use App\Http\Controllers\Controller;
-use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
 
 class CampaignDeleteController extends Controller
 {
@@ -26,13 +26,14 @@ class CampaignDeleteController extends Controller
      * Show a confirmation view prior to deletion.
      *
      * @return RedirectResponse|View
+     *
      * @throws Exception
      */
     public function confirm(int $id)
     {
         $campaign = $this->campaigns->find(HyperceMail::currentWorkspaceId(), $id);
 
-        if (!$campaign->draft) {
+        if (! $campaign->draft) {
             return redirect()->route('campaigns.index')
                 ->withErrors(__('Unable to delete a campaign that is not in draft status'));
         }
@@ -49,7 +50,7 @@ class CampaignDeleteController extends Controller
     {
         $campaign = $this->campaigns->find(HyperceMail::currentWorkspaceId(), $request->get('id'));
 
-        if (!$campaign->draft) {
+        if (! $campaign->draft) {
             return redirect()->route('campaigns.index')
                 ->withErrors(__('Unable to delete a campaign that is not in draft status'));
         }

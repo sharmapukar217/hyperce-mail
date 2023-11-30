@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
-use Exception;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Tag\TagStoreRequest;
@@ -14,6 +11,9 @@ use App\Http\Requests\Api\Tag\TagUpdateRequest;
 use App\Http\Resources\Tag as TagResource;
 use App\Repositories\TagTenantRepository;
 use App\Services\Tags\ApiTagService;
+use Exception;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class TagsController extends Controller
 {

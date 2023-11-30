@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services\Tags;
 
-use Exception;
-use Illuminate\Support\Collection;
 use App\Models\Tag;
 use App\Repositories\TagTenantRepository;
+use Exception;
+use Illuminate\Support\Collection;
 
 class ApiTagService
 {
@@ -28,7 +28,7 @@ class ApiTagService
     {
         $tag = $this->tags->store($workspaceId, $data->except('subscribers')->toArray());
 
-        if (!empty($data['subscribers'])) {
+        if (! empty($data['subscribers'])) {
             $tag->subscribers()->attach($data['subscribers']);
         }
 

@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\ServiceProvider;
 use App\View\Components\CheckboxField;
 use App\View\Components\FieldWrapper;
 use App\View\Components\FileField;
@@ -12,6 +10,8 @@ use App\View\Components\SelectField;
 use App\View\Components\SubmitButton;
 use App\View\Components\TextareaField;
 use App\View\Components\TextField;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
 
 class FormServiceProvider extends ServiceProvider
 {

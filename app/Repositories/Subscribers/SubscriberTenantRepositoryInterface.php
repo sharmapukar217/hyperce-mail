@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Repositories\Subscribers;
 
-use Carbon\CarbonPeriod;
-use Illuminate\Support\Collection;
 use App\Interfaces\BaseTenantInterface;
 use App\Models\Subscriber;
+use Carbon\CarbonPeriod;
+use Illuminate\Support\Collection;
 
 interface SubscriberTenantRepositoryInterface extends BaseTenantInterface
 {

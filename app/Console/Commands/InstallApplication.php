@@ -6,13 +6,12 @@ use App\Models\User;
 use App\Models\Workspace;
 use App\Traits\HasCommonUtils;
 use App\Traits\HasMigrationUtils;
-
-use RuntimeException;
-use Illuminate\Support\Str;
+use Illuminate\Database\Console\Migrations\BaseCommand;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Database\Console\Migrations\BaseCommand;
+use Illuminate\Support\Str;
+use RuntimeException;
 
 class InstallApplication extends BaseCommand
 {
@@ -43,14 +42,14 @@ class InstallApplication extends BaseCommand
     {
         $this->migrator = app('migrator');
 
-	$this->intro();
-	$this->checkEnv();
-	$this->checkApplicationKey();
-	$this->checkAppUrl();
-	$this->checkDatabaseConnection();
+        $this->intro();
+        $this->checkEnv();
+        $this->checkApplicationKey();
+        $this->checkAppUrl();
+        $this->checkDatabaseConnection();
         $this->checkMigrations();
-	$this->checkAdminUserAccount();
-	$this->checkVendorAssets();
+        $this->checkAdminUserAccount();
+        $this->checkVendorAssets();
 
         $this->info('✓ Application is ready!');
         $this->line('');
@@ -81,12 +80,12 @@ class InstallApplication extends BaseCommand
         exit;
     }
 
-   /**
+    /**
      * Check that the application key exists. If it doesn't then we'll create it automatically.
      */
     protected function checkApplicationKey(): void
     {
-        if (!config('app.key')) {
+        if (! config('app.key')) {
             $this->call('key:generate');
         }
 
@@ -99,14 +98,15 @@ class InstallApplication extends BaseCommand
     protected function checkAppUrl(): void
     {
         if (config('app.url') && config('app.url') !== 'http://localhost') {
-            $this->info('✓ Application url set to ' . config('app.url'));
+            $this->info('✓ Application url set to '.config('app.url'));
+
             return;
         }
 
         $this->writeToEnvironmentFile('APP_URL', $this->ask('Application URL', 'https://hypercemail.yourdomain.com'));
     }
 
-	/**
+    /**
      * Check to see if the app can make a database connection
      */
     protected function checkDatabaseConnection(): void
@@ -116,7 +116,7 @@ class InstallApplication extends BaseCommand
             $this->info('✓ Database connection successful');
         } catch (Exception $e) {
             try {
-                if ( ! $this->createDatabaseCredentials()) {
+                if (! $this->createDatabaseCredentials()) {
                     $this->error(
                         'A database connection could not be established. Please update your configuration and try again.'
                     );
@@ -139,7 +139,7 @@ class InstallApplication extends BaseCommand
             true
         );
 
-        if ( ! $storeCredentials) {
+        if (! $storeCredentials) {
             return false;
         }
 
@@ -206,7 +206,7 @@ class InstallApplication extends BaseCommand
         $this->line('Creating first admin user account and company/workspace');
         $companyName = $this->ask('Company/Workspace name');
 
-        if ( ! $companyName) {
+        if (! $companyName) {
             return $this->getCompanyName();
         }
 
@@ -266,7 +266,7 @@ class InstallApplication extends BaseCommand
 
         if ($validator->fails()) {
             foreach ($validator->errors()->getMessages() as $error) {
-                $this->line((string)($error[0]));
+                $this->line((string) ($error[0]));
             }
 
             return $this->getUserParam($param);
@@ -302,7 +302,7 @@ class InstallApplication extends BaseCommand
      */
     protected function checkVendorAssets(): void
     {
-        $this->callSilent('vendor:publish', [ '--all' => true ]);
+        $this->callSilent('vendor:publish', ['--all' => true]);
 
         $this->info('✓ Published frontend assets');
     }
@@ -317,11 +317,11 @@ class InstallApplication extends BaseCommand
         $this->line('');
         $this->info('Database Configuration:');
         $this->line("- Connection: {$connection}");
-        $this->line('- Host: ' . config("database.connections.{$connection}.host"));
-        $this->line('- Port: ' . config("database.connections.{$connection}.port"));
-        $this->line('- Database: ' . config("database.connections.{$connection}.database"));
-        $this->line('- Username: ' . config("database.connections.{$connection}.username"));
-        $this->line('- Password: ' . config("database.connections.{$connection}.password"));
+        $this->line('- Host: '.config("database.connections.{$connection}.host"));
+        $this->line('- Port: '.config("database.connections.{$connection}.port"));
+        $this->line('- Database: '.config("database.connections.{$connection}.database"));
+        $this->line('- Username: '.config("database.connections.{$connection}.username"));
+        $this->line('- Password: '.config("database.connections.{$connection}.password"));
     }
 
     /**
@@ -332,7 +332,7 @@ class InstallApplication extends BaseCommand
         $connection = $connectionData['DB_CONNECTION'];
 
         $configMap = [
-            'DB_CONNECTION' => "database.default",
+            'DB_CONNECTION' => 'database.default',
             'DB_HOST' => "database.connections.{$connection}.host",
             'DB_PORT' => "database.connections.{$connection}.port",
             'DB_DATABASE' => "database.connections.{$connection}.database",
@@ -348,8 +348,7 @@ class InstallApplication extends BaseCommand
         DB::purge($this->laravel['config']['database.default']);
     }
 
-
-     /**
+    /**
      * Write a value to a given key within the environment file.
      */
     protected function writeToEnvironmentFile(string $key, ?string $value): void
@@ -363,7 +362,7 @@ class InstallApplication extends BaseCommand
             )
         );
 
-        if (!$this->checkEnvValuePresent($key, $value)) {
+        if (! $this->checkEnvValuePresent($key, $value)) {
             throw new RuntimeException("Failed to persist environment variable value. {$key}={$value}");
         }
     }

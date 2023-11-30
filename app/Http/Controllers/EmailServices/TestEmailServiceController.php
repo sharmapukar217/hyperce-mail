@@ -1,16 +1,15 @@
 <?php
 
-
 namespace App\Http\Controllers\EmailServices;
 
-use Exception;
-use Illuminate\Http\RedirectResponse;
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmailServices\EmailServiceTestRequest;
 use App\Repositories\EmailServiceTenantRepository;
 use App\Services\Messages\DispatchTestMessage;
 use App\Services\Messages\MessageOptions;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 
 class TestEmailServiceController extends Controller
 {
@@ -45,7 +44,7 @@ class TestEmailServiceController extends Controller
         try {
             $messageId = $dispatchTestMessage->testService(HyperceMail::currentWorkspaceId(), $emailService, $options);
 
-            if (!$messageId) {
+            if (! $messageId) {
                 return redirect()
                     ->back()
                     ->with(['error', __('Failed to dispatch test email.')]);
@@ -57,7 +56,7 @@ class TestEmailServiceController extends Controller
         } catch (Exception $e) {
             return redirect()
                 ->back()
-                ->with('error', 'Response: ' . $e->getMessage());
+                ->with('error', 'Response: '.$e->getMessage());
         }
     }
 }

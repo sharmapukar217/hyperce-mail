@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Subscribers;
 
+use App\Events\SubscriberAddedEvent;
+use App\Facades\HyperceMail;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Subscribers\SubscriberRequest;
+use App\Models\UnsubscribeEventType;
+use App\Repositories\Subscribers\SubscriberTenantRepositoryInterface;
+use App\Repositories\TagTenantRepository;
 use Box\Spout\Common\Exception\InvalidArgumentException;
 use Box\Spout\Common\Exception\IOException;
 use Box\Spout\Common\Exception\UnsupportedTypeException;
@@ -12,13 +19,6 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Rap2hpoutre\FastExcel\FastExcel;
-use App\Events\SubscriberAddedEvent;
-use App\Facades\HyperceMail;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Subscribers\SubscriberRequest;
-use App\Models\UnsubscribeEventType;
-use App\Repositories\Subscribers\SubscriberTenantRepositoryInterface;
-use App\Repositories\TagTenantRepository;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class SubscribersController extends Controller
@@ -84,6 +84,7 @@ class SubscribersController extends Controller
      */
     public function show(int $id): View
     {
+        // dd($id);
         $subscriber = $this->subscriberRepo->find(
             HyperceMail::currentWorkspaceId(),
             $id,
@@ -114,7 +115,7 @@ class SubscribersController extends Controller
         $data = $request->validated();
 
         // updating subscriber from subscribed -> unsubscribed
-        if (!$request->has('subscribed') && !$subscriber->unsubscribed_at) {
+        if (! $request->has('subscribed') && ! $subscriber->unsubscribed_at) {
             $data['unsubscribed_at'] = now();
             $data['unsubscribe_event_id'] = UnsubscribeEventType::MANUAL_BY_ADMIN;
         } // updating subscriber from unsubscribed -> subscribed
@@ -123,7 +124,7 @@ class SubscribersController extends Controller
             $data['unsubscribe_event_id'] = null;
         }
 
-        if (!$request->has('tags')) {
+        if (! $request->has('tags')) {
             $data['tags'] = [];
         }
 
@@ -146,6 +147,7 @@ class SubscribersController extends Controller
 
     /**
      * @return string|StreamedResponse
+     *
      * @throws IOException
      * @throws InvalidArgumentException
      * @throws UnsupportedTypeException
@@ -156,7 +158,7 @@ class SubscribersController extends Controller
     {
         $subscribers = $this->subscriberRepo->all(HyperceMail::currentWorkspaceId(), 'id');
 
-        if (!$subscribers->count()) {
+        if (! $subscribers->count()) {
             return redirect()->route('subscribers.index')->withErrors(__('There are no subscribers to export'));
         }
 

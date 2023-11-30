@@ -27,8 +27,8 @@ class SubscribersImportRequest extends FormRequest
         $size = 1000 * 1024;
 
         return [
-            'file' => 'required|file|max:' . $size . '|mimetypes:text/csv,text/plain,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'tags[]' => 'array'
+            'file' => 'required|file|max:'.$size.'|mimetypes:text/csv,text/plain,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'tags[]' => 'array',
         ];
     }
 }

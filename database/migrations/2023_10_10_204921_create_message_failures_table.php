@@ -21,7 +21,7 @@ class CreateMessageFailuresTable extends Migration
             $table->timestamp('failed_at')->nullable()->default(null);
             $table->timestamps();
 
-            $table->foreign('message_id')->references('id')->on("messages");
+            $table->foreign('message_id')->references('id')->on('messages');
         });
     }
 }

@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Listeners\Webhooks;
 
+use App\Events\Webhooks\MailgunWebhookReceived;
+use App\Models\EmailService;
+use App\Models\Message;
+use App\Services\Webhooks\EmailWebhookService;
+use App\Services\Webhooks\Mailgun\WebhookVerifier;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use RuntimeException;
-use App\Events\Webhooks\MailgunWebhookReceived;
-use App\Models\EmailService;
-use App\Models\Message;
-use App\Services\Webhooks\EmailWebhookService;
-use App\Services\Webhooks\Mailgun\WebhookVerifier;
 
 class HandleMailgunWebhook implements ShouldQueue
 {
@@ -44,8 +44,9 @@ class HandleMailgunWebhook implements ShouldQueue
         $messageId = $this->extractMessageId($event->payload);
         $eventName = $this->extractEventName($event->payload);
 
-        if (!$this->checkWebhookValidity($messageId, $event->payload)) {
+        if (! $this->checkWebhookValidity($messageId, $event->payload)) {
             Log::error('Mailgun webhook failed verification check.', ['payload' => $event->payload]);
+
             return;
         }
 
@@ -143,7 +144,7 @@ class HandleMailgunWebhook implements ShouldQueue
     {
         $messageId = strpos($messageId, '<') === 0
             ? $messageId
-            : $messageId = '<' . $messageId . '>';
+            : $messageId = '<'.$messageId.'>';
 
         return trim($messageId);
     }
@@ -176,14 +177,14 @@ class HandleMailgunWebhook implements ShouldQueue
         /** @var EmailService|null $emailservice */
         $emailservice = $message->source->email_service ?? null;
 
-        if (!$emailservice) {
+        if (! $emailservice) {
             return false;
         }
 
         /** @var string|null $signingKey */
         $signingKey = $emailservice->settings['webhook_key'] ?? null;
 
-        if (!$signingKey) {
+        if (! $signingKey) {
             return false;
         }
 
@@ -192,7 +193,7 @@ class HandleMailgunWebhook implements ShouldQueue
         return $this->verifier->verify(
             $signingKey,
             $signature['token'],
-            (int)$signature['timestamp'],
+            (int) $signature['timestamp'],
             $signature['signature']
         );
     }

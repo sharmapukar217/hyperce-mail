@@ -15,7 +15,7 @@ class Template extends JsonResource
             'name' => $this->name,
             'content' => $this->content,
             'created_at' => $this->created_at->toDateTimeString(),
-            'updated_at' => $this->updated_at->toDateTimeString()
+            'updated_at' => $this->updated_at->toDateTimeString(),
         ];
     }
 }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-	$unsubscribe_event_types = 'unsubscribe_event_types';
+        $unsubscribe_event_types = 'unsubscribe_event_types';
 
         Schema::create('subscribers', function (Blueprint $table) use ($unsubscribe_event_types) {
             $table->increments('id');

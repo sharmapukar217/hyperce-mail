@@ -2,8 +2,8 @@
 
 namespace App\Traits;
 
-use Closure;
 use Aws\Ses\Exception\SesException;
+use Closure;
 
 trait ThrottlesSending
 {

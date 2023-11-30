@@ -13,8 +13,6 @@ class Label extends Component
 
     /**
      * Create the component instance.
-     *
-     * @param string $name
      */
     public function __construct(string $name)
     {

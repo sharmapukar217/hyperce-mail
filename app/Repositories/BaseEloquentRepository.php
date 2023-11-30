@@ -44,9 +44,7 @@ class BaseEloquentRepository implements BaseEloquentInterface
     /**
      * Return all records
      *
-     * @param string $orderBy
-     * @param array $relations
-     * @param array $parameters
+     * @param  string  $orderBy
      * @return mixed
      */
     public function all($orderBy = 'id', array $relations = [], array $parameters = [])
@@ -65,10 +63,8 @@ class BaseEloquentRepository implements BaseEloquentInterface
     /**
      * Return paginated items
      *
-     * @param string $orderBy
-     * @param array $relations
-     * @param int $paginate
-     * @param array $parameters
+     * @param  string  $orderBy
+     * @param  int  $paginate
      * @return mixed
      */
     public function paginate($orderBy = 'name', array $relations = [], $paginate = 25, array $parameters = [])
@@ -88,20 +84,18 @@ class BaseEloquentRepository implements BaseEloquentInterface
      * Apply parameters, which can be extended in child classes for filtering
      *
      * @param $query
-     * @param array $filters
      * @return mixed
      */
     protected function applyFilters($instance, array $filters = [])
     {
-        return;
+
     }
 
     /**
      * Get many records by a field and value
      *
-     * @param array $parameters
-     * @param array $relations
      * @return mixed
+     *
      * @throws \Exception
      */
     public function getBy(array $parameters, array $relations = [])
@@ -119,9 +113,10 @@ class BaseEloquentRepository implements BaseEloquentInterface
     /**
      * List all records
      *
-     * @param string $fieldName
-     * @param string $fieldId
+     * @param  string  $fieldName
+     * @param  string  $fieldId
      * @return mixed
+     *
      * @throws \Exception
      */
     public function pluck($fieldName = 'name', $fieldId = 'id')
@@ -137,11 +132,12 @@ class BaseEloquentRepository implements BaseEloquentInterface
     /**
      * List all records
      *
-     * @param string $field
-     * @param string|array $value
-     * @param string $listFieldName
-     * @param string $listFieldId
+     * @param  string  $field
+     * @param  string|array  $value
+     * @param  string  $listFieldName
+     * @param  string  $listFieldId
      * @return mixed
+     *
      * @throws \Exception
      */
     public function pluckBy($field, $value, $listFieldName = 'name', $listFieldId = 'id')
@@ -162,9 +158,9 @@ class BaseEloquentRepository implements BaseEloquentInterface
     /**
      * Find a single record
      *
-     * @param int $id
-     * @param array $relations
+     * @param  int  $id
      * @return mixed
+     *
      * @throws \Exception
      */
     public function find($id, array $relations = [])
@@ -177,10 +173,10 @@ class BaseEloquentRepository implements BaseEloquentInterface
     /**
      * Find a single record by a field and value
      *
-     * @param string $field
-     * @param string $value
-     * @param array $relations
+     * @param  string  $field
+     * @param  string  $value
      * @return mixed
+     *
      * @throws \Exception
      */
     public function findBy($field, $value, array $relations = [])
@@ -193,9 +189,8 @@ class BaseEloquentRepository implements BaseEloquentInterface
     /**
      * Find a single record by multiple fields
      *
-     * @param array $data
-     * @param array $relations
      * @return mixed
+     *
      * @throws \Exception
      */
     public function findByMany(array $data, array $relations = [])
@@ -214,9 +209,8 @@ class BaseEloquentRepository implements BaseEloquentInterface
     /**
      * Find multiple models
      *
-     * @param array $ids
-     * @param array $relations
      * @return object
+     *
      * @throws \Exception
      */
     public function getWhereIn(array $ids, array $relations = [])
@@ -229,8 +223,9 @@ class BaseEloquentRepository implements BaseEloquentInterface
     /**
      * Create a new record
      *
-     * @param array $data The input data
+     * @param  array  $data The input data
      * @return object model instance
+     *
      * @throws \Exception
      */
     public function store(array $data)
@@ -243,9 +238,10 @@ class BaseEloquentRepository implements BaseEloquentInterface
     /**
      * Update the model instance
      *
-     * @param int $id The model id
-     * @param array $data The input data
+     * @param  int  $id The model id
+     * @param  array  $data The input data
      * @return object model instance
+     *
      * @throws \Exception
      */
     public function update($id, array $data)
@@ -261,7 +257,6 @@ class BaseEloquentRepository implements BaseEloquentInterface
      * NB - check BaseTenantRepo if any changes
      * are made here
      *
-     * @param array $data
      * @return mixed
      */
     protected function executeSave(array $data)
@@ -277,8 +272,9 @@ class BaseEloquentRepository implements BaseEloquentInterface
     /**
      * Delete a record
      *
-     * @param int $id Model id
+     * @param  int  $id Model id
      * @return object model instance
+     *
      * @throws \Exception
      */
     public function destroy($id)
@@ -291,7 +287,6 @@ class BaseEloquentRepository implements BaseEloquentInterface
     /**
      * Set the model's boolean fields from the input data
      *
-     * @param array $data
      * @return array
      */
     protected function setBooleanFields(array $data)
@@ -317,12 +312,13 @@ class BaseEloquentRepository implements BaseEloquentInterface
      * Return model name
      *
      * @return string
+     *
      * @throws \Exception If model has not been set.
      */
     public function getModelName()
     {
         if (! $this->modelName) {
-            throw new \Exception('Model has not been set in ' . get_called_class());
+            throw new \Exception('Model has not been set in '.get_called_class());
         }
 
         return $this->modelName;
@@ -332,6 +328,7 @@ class BaseEloquentRepository implements BaseEloquentInterface
      * Return a new query builder instance
      *
      * @return mixed
+     *
      * @throws \Exception#
      */
     public function getQueryBuilder()
@@ -343,6 +340,7 @@ class BaseEloquentRepository implements BaseEloquentInterface
      * Returns new model instance
      *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function getNewInstance()
@@ -355,13 +353,14 @@ class BaseEloquentRepository implements BaseEloquentInterface
     /**
      * Resolve order by
      *
-     * @param string $orderBy
+     * @param  string  $orderBy
      * @return void
      */
     protected function resolveOrder($orderBy)
     {
         if (! \Input::get('sort_by')) {
             $this->parseOrder($orderBy);
+
             return;
         }
 
@@ -371,6 +370,7 @@ class BaseEloquentRepository implements BaseEloquentInterface
 
     /**
      * Resolve direction
+     *
      * @return void
      */
     protected function resolveDirection()
@@ -386,6 +386,7 @@ class BaseEloquentRepository implements BaseEloquentInterface
 
     /**
      * Resolve order by
+     *
      * @return void
      */
     protected function resolveOrderBy($column)
@@ -400,7 +401,7 @@ class BaseEloquentRepository implements BaseEloquentInterface
     /**
      * Parse the order by data
      *
-     * @param string $orderBy
+     * @param  string  $orderBy
      * @return void
      */
     protected function parseOrder($orderBy)
@@ -419,7 +420,7 @@ class BaseEloquentRepository implements BaseEloquentInterface
     /**
      * Set the order by field
      *
-     * @param string $orderBy
+     * @param  string  $orderBy
      * @return void
      */
     public function setOrderBy($orderBy)
@@ -440,7 +441,7 @@ class BaseEloquentRepository implements BaseEloquentInterface
     /**
      * Set the order direction
      *
-     * @param string $orderDirection
+     * @param  string  $orderDirection
      * @return void
      */
     public function setOrderDirection($orderDirection)
@@ -462,7 +463,8 @@ class BaseEloquentRepository implements BaseEloquentInterface
      * Get count of records
      *
      * @param null
-     * @return integer
+     * @return int
+     *
      * @throws \Exception
      */
     public function count()

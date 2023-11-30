@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Repositories\Subscribers;
 
 use Carbon\CarbonPeriod;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
 
 class PostgresSubscriberTenantRepository extends BaseSubscriberTenantRepository
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getGrowthChartData(CarbonPeriod $period, int $workspaceId): array
     {

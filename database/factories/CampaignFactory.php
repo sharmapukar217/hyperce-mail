@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\Campaign;
-use App\Models\Template;
 use App\Facades\Hypercemail;
-use App\Models\EmailService;
+use App\Models\Campaign;
 use App\Models\CampaignStatus;
+use App\Models\EmailService;
+use App\Models\Template;
 use Illuminate\Database\Eloquent\Factories\Factory;
-
 
 class CampaignFactory extends Factory
 {

@@ -15,14 +15,12 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
  * @property string|null $content
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @property EloquentCollection $campaigns
  *
  * @method static TemplateFactory factory
  */
 class Template extends BaseModel
 {
-
     // NOTE(david): we require this because of namespace issues when resolving factories from models
     // not in the default `App\Models` namespace.
     protected static function newFactory()

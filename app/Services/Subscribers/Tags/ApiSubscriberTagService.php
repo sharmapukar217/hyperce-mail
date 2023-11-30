@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\Subscribers\Tags;
 
+use App\Repositories\Subscribers\SubscriberTenantRepositoryInterface;
 use Exception;
 use Illuminate\Support\Collection;
-use App\Repositories\Subscribers\SubscriberTenantRepositoryInterface;
 
 class ApiSubscriberTagService
 {
@@ -21,11 +21,7 @@ class ApiSubscriberTagService
     /**
      * Add tags to a subscriber.
      *
-     * @param int $workspaceId
-     * @param int $subscriberId
-     * @param Collection $tagIds
      *
-     * @return Collection
      * @throws Exception
      */
     public function store(int $workspaceId, int $subscriberId, Collection $tagIds): Collection
@@ -45,11 +41,7 @@ class ApiSubscriberTagService
     /**
      * Sync the list of tags a subscriber is associated with.
      *
-     * @param int $workspaceId
-     * @param int $subscriberId
-     * @param Collection $tagIds
      *
-     * @return Collection
      * @throws Exception
      */
     public function update(int $workspaceId, int $subscriberId, Collection $tagIds): Collection
@@ -66,11 +58,7 @@ class ApiSubscriberTagService
     /**
      * Remove tags from a subscriber.
      *
-     * @param int $workspaceId
-     * @param int $subscriberId
-     * @param Collection $tagIds
      *
-     * @return Collection
      * @throws Exception
      */
     public function destroy(int $workspaceId, int $subscriberId, Collection $tagIds): Collection

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Adapters;
 
+use App\Services\Messages\MessageTrackingOptions;
 use Illuminate\Support\Arr;
 use Mailjet\Client;
 use Mailjet\Resources;
 use Mailjet\Response;
-use App\Services\Messages\MessageTrackingOptions;
 
 class MailjetAdapter extends BaseMailAdapter
 {
@@ -17,7 +17,7 @@ class MailjetAdapter extends BaseMailAdapter
 
     protected $urls = [
         'Default' => 'api.mailjet.com',
-        'US' => 'api.us.mailjet.com'
+        'US' => 'api.us.mailjet.com',
     ];
 
     public function send(string $fromEmail, string $fromName, string $toEmail, string $subject, MessageTrackingOptions $trackingOptions, string $content): string
@@ -28,21 +28,21 @@ class MailjetAdapter extends BaseMailAdapter
                     [
                         'From' => [
                             'Email' => $fromEmail,
-                            'Name' => $fromName
+                            'Name' => $fromName,
                         ],
                         'To' => [
                             [
                                 'Email' => $toEmail,
                                 // 'Name' => ''
-                            ]
+                            ],
                         ],
                         'Subject' => $subject,
                         'HTMLPart' => $content,
-                    ]
+                    ],
                 ],
                 'TrackOpens' => $trackingOptions->isOpenTracking() ? 'enabled' : 'disabled',
-                'TrackClicks' => $trackingOptions->isClickTracking() ? 'enabled' : 'disabled'
-            ]
+                'TrackClicks' => $trackingOptions->isClickTracking() ? 'enabled' : 'disabled',
+            ],
         ]);
 
         if ($response->success()) {
@@ -64,7 +64,7 @@ class MailjetAdapter extends BaseMailAdapter
             app()->environment() !== 'testing',
             [
                 'version' => 'v3.1',
-                'url' => $this->resolveUrl()
+                'url' => $this->resolveUrl(),
             ]
         );
 

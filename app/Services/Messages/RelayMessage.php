@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\Messages;
 
-use Exception;
 use App\Factories\MailAdapterFactory;
 use App\Models\EmailService;
+use Exception;
 
 class RelayMessage
 {

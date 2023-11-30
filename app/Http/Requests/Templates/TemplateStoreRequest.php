@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Templates;
 
+use App\Facades\HyperceMail;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use App\Facades\HyperceMail;
 
 class TemplateStoreRequest extends FormRequest
 {

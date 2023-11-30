@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Campaigns;
 
-use Exception;
 use App\Facades\HyperceMail;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Campaigns\CampaignTestRequest;
 use App\Services\Messages\DispatchTestMessage;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 
 class CampaignTestController extends Controller
 {
@@ -28,7 +28,7 @@ class CampaignTestController extends Controller
     {
         $messageId = $this->dispatchTestMessage->handle(HyperceMail::currentWorkspaceId(), $campaignId, $request->get('recipient_email'));
 
-        if (!$messageId) {
+        if (! $messageId) {
             return redirect()->route('campaigns.preview', $campaignId)
                 ->withInput()
                 ->with(['error', __('Failed to dispatch test email.')]);

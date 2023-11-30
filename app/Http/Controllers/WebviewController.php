@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\View as ViewContract;
-use App\Services\Content\MergeContentService;
-use App\Http\Controllers\Controller;
 use App\Models\Message;
+use App\Services\Content\MergeContentService;
 use Exception;
+use Illuminate\Contracts\View\View as ViewContract;
 
 class WebviewController extends Controller
 {

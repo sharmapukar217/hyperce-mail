@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\EmailServices;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Models\EmailServiceType;
+use Illuminate\Foundation\Http\FormRequest;
 
 class EmailServiceRequest extends FormRequest
 {
@@ -25,10 +25,10 @@ class EmailServiceRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => ['required']
+            'name' => ['required'],
         ];
 
-        if (!$this->route('id')) {
+        if (! $this->route('id')) {
             $rules['type_id'] = ['required', 'integer'];
         }
 
@@ -63,22 +63,22 @@ class EmailServiceRequest extends FormRequest
 
             case EmailServiceType::MAILGUN:
                 return [
-                    'settings.key.required' =>  __('The Mailgun Email Service requires you to enter a key'),
+                    'settings.key.required' => __('The Mailgun Email Service requires you to enter a key'),
                     'settings.domain.required' => __('The Mailgun Email Service requires you to enter a domain'),
                     'settings.zone.required' => __('The Mailgun Email Service requires you to enter a zone'),
                 ];
 
             case EmailServiceType::MAILJET:
                 return [
-                    'settings.key.required' =>  __('The Mailjet Email Service requires you to enter a key'),
-                    'settings.secret.required' =>  __('The Mailgun Email Service requires you to enter a secret'),
-                    'settings.zone.required' =>  __('The Mailgun Email Service requires you to enter a zone'),
+                    'settings.key.required' => __('The Mailjet Email Service requires you to enter a key'),
+                    'settings.secret.required' => __('The Mailgun Email Service requires you to enter a secret'),
+                    'settings.zone.required' => __('The Mailgun Email Service requires you to enter a zone'),
                 ];
 
             case EmailServiceType::SMTP:
                 return [
-                    'settings.host.required' =>  __('The SMTP Email Service requires you to enter a host'),
-                    'settings.port.required' =>  __('The SMTP Email Service requires you to enter a port'),
+                    'settings.host.required' => __('The SMTP Email Service requires you to enter a host'),
+                    'settings.port.required' => __('The SMTP Email Service requires you to enter a port'),
                 ];
 
             default:
@@ -94,7 +94,7 @@ class EmailServiceRequest extends FormRequest
                     'settings.key' => 'required',
                     'settings.secret' => 'required',
                     'settings.region' => 'required',
-                    'settings.configuration_set_name' => 'required'
+                    'settings.configuration_set_name' => 'required',
                 ];
 
             case EmailServiceType::SENDGRID:
@@ -107,7 +107,7 @@ class EmailServiceRequest extends FormRequest
                 return [
                     'settings.key' => 'required',
                     'settings.domain' => 'required',
-                    'settings.zone' => ['required', 'in:US,EU']
+                    'settings.zone' => ['required', 'in:US,EU'],
                 ];
 
             case EmailServiceType::MAILJET:
@@ -120,7 +120,7 @@ class EmailServiceRequest extends FormRequest
             case EmailServiceType::SMTP:
                 return [
                     'settings.host' => 'required',
-                    'settings.port' => 'required'
+                    'settings.port' => 'required',
                 ];
 
             default:

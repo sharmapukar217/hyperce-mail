@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Webhooks;
 
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
 use App\Events\Webhooks\MailgunWebhookReceived;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class MailgunWebhooksController extends Controller
 {

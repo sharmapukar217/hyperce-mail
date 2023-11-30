@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Adapters;
 
+use App\Services\Messages\MessageTrackingOptions;
 use Illuminate\Support\Arr;
 use Mailgun\Mailgun;
 use Mailgun\Model\Message\SendResponse;
-use App\Services\Messages\MessageTrackingOptions;
 
 class MailgunMailAdapter extends BaseMailAdapter
 {
@@ -16,7 +16,7 @@ class MailgunMailAdapter extends BaseMailAdapter
 
     protected $urls = [
         'US' => 'https://api.mailgun.net/v3',
-        'EU' => 'https://api.eu.mailgun.net/v3'
+        'EU' => 'https://api.eu.mailgun.net/v3',
     ];
 
     public function send(string $fromEmail, string $fromName, string $toEmail, string $subject, MessageTrackingOptions $trackingOptions, string $content): string
@@ -27,7 +27,7 @@ class MailgunMailAdapter extends BaseMailAdapter
             'subject' => $subject,
             'html' => $content,
             'o:tracking-clicks' => (string) $trackingOptions->isClickTracking(),
-            'o:tracking-opens' => (string) $trackingOptions->isOpenTracking()
+            'o:tracking-opens' => (string) $trackingOptions->isOpenTracking(),
         ];
 
         $result = $this->resolveClient()->messages()->send($this->resolveDomain(), $parameters);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Adapters;
 
+use App\Services\Messages\MessageTrackingOptions;
 use DomainException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -11,7 +12,6 @@ use SendGrid;
 use SendGrid\Mail\Mail;
 use SendGrid\Mail\TypeException;
 use SendGrid\Response as SendgridResponse;
-use App\Services\Messages\MessageTrackingOptions;
 use Symfony\Component\HttpFoundation\Response;
 
 class SendgridMailAdapter extends BaseMailAdapter
@@ -36,7 +36,7 @@ class SendgridMailAdapter extends BaseMailAdapter
         $response = $this->resolveClient()->send($email);
 
         throw_if(
-            !in_array($response->statusCode(), [Response::HTTP_OK, Response::HTTP_ACCEPTED]),
+            ! in_array($response->statusCode(), [Response::HTTP_OK, Response::HTTP_ACCEPTED]),
             new DomainException($response->body(), $response->statusCode())
         );
 

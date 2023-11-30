@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Exception;
 use Carbon\Carbon;
-use App\Models\User;
 use Database\Factories\WorkspaceFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Exception;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -20,7 +19,6 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
  * @property string $name
  * @property Carbon $created_at
  * @property Carbon $updated_at
- *
  * @property User $owner
  * @property EloquentCollection $users
  * @property EloquentCollection $invitations
@@ -32,6 +30,7 @@ class Workspace extends BaseModel
     use HasFactory;
 
     public const ROLE_OWNER = 'owner';
+
     public const ROLE_MEMBER = 'member';
 
     /**
@@ -102,7 +101,6 @@ class Workspace extends BaseModel
     /**
      * Detach all of the users from the workspace and delete the workspace.
      *
-     * @return void
      * @throws Exception
      */
     public function detachUsersAndDestroy(): void

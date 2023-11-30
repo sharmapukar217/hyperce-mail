@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\EmailServices;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Models\EmailServiceType;
+use Illuminate\Foundation\Http\FormRequest;
 
 class EmailServiceUpdateRequest extends FormRequest
 {
@@ -29,11 +29,11 @@ class EmailServiceUpdateRequest extends FormRequest
             'type_id' => ['sometimes', 'integer'],
 
             'settings.key' => ['required'],
-            'settings.secret' => ['required_if:type_id,' . EmailServiceType::SES],
-            'settings.region' => ['required_if:type_id,' . EmailServiceType::SES],
-            'settings.configuration_set_name' => ['required_if:type_id,' . EmailServiceType::SES],
+            'settings.secret' => ['required_if:type_id,'.EmailServiceType::SES],
+            'settings.region' => ['required_if:type_id,'.EmailServiceType::SES],
+            'settings.configuration_set_name' => ['required_if:type_id,'.EmailServiceType::SES],
 
-            'settings.domain' => ['required_if:type_id,' . EmailServiceType::MAILGUN]
+            'settings.domain' => ['required_if:type_id,'.EmailServiceType::MAILGUN],
         ];
     }
 
@@ -48,7 +48,7 @@ class EmailServiceUpdateRequest extends FormRequest
             'settings.secret.required_if' => __('The AWS Email Service requires you to enter a secret'),
             'settings.region.required_if' => __('The AWS Email Service requires you to enter a region'),
             'settings.configuration_set_name.required_if' => __('The AWS Email Service requires you to enter a configuration set name'),
-            'settings.domain.required_if' => __('The Mailgun Email Service requires you to enter a domain')
+            'settings.domain.required_if' => __('The Mailgun Email Service requires you to enter a domain'),
         ];
     }
 }

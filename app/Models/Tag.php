@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @property EloquentCollection $campaigns
  * @property EloquentCollection $subscribers
  * @property EloquentCollection $active_subscribers
@@ -41,7 +40,7 @@ class Tag extends BaseModel
 
     /** @var array */
     protected $withCount = [
-        'subscribers'
+        'subscribers',
     ];
 
     public function campaigns(): BelongsToMany

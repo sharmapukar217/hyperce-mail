@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Webhooks;
 
-use Illuminate\Support\Arr;
-
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
 use App\Events\Webhooks\PostalWebhookReceived;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class PostalWebhooksController extends Controller
 {
@@ -20,7 +18,6 @@ class PostalWebhooksController extends Controller
         Log::info('Postal webhook received');
 
         event(new PostalWebhookReceived($payload));
-        
 
         return response('OK');
     }

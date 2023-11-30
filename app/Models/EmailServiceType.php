@@ -7,11 +7,17 @@ class EmailServiceType extends BaseModel
     protected $table = 'email_service_types';
 
     public const SES = 1;
+
     public const SENDGRID = 2;
+
     public const MAILGUN = 3;
+
     public const POSTMARK = 4;
+
     public const MAILJET = 5;
+
     public const SMTP = 6;
+
     public const POSTAL = 7;
 
     /** @var array */

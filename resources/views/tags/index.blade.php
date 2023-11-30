@@ -30,7 +30,7 @@
                 <tbody>
                 @forelse($tags as $tag)
                     <tr>
-                        <td>#{{ $tag->id }}</td>
+                        <td>{{ $tag->id }}</td>
                         <td>
                             <a href="{{ route('tags.edit', $tag->id) }}">
                                 {{ $tag->name }}

@@ -37,7 +37,7 @@ class CampaignDeleteRequest extends FormRequest
     public function messages()
     {
         return [
-            'tags.required_unless' => __('At least one tag must be selected')
+            'tags.required_unless' => __('At least one tag must be selected'),
         ];
     }
 }

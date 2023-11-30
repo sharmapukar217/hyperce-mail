@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Facades;
+
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -13,7 +14,6 @@ use Illuminate\Support\Facades\Facade;
  * @method static void setHeaderHtmlContentResolver(callable $resolver)
  * @method static string|null headerHtmlContent
  */
-
 class HyperceMail extends Facade
 {
     protected static function getFacadeAccessor(): string

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Presenters;
 
+use App\Models\Campaign;
+use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
+use App\Repositories\Messages\MessageTenantRepositoryInterface;
+use App\Repositories\MessageUrlRepository;
 use Carbon\Carbon;
 use DateInterval;
 use DatePeriod;
 use Exception;
 use Illuminate\Support\Collection;
 use RuntimeException;
-use App\Models\Campaign;
-use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
-use App\Repositories\Messages\MessageTenantRepositoryInterface;
-use App\Repositories\MessageUrlRepository;
 
 class CampaignReportPresenter
 {
@@ -36,6 +36,7 @@ class CampaignReportPresenter
     private $interval;
 
     private const ONE_DAY_IN_SECONDS = 86400;
+
     private const THIRTY_DAYS_IN_SECONDS = self::ONE_DAY_IN_SECONDS * 30;
 
     public function __construct(Campaign $campaign, int $currentWorkspaceId, int $interval)
@@ -56,7 +57,7 @@ class CampaignReportPresenter
      */
     public function generate(): array
     {
-        if (!$this->campaign) {
+        if (! $this->campaign) {
             throw new RuntimeException('Campaign must be initialised');
         }
 
@@ -134,7 +135,7 @@ class CampaignReportPresenter
 
         return new DatePeriod(
             $first,
-            new DateInterval('PT' . $interval),
+            new DateInterval('PT'.$interval),
             $last
         );
     }
@@ -190,7 +191,7 @@ class CampaignReportPresenter
         $timespanIntervals = $this->getTimeSpanIntervals();
 
         if (isset($timespanIntervals[$timespan])) {
-            return (int)$timespanIntervals[$timespan]['seconds'];
+            return (int) $timespanIntervals[$timespan]['seconds'];
         }
 
         return self::ONE_DAY_IN_SECONDS;

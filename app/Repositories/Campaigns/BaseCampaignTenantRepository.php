@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Repositories\Campaigns;
 
+use App\Models\Campaign;
+use App\Models\CampaignStatus;
+use App\Repositories\BaseTenantRepository;
+use App\Traits\SecondsToHms;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use App\Models\Campaign;
-use App\Models\CampaignStatus;
-use App\Repositories\BaseTenantRepository;
-use App\Traits\SecondsToHms;
 
 abstract class BaseCampaignTenantRepository extends BaseTenantRepository implements CampaignTenantRepositoryInterface
 {
@@ -24,11 +24,12 @@ abstract class BaseCampaignTenantRepository extends BaseTenantRepository impleme
     /**
      * {@inheritDoc}
      */
-    public function completedCampaigns(int $workspaceId, array $relations = []): EloquentCollection
+    public function completedCampaigns(int $workspaceId, array $relations = [], int $take=4): EloquentCollection
     {
         return $this->getQueryBuilder($workspaceId)
             ->where('status_id', CampaignStatus::STATUS_SENT)
             ->with($relations)
+            ->take($take)
             ->get();
     }
 

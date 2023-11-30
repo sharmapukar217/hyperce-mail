@@ -1,14 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories\Subscribers;
 
+use App\Models\Subscriber;
+use App\Repositories\BaseTenantRepository;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use App\Models\Subscriber;
-use App\Repositories\BaseTenantRepository;
 
 abstract class BaseSubscriberTenantRepository extends BaseTenantRepository implements SubscriberTenantRepositoryInterface
 {
@@ -39,8 +40,6 @@ abstract class BaseSubscriberTenantRepository extends BaseTenantRepository imple
     /**
      * Sync Tags to a Subscriber.
      *
-     * @param Subscriber $subscriber
-     * @param array $tags
      *
      * @return mixed
      */
@@ -72,9 +71,9 @@ abstract class BaseSubscriberTenantRepository extends BaseTenantRepository imple
     /**
      * Return the count of active subscribers
      *
-     * @param int $workspaceId
-     *
+     * @param  int  $workspaceId
      * @return mixed
+     *
      * @throws Exception
      */
     public function countActive($workspaceId): int
@@ -84,16 +83,16 @@ abstract class BaseSubscriberTenantRepository extends BaseTenantRepository imple
             ->count();
     }
 
-    public function getRecentSubscribers(int $workspaceId): Collection
+    public function getRecentSubscribers(int $workspaceId, int $take = 4): Collection
     {
         return $this->getQueryBuilder($workspaceId)
             ->orderBy('created_at', 'DESC')
-            ->take(10)
+            ->take($take)
             ->get();
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function applyFilters(Builder $instance, array $filters = []): void
     {
@@ -108,7 +107,7 @@ abstract class BaseSubscriberTenantRepository extends BaseTenantRepository imple
     protected function applyNameFilter(Builder $instance, array $filters): void
     {
         if ($name = Arr::get($filters, 'name')) {
-            $filterString = '%' . $name . '%';
+            $filterString = '%'.$name.'%';
 
             $instance->where(static function (Builder $instance) use ($filterString) {
                 $instance->where('subscribers.first_name', 'like', $filterString)

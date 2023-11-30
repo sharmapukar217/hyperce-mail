@@ -11,9 +11,8 @@ class MessageUrlRepository extends BaseEloquentRepository
     /**
      * Get many records by a field and value
      *
-     * @param array $parameters
-     * @param array $relations
      * @return mixed
+     *
      * @throws \Exception
      */
     public function getBy(array $parameters, array $relations = [])

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Listeners\Webhooks;
 
+use App\Events\Webhooks\SesWebhookReceived;
+use App\Services\Webhooks\EmailWebhookService;
 use Carbon\Carbon;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
-use App\Events\Webhooks\SesWebhookReceived;
-use App\Services\Webhooks\EmailWebhookService;
 
 class HandleSesWebhook implements ShouldQueue
 {
@@ -35,12 +35,13 @@ class HandleSesWebhook implements ShouldQueue
             $httpClient->get($subscribeUrl);
 
             Log::info('subscribing', ['url' => $subscribeUrl]);
+
             return;
         }
 
         $event = json_decode(Arr::get($event->payload, 'Message'), true);
 
-        if (!$event) {
+        if (! $event) {
             return;
         }
 
@@ -58,12 +59,12 @@ class HandleSesWebhook implements ShouldQueue
         /** @var string|null $eventType */
         $eventType = $event['eventType'] ?? null;
 
-        if (!$eventType || !$messageId) {
+        if (! $eventType || ! $messageId) {
             return;
         }
-        
+
         $eventType = strtolower($eventType);
-        
+
         // https://docs.aws.amazon.com/ses/latest/DeveloperGuide/event-publishing-retrieving-sns-examples.html#event-publishing-retrieving-sns-open
         // Bounce, Complaint, Message, Send Email, Reject Event, Open Event, Click Event
         switch ($eventType) {

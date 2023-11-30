@@ -29,7 +29,7 @@ class Setup extends Component
     ];
 
     protected $listeners = [
-        'next' => 'next'
+        'next' => 'next',
     ];
 
     public function render()
@@ -78,7 +78,7 @@ class Setup extends Component
         return $completed;
     }
 
-    public function run(?array $data = null): void
+    public function run(array $data = null): void
     {
         $this->resetValidation();
 
@@ -110,7 +110,6 @@ class Setup extends Component
     /**
      * Get the concrete Step class.
      *
-     * @return StepInterface
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function getConcreteHandler(): StepInterface

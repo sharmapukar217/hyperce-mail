@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property array $settings
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @property EmailServiceType $type
  * @property Collection $campaigns
  *
@@ -45,7 +44,7 @@ class EmailService extends BaseModel
     protected $casts = [
         'id' => 'int',
         'workspace_id' => 'int',
-        'type_id' => 'int'
+        'type_id' => 'int',
     ];
 
     /**
@@ -84,6 +83,6 @@ class EmailService extends BaseModel
 
     public function getInUseAttribute(): bool
     {
-        return (bool)$this->campaigns()->count();
+        return (bool) $this->campaigns()->count();
     }
 }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Facades\HyperceMail;
 use App\Models\Tag;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TagFactory extends Factory
 {
@@ -17,7 +17,7 @@ class TagFactory extends Factory
     {
         return [
             'workspace_id' => HyperceMail::currentWorkspaceId(),
-            'name' => ucwords($this->faker->unique()->word)
+            'name' => ucwords($this->faker->unique()->word),
         ];
     }
 }

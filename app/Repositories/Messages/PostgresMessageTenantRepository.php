@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class PostgresMessageTenantRepository extends BaseMessageTenantRepository
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function countUniqueOpensPerPeriod(int $workspaceId, string $sourceType, int $sourceId, int $intervalInSeconds): Collection
     {

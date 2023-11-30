@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\SubscriptionToggleRequest;
 use App\Models\Message;
 use App\Models\UnsubscribeEventType;
 use App\Repositories\Messages\MessageTenantRepositoryInterface;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class SubscriptionsController extends Controller
 {
@@ -50,7 +49,7 @@ class SubscriptionsController extends Controller
         $message = Message::where('hash', $messageHash)->first();
         $subscriber = $message->subscriber;
 
-        $unsubscribed = (bool)$request->get('unsubscribed');
+        $unsubscribed = (bool) $request->get('unsubscribed');
 
         if ($unsubscribed) {
             $message->unsubscribed_at = now();

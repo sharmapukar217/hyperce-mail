@@ -13,13 +13,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $plan_id
  * @property Carbon|null $enrolled_at
  * @property Carbon|null $expires_at
- *
  * @property PlanType $type
- *
  */
 class Plan extends BaseModel
 {
-
     /** @var string */
     protected $table = 'plans';
 
@@ -35,7 +32,7 @@ class Plan extends BaseModel
     protected $casts = [
         'id' => 'int',
         'plan_id' => 'int',
-        'workspace_id' => 'int'
+        'workspace_id' => 'int',
     ];
 
     /**

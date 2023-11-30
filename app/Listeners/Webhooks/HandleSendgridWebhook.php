@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace \Listeners\Webhooks;
+namespace App\Listeners\Webhooks;
 
 use Carbon\Carbon;
+use Events\Webhooks\SendgridWebhookReceived;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use RuntimeException;
-use \Events\Webhooks\SendgridWebhookReceived;
-use \Services\Webhooks\EmailWebhookService;
+use Services\Webhooks\EmailWebhookService;
 
 class HandleSendgridWebhook implements ShouldQueue
 {

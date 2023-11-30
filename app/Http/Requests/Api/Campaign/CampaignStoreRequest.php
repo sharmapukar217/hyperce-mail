@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Api\Campaign;
 
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use App\Facades\HyperceMail;
 use App\Http\Requests\Campaigns\CampaignStoreRequest as BaseCampaignStoreRequest;
 use App\Models\Campaign;
 use App\Models\CampaignStatus;
 use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
 use App\Repositories\TagTenantRepository;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CampaignStoreRequest extends BaseCampaignStoreRequest
 {

@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Campaigns;
 
-use Exception;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\View\View;
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
 use App\Models\Campaign;
 use App\Presenters\CampaignReportPresenter;
 use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
 use App\Repositories\Messages\MessageTenantRepositoryInterface;
+use Exception;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\View\View;
 
 class CampaignReportsController extends Controller
 {
@@ -36,6 +36,7 @@ class CampaignReportsController extends Controller
      * Show campaign report view.
      *
      * @return RedirectResponse|View
+     *
      * @throws Exception
      */
     public function index(int $id, Request $request)
@@ -68,6 +69,7 @@ class CampaignReportsController extends Controller
      * Show campaign recipients.
      *
      * @return RedirectResponse|View
+     *
      * @throws Exception
      */
     public function recipients(int $id)
@@ -91,6 +93,7 @@ class CampaignReportsController extends Controller
      * Show campaign opens.
      *
      * @return RedirectResponse|View
+     *
      * @throws Exception
      */
     public function opens(int $id)
@@ -115,6 +118,7 @@ class CampaignReportsController extends Controller
      * Show campaign clicks.
      *
      * @return RedirectResponse|View
+     *
      * @throws Exception
      */
     public function clicks(int $id)
@@ -139,6 +143,7 @@ class CampaignReportsController extends Controller
      * Show campaign bounces.
      *
      * @return RedirectResponse|View
+     *
      * @throws Exception
      */
     public function bounces(int $id)
@@ -162,6 +167,7 @@ class CampaignReportsController extends Controller
      * Show campaign unsubscribes.
      *
      * @return RedirectResponse|View
+     *
      * @throws Exception
      */
     public function unsubscribes(int $id)

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Repositories\Messages;
 
+use App\Interfaces\BaseTenantInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use App\Interfaces\BaseTenantInterface;
 
 interface MessageTenantRepositoryInterface extends BaseTenantInterface
 {

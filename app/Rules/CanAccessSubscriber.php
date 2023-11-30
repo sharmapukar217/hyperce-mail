@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use App\Facades\HyperceMail;
 use App\Models\Subscriber;
+use Illuminate\Contracts\Validation\Rule;
 
 class CanAccessSubscriber implements Rule
 {
@@ -14,7 +14,7 @@ class CanAccessSubscriber implements Rule
     {
         $subscriber = Subscriber::find($value);
 
-        if (!$subscriber) {
+        if (! $subscriber) {
             return false;
         }
 

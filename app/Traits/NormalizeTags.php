@@ -9,11 +9,11 @@ trait NormalizeTags
     protected function normalizeTags(string $content, string $tag): string
     {
         $search = [
-            '{{ ' . $tag . ' }}',
-            '{{' . $tag . ' }}',
-            '{{ ' . $tag . '}}',
+            '{{ '.$tag.' }}',
+            '{{'.$tag.' }}',
+            '{{ '.$tag.'}}',
         ];
 
-        return str_ireplace($search, '{{' . $tag . '}}', $content);
+        return str_ireplace($search, '{{'.$tag.'}}', $content);
     }
 }

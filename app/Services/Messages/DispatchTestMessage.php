@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Services\Messages;
 
-use Exception;
-use Illuminate\Support\Facades\Log;
 use App\Models\Campaign;
 use App\Models\EmailService;
 use App\Models\Message;
 use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
 use App\Services\Content\MergeContentService;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class DispatchTestMessage
 {
@@ -45,11 +45,12 @@ class DispatchTestMessage
     {
         $campaign = $this->resolveCampaign($workspaceId, $campaignId);
 
-        if (!$campaign) {
+        if (! $campaign) {
             Log::error(
                 'Unable to get campaign to send test message.',
                 ['workspace_id' => $workspaceId, 'campaign_id' => $campaignId]
             );
+
             return null;
         }
 
@@ -133,7 +134,7 @@ class DispatchTestMessage
             'source_type' => Campaign::class,
             'source_id' => $campaign->id,
             'recipient_email' => $recipientEmail,
-            'subject' => '[Test] ' . $campaign->subject,
+            'subject' => '[Test] '.$campaign->subject,
             'from_name' => $campaign->from_name,
             'from_email' => $campaign->from_email,
             'hash' => 'abc123',

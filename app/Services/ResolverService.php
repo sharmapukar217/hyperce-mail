@@ -11,7 +11,6 @@ class ResolverService
     /** @var array */
     private $resolvers = [];
 
-
     public function setHeaderHtmlContentResolver(callable $callable): void
     {
         $this->setResolver('header', $callable);
@@ -48,12 +47,13 @@ class ResolverService
     public function resolveCurrentWorkspaceId(): ?int
     {
         $resolver = $this->getResolver('workspace');
+
         return $resolver();
     }
 
     private function getResolver(string $resolverName): ?callable
     {
-        
+
         return Arr::get($this->resolvers, $resolverName);
     }
 

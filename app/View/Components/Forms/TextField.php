@@ -23,10 +23,7 @@ class TextField extends Component
     /**
      * Create the component instance.
      *
-     * @param string $name
-     * @param string $label
-     * @param string $type
-     * @param null $value
+     * @param  null  $value
      */
     public function __construct(string $name, string $label = '', string $type = 'text', $value = null)
     {

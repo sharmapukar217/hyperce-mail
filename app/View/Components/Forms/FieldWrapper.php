@@ -19,10 +19,6 @@ class FieldWrapper extends Component
 
     /**
      * Create the component instance.
-     *
-     * @param string $name
-     * @param string $label
-     * @param string $wrapperClass
      */
     public function __construct(string $name, string $label, string $wrapperClass = '')
     {
@@ -31,10 +27,6 @@ class FieldWrapper extends Component
         $this->wrapperClass = $wrapperClass;
     }
 
-    /**
-     * @param string $field
-     * @return string
-     */
     public function errorClass(string $field): string
     {
         if ($errors = session('errors')) {

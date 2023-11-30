@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Facades\HyperceMail;
 use App\Models\Subscriber;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SubscriberFactory extends Factory
 {
@@ -20,7 +20,7 @@ class SubscriberFactory extends Factory
             'hash' => $this->faker->uuid,
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
-            'email' => $this->faker->safeEmail
+            'email' => $this->faker->safeEmail,
         ];
     }
 }

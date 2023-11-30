@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Campaigns;
 
-use Exception;
-use Illuminate\Validation\ValidationException;
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
 use App\Models\Campaign;
 use App\Models\CampaignStatus;
 use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
+use Exception;
+use Illuminate\Validation\ValidationException;
 
 class CampaignCancellationController extends Controller
 {
-    /** @var CampaignTenantRepositoryInterface $campaignRepository */
+    /** @var CampaignTenantRepositoryInterface */
     private $campaignRepository;
 
     public function __construct(CampaignTenantRepositoryInterface $campaignRepository)
@@ -29,7 +29,7 @@ class CampaignCancellationController extends Controller
     {
         $campaign = $this->campaignRepository->find(HyperceMail::currentWorkspaceId(), $campaignId, ['status']);
 
-        return view('campaigns.cancel', [ 'campaign' => $campaign ]);
+        return view('campaigns.cancel', ['campaign' => $campaign]);
     }
 
     /**
@@ -41,13 +41,13 @@ class CampaignCancellationController extends Controller
         $campaign = $this->campaignRepository->find(HyperceMail::currentWorkspaceId(), $campaignId, ['status']);
         $originalStatus = $campaign->status;
 
-        if (!$campaign->canBeCancelled()) {
+        if (! $campaign->canBeCancelled()) {
             throw ValidationException::withMessages([
                 'campaignStatus' => "{$campaign->status->name} campaigns cannot be cancelled.",
             ])->redirectTo(route('campaigns.index'));
         }
 
-        if ($campaign->save_as_draft && !$campaign->allDraftsCreated()) {
+        if ($campaign->save_as_draft && ! $campaign->allDraftsCreated()) {
             throw ValidationException::withMessages([
                 'messagesPendingDraft' => __('Campaigns that save draft messages cannot be cancelled until all drafts have been created.'),
             ])->redirectTo(route('campaigns.index'));
@@ -73,10 +73,10 @@ class CampaignCancellationController extends Controller
         $messageCounts = $this->campaignRepository->getCounts(collect($campaign->id), $campaign->workspace_id)[$campaign->id];
 
         return __(
-            "The campaign was cancelled whilst being processed (~:sent/:total dispatched).",
+            'The campaign was cancelled whilst being processed (~:sent/:total dispatched).',
             [
                 'sent' => $messageCounts->sent,
-                'total' => $campaign->active_subscriber_count
+                'total' => $campaign->active_subscriber_count,
             ]
         );
     }

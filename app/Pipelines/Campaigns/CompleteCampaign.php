@@ -10,7 +10,6 @@ class CompleteCampaign
     /**
      * Mark the campaign as complete in the database
      *
-     * @param Campaign $schedule
      * @return Campaign
      */
     public function handle(Campaign $schedule, $next)
@@ -22,9 +21,6 @@ class CompleteCampaign
 
     /**
      * Execute the database query
-     *
-     * @param Campaign $campaign
-     * @return void
      */
     protected function markCampaignAsComplete(Campaign $campaign): void
     {

@@ -7,8 +7,11 @@ class UnsubscribeEventType extends BaseModel
     protected $table = 'unsubscribe_event_types';
 
     const BOUNCE = 1;
+
     const COMPLAINT = 2;
+
     const MANUAL_BY_ADMIN = 3;
+
     const MANUAL_BY_SUBSCRIBER = 4;
 
     public static $types = [
@@ -26,7 +29,7 @@ class UnsubscribeEventType extends BaseModel
     /**
      * Get the unsubscribe type by ID
      *
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public static function findById($id): string

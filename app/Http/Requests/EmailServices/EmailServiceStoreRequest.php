@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\EmailServices;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Models\EmailServiceType;
+use Illuminate\Foundation\Http\FormRequest;
 
 class EmailServiceStoreRequest extends FormRequest
 {
@@ -29,12 +29,12 @@ class EmailServiceStoreRequest extends FormRequest
             'type_id' => ['required', 'integer'],
 
             'settings.key' => ['required'],
-            'settings.secret' => ['required_if:type_id,' . EmailServiceType::SES],
-            'settings.region' => ['required_if:type_id,' . EmailServiceType::SES],
-            'settings.configuration_set_name' => ['required_if:type_id,' . EmailServiceType::SES],
+            'settings.secret' => ['required_if:type_id,'.EmailServiceType::SES],
+            'settings.region' => ['required_if:type_id,'.EmailServiceType::SES],
+            'settings.configuration_set_name' => ['required_if:type_id,'.EmailServiceType::SES],
 
-            'settings.domain' => ['required_if:type_id,' . EmailServiceType::MAILGUN],
-            'settings.zone' => ['required_if:type_id,' . EmailServiceType::MAILGUN, 'in:US,EU'],
+            'settings.domain' => ['required_if:type_id,'.EmailServiceType::MAILGUN],
+            'settings.zone' => ['required_if:type_id,'.EmailServiceType::MAILGUN, 'in:US,EU'],
         ];
     }
 

@@ -17,8 +17,6 @@ class TextareaField extends Component
     /**
      * Create the component instance.
      *
-     * @param  string  $name
-     * @param  string  $label
      * @return void
      */
     public function __construct(string $name, string $label = '')

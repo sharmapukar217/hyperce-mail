@@ -1,8 +1,8 @@
 <?php
 
+use App\Models\UpgradeMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\UpgradeMigration;
 
 class CreateCampaignTagTable extends UpgradeMigration
 {

@@ -2,8 +2,8 @@
 
 namespace App\Adapters;
 
-use Illuminate\Support\Arr;
 use App\Services\Messages\MessageTrackingOptions;
+use Illuminate\Support\Arr;
 use Swift_Mailer;
 use Swift_Message;
 use Swift_SmtpTransport;

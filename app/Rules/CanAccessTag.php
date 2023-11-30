@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use App\Facades\HyperceMail;
 use App\Models\Tag;
+use Illuminate\Contracts\Validation\Rule;
 
 class CanAccessTag implements Rule
 {
@@ -14,7 +14,7 @@ class CanAccessTag implements Rule
     {
         $tag = Tag::find($value);
 
-        if (!$tag) {
+        if (! $tag) {
             return false;
         }
 
@@ -23,8 +23,6 @@ class CanAccessTag implements Rule
 
     /**
      * Get the validation error message.
-     *
-     * @return string
      */
     public function message(): string
     {

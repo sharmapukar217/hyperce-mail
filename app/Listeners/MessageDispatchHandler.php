@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Listeners;
 
-use Exception;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Events\MessageDispatchEvent;
 use App\Services\Messages\DispatchMessage;
+use Exception;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class MessageDispatchHandler implements ShouldQueue
 {

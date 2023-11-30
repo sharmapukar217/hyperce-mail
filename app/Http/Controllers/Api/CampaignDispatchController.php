@@ -40,7 +40,7 @@ class CampaignDispatchController extends Controller
 
         if ($this->quotaService->exceedsQuota($campaign->email_service, $campaign->unsent_count)) {
             return response([
-                'message' => __('The number of subscribers for this campaign exceeds your SES quota')
+                'message' => __('The number of subscribers for this campaign exceeds your SES quota'),
             ], 422);
         }
 

@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\Subscribers;
 
+use App\Facades\HyperceMail;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Subscribers\SubscribersImportRequest;
+use App\Repositories\TagTenantRepository;
+use App\Services\Subscribers\ImportSubscriberService;
 use Box\Spout\Common\Exception\IOException;
 use Box\Spout\Common\Exception\UnsupportedTypeException;
 use Box\Spout\Reader\Exception\ReaderNotOpenedException;
@@ -15,11 +20,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\ViewErrorBag;
 use Illuminate\Validation\ValidationException;
 use Rap2hpoutre\FastExcel\FastExcel;
-use App\Facades\HyperceMail;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Subscribers\SubscribersImportRequest;
-use App\Repositories\TagTenantRepository;
-use App\Services\Subscribers\ImportSubscriberService;
 
 class SubscribersImportController extends Controller
 {
@@ -49,7 +49,7 @@ class SubscribersImportController extends Controller
     public function store(SubscribersImportRequest $request): RedirectResponse
     {
         if ($request->file('file')->isValid()) {
-            $filename = Str::random(16) . '.csv';
+            $filename = Str::random(16).'.csv';
 
             $path = $request->file('file')->storeAs('imports', $filename, 'local');
 
@@ -66,7 +66,7 @@ class SubscribersImportController extends Controller
 
             $counter = [
                 'created' => 0,
-                'updated' => 0
+                'updated' => 0,
             ];
 
             (new FastExcel)->import(Storage::disk('local')->path($path), function (array $line) use ($request, &$counter) {
@@ -88,7 +88,7 @@ class SubscribersImportController extends Controller
                 ->with('success', __('Imported :created subscriber(s) and updated :updated subscriber(s) out of :total', [
                     'created' => $counter['created'],
                     'updated' => $counter['updated'],
-                    'total' => $counter['created'] + $counter['updated']
+                    'total' => $counter['created'] + $counter['updated'],
                 ]));
         }
 
@@ -97,8 +97,6 @@ class SubscribersImportController extends Controller
     }
 
     /**
-     * @param string $path
-     * @return ViewErrorBag
      * @throws IOException
      * @throws ReaderNotOpenedException
      * @throws UnsupportedTypeException
@@ -115,7 +113,7 @@ class SubscribersImportController extends Controller
             try {
                 $this->validateData($data);
             } catch (ValidationException $e) {
-                $errors->put('Row ' . $row, $e->validator->errors());
+                $errors->put('Row '.$row, $e->validator->errors());
             }
 
             $row++;
@@ -125,7 +123,6 @@ class SubscribersImportController extends Controller
     }
 
     /**
-     * @param array $data
      * @throws ValidationException
      */
     protected function validateData(array $data): void

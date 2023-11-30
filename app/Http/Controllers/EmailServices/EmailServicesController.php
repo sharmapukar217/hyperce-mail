@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\EmailServices;
 
-use Exception;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
 use App\Facades\HyperceMail;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmailServices\EmailServiceRequest;
 use App\Repositories\EmailServiceTenantRepository;
+use Exception;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class EmailServicesController extends Controller
 {
@@ -94,7 +94,7 @@ class EmailServicesController extends Controller
         $emailService = $this->emailServices->find(HyperceMail::currentWorkspaceId(), $emailServiceId, ['campaigns']);
 
         if ($emailService->in_use) {
-            return redirect()->back()->withErrors(__("You cannot delete an email service that is currently used by a campaign or automation."));
+            return redirect()->back()->withErrors(__('You cannot delete an email service that is currently used by a campaign or automation.'));
         }
 
         $this->emailServices->destroy(HyperceMail::currentWorkspaceId(), $emailServiceId);
@@ -107,11 +107,11 @@ class EmailServicesController extends Controller
         $emailServiceType = $this->emailServices->findType($emailServiceTypeId);
 
         $view = view()
-            ->make('email_services.options.' . strtolower($emailServiceType->name))
+            ->make('email_services.options.'.strtolower($emailServiceType->name))
             ->render();
 
         return response()->json([
-            'view' => $view
+            'view' => $view,
         ]);
     }
 }

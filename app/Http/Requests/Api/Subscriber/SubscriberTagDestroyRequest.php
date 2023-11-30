@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Api\Subscriber;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\CanAccessTag;
+use Illuminate\Foundation\Http\FormRequest;
 
 class SubscriberTagDestroyRequest extends FormRequest
 {
@@ -13,7 +13,7 @@ class SubscriberTagDestroyRequest extends FormRequest
     {
         return [
             'tags' => ['array', 'required'],
-            'tags.*' => ['integer', new CanAccessTag($this->user())]
+            'tags.*' => ['integer', new CanAccessTag($this->user())],
         ];
     }
 }

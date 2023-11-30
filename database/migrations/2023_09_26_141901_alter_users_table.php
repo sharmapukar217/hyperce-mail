@@ -24,9 +24,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-	    $table->dropColumn('locale');
+            $table->dropColumn('locale');
             // $table->dropColumn('api_tokens');
-	    $table->dropColumn('current_workspace_id');
+            $table->dropColumn('current_workspace_id');
         });
     }
 };

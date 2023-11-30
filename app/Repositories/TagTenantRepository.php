@@ -26,8 +26,6 @@ class TagTenantRepository extends BaseTenantRepository
     /**
      * Sync subscribers
      *
-     * @param Tag $tag
-     * @param array $subscribers
      * @return array
      */
     public function syncSubscribers(Tag $tag, array $subscribers = [])

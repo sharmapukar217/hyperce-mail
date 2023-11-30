@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace App\Services\Webhooks;
 
-use Carbon\Carbon;
-use Exception;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use App\Models\Message;
 use App\Models\MessageFailure;
 use App\Models\MessageUrl;
 use App\Models\UnsubscribeEventType;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class EmailWebhookService
 {
     public function handleDelivery(string $messageId, Carbon $timestamp): void
     {
         DB::table('messages')->where('message_id', $messageId)->whereNull('delivered_at')->update([
-            'delivered_at' => $timestamp
+            'delivered_at' => $timestamp,
         ]);
     }
 
@@ -30,16 +30,16 @@ class EmailWebhookService
         /** @var Message $message */
         $message = Message::where('message_id', $messageId)->first();
 
-        if (!$message) {
+        if (! $message) {
             return;
         }
 
-        if (!$message->opened_at) {
+        if (! $message->opened_at) {
             $message->opened_at = $timestamp;
             $message->ip = $ipAddress;
         }
 
-        ++$message->open_count;
+        $message->open_count++;
         $message->save();
     }
 
@@ -51,7 +51,7 @@ class EmailWebhookService
         /* @var Message $message */
         $message = Message::where('message_id', $messageId)->first();
 
-        if (!$message) {
+        if (! $message) {
             return;
         }
 
@@ -60,21 +60,19 @@ class EmailWebhookService
             return;
         }
 
-        if (!$message->clicked_at) {
+        if (! $message->clicked_at) {
             $message->clicked_at = $timestamp;
         }
 
         // Since you have to open a campaign to click a link inside it, we'll consider those clicks as opens
         // even if the tracking image didn't load.
-        if (!$message->opened_at) {
-            ++$message->open_count;
+        if (! $message->opened_at) {
+            $message->open_count++;
             $message->opened_at = $timestamp;
         }
 
-        ++$message->click_count;
+        $message->click_count++;
         $message->save();
-
-       
 
         $messageUrlHash = $this->generateMessageUrlHash($message, $url);
 
@@ -98,11 +96,11 @@ class EmailWebhookService
         /* @var Message $message */
         $message = Message::where('message_id', $messageId)->first();
 
-        if (!$message) {
+        if (! $message) {
             return;
         }
 
-        if (!$message->complained_at) {
+        if (! $message->complained_at) {
             $message->unsubscribed_at = $timestamp;
             $message->save();
         }
@@ -115,11 +113,11 @@ class EmailWebhookService
         /* @var Message $message */
         $message = Message::where('message_id', $messageId)->first();
 
-        if (!$message) {
+        if (! $message) {
             return;
         }
 
-        if (!$message->bounced_at) {
+        if (! $message->bounced_at) {
             $message->bounced_at = $timestamp;
             $message->save();
         }
@@ -132,7 +130,7 @@ class EmailWebhookService
         /* @var Message $message */
         $message = Message::where('message_id', $messageId)->first();
 
-        if (!$message) {
+        if (! $message) {
             return;
         }
 
@@ -152,20 +150,19 @@ class EmailWebhookService
     {
         $subscriberId = DB::table('messages')->where('message_id', $messageId)->value('subscriber_id');
 
-        if (!$subscriberId) {
+        if (! $subscriberId) {
             return;
         }
 
         DB::table('subscribers')->where('id', $subscriberId)->update([
             'unsubscribed_at' => now(),
             'unsubscribe_event_id' => $typeId,
-            'updated_at' => now()
+            'updated_at' => now(),
         ]);
     }
 
-
     protected function generateMessageUrlHash(Message $message, string $url): string
     {
-        return md5($message->source_type . '_' . $message->source_id . '_' . $url);
+        return md5($message->source_type.'_'.$message->source_id.'_'.$url);
     }
 }

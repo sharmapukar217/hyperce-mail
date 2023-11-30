@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Tag as TagResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class Subscriber extends JsonResource
 {
@@ -23,7 +23,7 @@ class Subscriber extends JsonResource
             'tags' => TagResource::collection($this->whenLoaded('tags')),
             'unsubscribed_at' => $this->unsubscribed_at ? $this->unsubscribed_at->toDateTimeString() : null,
             'created_at' => $this->created_at->toDateTimeString(),
-            'updated_at' => $this->updated_at->toDateTimeString()
+            'updated_at' => $this->updated_at->toDateTimeString(),
         ];
     }
 }

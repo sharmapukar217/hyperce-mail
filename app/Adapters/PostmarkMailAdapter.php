@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Adapters;
 
+use App\Services\Messages\MessageTrackingOptions;
 use Illuminate\Support\Arr;
 use Postmark\Models\DynamicResponseModel;
 use Postmark\PostmarkClient;
-use App\Services\Messages\MessageTrackingOptions;
 
 class PostmarkMailAdapter extends BaseMailAdapter
 {
@@ -50,6 +50,6 @@ class PostmarkMailAdapter extends BaseMailAdapter
 
     protected function resolveMessageId(DynamicResponseModel $result): string
     {
-        return (string)$result->__get('MessageID');
+        return (string) $result->__get('MessageID');
     }
 }

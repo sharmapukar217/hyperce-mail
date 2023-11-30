@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Facades\HyperceMail;
 use App\Models\Campaign;
 use App\Models\Message;
 use App\Models\Subscriber;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MessageFactory extends Factory
 {

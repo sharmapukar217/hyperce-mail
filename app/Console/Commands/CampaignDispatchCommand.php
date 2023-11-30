@@ -4,16 +4,15 @@ namespace App\Console\Commands;
 
 use App\Models\Campaign;
 use App\Models\CampaignStatus;
-use App\Services\Campaigns\CampaignDispatchService;
 use App\Repositories\Campaigns\CampaignTenantRepositoryInterface;
-
+use App\Services\Campaigns\CampaignDispatchService;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Log;
 
 class CampaignDispatchCommand extends Command
 {
-   /** @var string */
+    /** @var string */
     protected $signature = 'app:campaigns:dispatch';
 
     /** @var string */
@@ -39,10 +38,10 @@ class CampaignDispatchCommand extends Command
             return;
         }
 
-        $this->info('Dispatching campaigns count=' . $count);
+        $this->info('Dispatching campaigns count='.$count);
 
         foreach ($campaigns as $campaign) {
-            $message = 'Dispatching campaign id=' . $campaign->id;
+            $message = 'Dispatching campaign id='.$campaign->id;
 
             $this->info($message);
             Log::info($message);
@@ -56,8 +55,7 @@ class CampaignDispatchCommand extends Command
         Log::info($message);
     }
 
-
-   /**
+    /**
      * Get all queued campaigns.
      */
     protected function getQueuedCampaigns(): Collection

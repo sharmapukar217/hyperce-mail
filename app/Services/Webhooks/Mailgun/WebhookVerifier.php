@@ -10,10 +10,10 @@ class WebhookVerifier
     {
         // NOTE(david): we can verify that the webhook was sent within a given period of time, for extra security,
         // but because we have to do this in a queue I don't think it's a good idea to do so.
-//        if (abs(time() - $timestamp) > 15) {
-//            return false;
-//        }
+        //        if (abs(time() - $timestamp) > 15) {
+        //            return false;
+        //        }
 
-        return hash_equals(hash_hmac('sha256', $timestamp . $token, $signingKey), $signature);
+        return hash_equals(hash_hmac('sha256', $timestamp.$token, $signingKey), $signature);
     }
 }

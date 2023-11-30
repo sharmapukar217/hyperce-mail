@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Campaigns;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use App\Facades\HyperceMail;
 use App\Repositories\TagTenantRepository;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CampaignDispatchRequest extends FormRequest
 {
