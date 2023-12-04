@@ -1,33 +1,55 @@
 @extends('layouts.app')
 
 @section('htmlBody')
-
-        @component('layouts.partials.card')
-        
-        @if($currentPlan)
-            @section('title', __('Your Plan'))
-            @slot('cardHeader', __('Your Plan'))
-        @else
             @section('title', __('Choose a plan'))
-            @slot('cardHeader', __('Choose a plan'))
-        @endif
+    
+    <div class="container mt-5">
+    <div class="row ">
 
-            @slot('cardBody')
-            @if($currentPlan)
-            <div class="">
-                Your `{{$currentPlan->plan->plan}}` plan expires at: {{ Carbon\Carbon::parse($currentPlan->expires_at) }}
-                <hr />
+        @foreach(config('plans') as $planName => $planDetails)
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ ucfirst($planName) }} Plan</h5>
+                        <p class="card-text">Pricing: ${{ $planDetails['pricing'] }}</p>
+                        <p class="card-text">Subscribers: {{ $planDetails['subscribers'] }}</p>
+                        <p class="card-text">Team Members: {{ $planDetails['team_members'] }}</p>
+                        <p class="card-text">Domains: {{ $planDetails['domains'] }}</p>
+                        <p class="card-text">Emails Limit: {{ $planDetails['emails_limit'] ?? 'Unlimited' }}</p>
+                        <p class="card-text">Workspaces: {{ $planDetails['workspaces'] }}</p>
+                        <h6>Features:</h6>
+                        <ul>
+                            @foreach($planDetails['features'] as $feature)
+                                <li>{{ $feature }}</li>
+                            @endforeach
+                        </ul>
+                        <form method="post">
+                            @csrf
+                            <input type="hidden" name="plan" value="{{ $planName }}">
+                            <button type="submit" class="btn btn-primary">Choose {{ ucfirst($planName) }} Plan</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            @endif
+        @endforeach
 
-                <form action="{{ route('plans.update') }}" method="POST" class="form-horizontal">
-                    @csrf
-                    <x-forms.select-field name="plan_id" :label="__('Plan')" :options="$availablePlans" :value="1" />
+        <!-- Add an additional card for the Enterprise plan -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Enterprise Plan</h5>
+                    <!-- Include Enterprise plan details here -->
+                    <!-- ... -->
+                    <form method="post">
+                        @csrf
+                        <input type="hidden" name="plan" value="enterprise">
+                        <button type="submit" class="btn btn-primary">Choose Enterprise Plan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-                    <div id="services-fields"></div>
+    </div>
+</div> 
 
-                    <x-forms.submit-button :label="__('Submit')" />
-                </form>
-            @endSlot
-        @endcomponent
 @endsection
