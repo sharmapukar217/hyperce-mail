@@ -4,8 +4,10 @@
             @section('title', __('Choose a plan'))
     
     <div class="container mt-5">
+        @if ($currentPlan)
+            <h1>Current plan: {{App\Models\PlanType::resolve($currentPlan->plan_id)}}</h1>
+        @endif
     <div class="row ">
-
         @foreach(config('plans') as $planName => $planDetails)
             <div class="col-md-4 mb-4">
                 <div class="card">
