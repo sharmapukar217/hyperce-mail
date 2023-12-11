@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\HasWorkspaces;
 use Carbon\Carbon;
+use Laravel\Cashier\Billable;
+use App\Traits\HasWorkspaces;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,9 +30,10 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
+    use Billable;
     use HasFactory;
-    use HasWorkspaces;
     use Notifiable;
+    use HasWorkspaces;
 
     /**
      * The attributes that are mass assignable.
