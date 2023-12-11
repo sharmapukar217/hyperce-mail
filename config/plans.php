@@ -1,7 +1,10 @@
 <?php
 
+use App\Models\PlanType;
+
 return [
 	'free' => [
+		'plan_id'=> PlanType::FREE,
 		'pricing' => 0,
 		'subscribers' => 2500,
 		'team_members' => 1,
@@ -15,6 +18,7 @@ return [
 		]
 	],
 	'pro' => [
+		'plan_id'=> PlanType::PRO,
 		'pricing' => 25,
 		'subscribers' => 5000,
 		'team_members' => 5,
@@ -28,6 +32,7 @@ return [
 		]
 	],
 	'premium' => [
+		'plan_id'=> PlanType::PREMIUM,
 		'pricing' => 50,
 		'subscribers' => 10000,
 		'team_members' => 10,

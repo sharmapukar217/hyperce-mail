@@ -15,12 +15,16 @@ return new class extends Migration
                 'plan' => 'Free',
             ],
             [
-                'id' => PlanType::BASIC,
-                'plan' => 'Basic',
-            ],
-            [
                 'id' => PlanType::PRO,
                 'plan' => 'Pro',
+            ],
+            [
+                'id' => PlanType::PREMIUM,
+                'plan' => 'Premium',
+            ],
+            [
+                'id' => PlanType::ENTERPRISE,
+                'plan' => 'Enterprise',
             ],
         ];
 

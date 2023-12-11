@@ -23,9 +23,9 @@
                                 <li>{{ $feature }}</li>
                             @endforeach
                         </ul>
-                        <form method="post">
+                        <form method="post" action="{{ route('plans.update') }}">
                             @csrf
-                            <input type="hidden" name="plan" value="{{ $planName }}">
+                            <input type="hidden" name="plan_id" value="{{ $planDetails['plan_id']  }}">
                             <button type="submit" class="btn btn-primary">Choose {{ ucfirst($planName) }} Plan</button>
                         </form>
                     </div>
@@ -42,7 +42,7 @@
                     <!-- ... -->
                     <form method="post">
                         @csrf
-                        <input type="hidden" name="plan" value="enterprise">
+                        <input type="hidden" name="plan_id" value={{App\Models\PlanType::ENTERPRISE}}>
                         <button type="submit" class="btn btn-primary">Choose Enterprise Plan</button>
                     </form>
                 </div>

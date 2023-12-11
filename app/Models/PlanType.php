@@ -7,16 +7,16 @@ class PlanType extends BaseModel
     protected $table = 'plan_types';
 
     public const FREE = 1;
-
-    public const BASIC = 2;
-
-    public const PRO = 3;
+    public const PRO = 2;
+    public const PREMIUM = 3;
+    public const ENTERPRISE = 4;
 
     /** @var array */
     protected static $types = [
         self::FREE => 'Free',
-        self::BASIC => 'Basic',
         self::PRO => 'Pro',
+        self::PREMIUM => 'Premium',
+        self::ENTERPRISE => 'Enterprise'
     ];
 
     /**
