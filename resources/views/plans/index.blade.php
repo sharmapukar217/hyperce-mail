@@ -40,9 +40,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Enterprise Plan</h5>
-                    <!-- Include Enterprise plan details here -->
-                    <!-- ... -->
-                    <form method="post">
+                    <form method="post" action="{{ route('plans.update') }}">
                         @csrf
                         <input type="hidden" name="plan_id" value={{App\Models\PlanType::ENTERPRISE}}>
                         <button type="submit" class="btn btn-primary">Choose Enterprise Plan</button>
