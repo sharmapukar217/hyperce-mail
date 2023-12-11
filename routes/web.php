@@ -13,6 +13,10 @@ Auth::routes([
 ]);
 
 Route::view('/', 'index');
+Route::view('/features', 'features');
+Route::view('/about', 'about');
+Route::view('/pricing', 'pricing');
+
 Route::get('setup', 'SetupController@index')->name('setup');
 
 Route::middleware(['verified', RequireWorkspace::class])->name('plans.')->prefix('plans')->group(static function () {
