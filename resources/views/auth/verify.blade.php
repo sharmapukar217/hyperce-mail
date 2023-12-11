@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('htmlBody')
-<div class="container">
+<div class="container" style="position: absolute; left: 50%; top: 40%;transform: translate(-50%, -50%);">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
