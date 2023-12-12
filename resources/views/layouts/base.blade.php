@@ -38,6 +38,15 @@
     }
 </script>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J4QTBGPBK6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-J4QTBGPBK6');
+</script>
+
 @stack('js')
 
 </body>
