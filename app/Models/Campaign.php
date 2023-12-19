@@ -253,7 +253,7 @@ class Campaign extends BaseModel
      */
     public function getMergedContentAttribute(): ?string
     {
-        if ($this->template_id) {
+        if ($this->template_id && $this->content) {
             return str_replace(['{{content}}', '{{ content }}'], $this->content, $this->template->content);
         }
 
