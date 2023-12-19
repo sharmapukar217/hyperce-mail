@@ -8,8 +8,8 @@
 
                 <div class="mt-4">
                     <div class="logo text-center">
-                        <a href="{{ route('dashboard') }}">
-                            <img src="{{ asset('/img/logo-main.png') }}" alt="" width="175px">
+                        <a href="{{ route('dashboard') }}" style="display: contents;">
+                            <img src="{{ asset('/img/logo-main.png') }}" alt="" width="175px" style="margin: -80px 0 -100px 0;">
                         </a>
                     </div>
                 </div>
