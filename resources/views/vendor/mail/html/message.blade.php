@@ -3,7 +3,7 @@
 <x-slot:header>
 <x-mail::header :url="config('app.url')">
 <!-- {{ config('app.name') }} -->
-<img src="{{ asset('img/logo-gray.png') }}" alt="HyperceMail" width="225px" style="padding: 0;margin: 0 -3rem;">
+<img src="{{ asset('img/logo-gray.png') }}" alt="HyperceMail" width="225px" style="padding: 0;margin: -3rem;">
 </x-mail::header>
 </x-slot:header>
 
