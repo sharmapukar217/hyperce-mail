@@ -47,7 +47,8 @@
         @slot('right')
             <div class="btn-group mr-2">
                 <button class="btn btn-md btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                    <i class="fa fa-bars color-gray-400"></i>
+                    <span>Import/Export</span>
+                    <!-- <i class="fa fa-bars color-gray-400 ms-2"></i> -->
                 </button>
                 <div class="dropdown-menu">
                     <a href="{{ route('subscribers.import') }}" class="dropdown-item">
